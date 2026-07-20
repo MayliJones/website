@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en-gb">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quorridors</title>
+<link rel="stylesheet" href="default.css">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+>
+<script type="module" src="game.js"></script>
+<script type="module" src="ai.js"></script>
+<script type="module" src="main.js"></script>
+
+<main>
+<h1 class="visually-hidden">Quorridors</h1>
+<div id="start-screen">
+    <h1 aria-hidden="true">QU<span class="title-hex"></span>RRID<span class="title-tri"></span>RS</h1>
+    <img
+        src="assets/decor_underline.svg" alt="" class="title-underline"
+    >
+    <div class="menu">
+        <div class="mode-buttons">
+            <button id="btn-friend">Play with Friend</button>
+            <button id="btn-ai">Play with AI</button>
+        </div>
+        <div id="difficulty-section">
+            <p>AI Difficulty</p>
+            <div class="difficulty-buttons">
+                <button id="btn-easy">Easy</button>
+                <button id="btn-hard" class="selected">Hard</button>
+                <button id="btn-impossible">Impossible</button>
+            </div>
+        </div>
+        <button id="btn-start" disabled>Start Game</button>
+        <button id="btn-rules" type="button">Rules</button>
+    </div>
+</div>
+<div id="game-container" style="display:none">
+    <div class="panel-column">
+        <div id="player1-panel"></div>
+        <button id="btn-back-menu">Back to Main Menu</button>
+    </div>
+    <div id="board-wrapper">
+        <canvas id="board"></canvas>
+        <div id="board-grid" role="grid">
+            <div role="row">
+                <div role="gridcell" tabindex="-1" data-row="0" data-col="0"></div>
+                <div role="gridcell" tabindex="-1" data-row="0" data-col="1"></div>
+                <div role="gridcell" tabindex="-1" data-row="0" data-col="2"></div>
+                <div role="gridcell" tabindex="-1" data-row="0" data-col="3"></div>
+                <div role="gridcell" tabindex="-1" data-row="0" data-col="4"></div>
+                <div role="gridcell" tabindex="-1" data-row="0" data-col="5"></div>
+                <div role="gridcell" tabindex="-1" data-row="0" data-col="6"></div>
+                <div role="gridcell" tabindex="-1" data-row="0" data-col="7"></div>
+                <div role="gridcell" tabindex="-1" data-row="0" data-col="8"></div>
+            </div>
+            <div role="row">
+                <div role="gridcell" tabindex="-1" data-row="1" data-col="0"></div>
+                <div role="gridcell" tabindex="-1" data-row="1" data-col="1"></div>
+                <div role="gridcell" tabindex="-1" data-row="1" data-col="2"></div>
+                <div role="gridcell" tabindex="-1" data-row="1" data-col="3"></div>
+                <div role="gridcell" tabindex="-1" data-row="1" data-col="4"></div>
+                <div role="gridcell" tabindex="-1" data-row="1" data-col="5"></div>
+                <div role="gridcell" tabindex="-1" data-row="1" data-col="6"></div>
+                <div role="gridcell" tabindex="-1" data-row="1" data-col="7"></div>
+                <div role="gridcell" tabindex="-1" data-row="1" data-col="8"></div>
+            </div>
+            <div role="row">
+                <div role="gridcell" tabindex="-1" data-row="2" data-col="0"></div>
+                <div role="gridcell" tabindex="-1" data-row="2" data-col="1"></div>
+                <div role="gridcell" tabindex="-1" data-row="2" data-col="2"></div>
+                <div role="gridcell" tabindex="-1" data-row="2" data-col="3"></div>
+                <div role="gridcell" tabindex="-1" data-row="2" data-col="4"></div>
+                <div role="gridcell" tabindex="-1" data-row="2" data-col="5"></div>
+                <div role="gridcell" tabindex="-1" data-row="2" data-col="6"></div>
+                <div role="gridcell" tabindex="-1" data-row="2" data-col="7"></div>
+                <div role="gridcell" tabindex="-1" data-row="2" data-col="8"></div>
+            </div>
+            <div role="row">
+                <div role="gridcell" tabindex="-1" data-row="3" data-col="0"></div>
+                <div role="gridcell" tabindex="-1" data-row="3" data-col="1"></div>
+                <div role="gridcell" tabindex="-1" data-row="3" data-col="2"></div>
+                <div role="gridcell" tabindex="-1" data-row="3" data-col="3"></div>
+                <div role="gridcell" tabindex="-1" data-row="3" data-col="4"></div>
+                <div role="gridcell" tabindex="-1" data-row="3" data-col="5"></div>
+                <div role="gridcell" tabindex="-1" data-row="3" data-col="6"></div>
+                <div role="gridcell" tabindex="-1" data-row="3" data-col="7"></div>
+                <div role="gridcell" tabindex="-1" data-row="3" data-col="8"></div>
+            </div>
+            <div role="row">
+                <div role="gridcell" tabindex="-1" data-row="4" data-col="0"></div>
+                <div role="gridcell" tabindex="-1" data-row="4" data-col="1"></div>
+                <div role="gridcell" tabindex="-1" data-row="4" data-col="2"></div>
+                <div role="gridcell" tabindex="-1" data-row="4" data-col="3"></div>
+                <div role="gridcell" tabindex="-1" data-row="4" data-col="4"></div>
+                <div role="gridcell" tabindex="-1" data-row="4" data-col="5"></div>
+                <div role="gridcell" tabindex="-1" data-row="4" data-col="6"></div>
+                <div role="gridcell" tabindex="-1" data-row="4" data-col="7"></div>
+                <div role="gridcell" tabindex="-1" data-row="4" data-col="8"></div>
+            </div>
+            <div role="row">
+                <div role="gridcell" tabindex="-1" data-row="5" data-col="0"></div>
+                <div role="gridcell" tabindex="-1" data-row="5" data-col="1"></div>
+                <div role="gridcell" tabindex="-1" data-row="5" data-col="2"></div>
+                <div role="gridcell" tabindex="-1" data-row="5" data-col="3"></div>
+                <div role="gridcell" tabindex="-1" data-row="5" data-col="4"></div>
+                <div role="gridcell" tabindex="-1" data-row="5" data-col="5"></div>
+                <div role="gridcell" tabindex="-1" data-row="5" data-col="6"></div>
+                <div role="gridcell" tabindex="-1" data-row="5" data-col="7"></div>
+                <div role="gridcell" tabindex="-1" data-row="5" data-col="8"></div>
+            </div>
+            <div role="row">
+                <div role="gridcell" tabindex="-1" data-row="6" data-col="0"></div>
+                <div role="gridcell" tabindex="-1" data-row="6" data-col="1"></div>
+                <div role="gridcell" tabindex="-1" data-row="6" data-col="2"></div>
+                <div role="gridcell" tabindex="-1" data-row="6" data-col="3"></div>
+                <div role="gridcell" tabindex="-1" data-row="6" data-col="4"></div>
+                <div role="gridcell" tabindex="-1" data-row="6" data-col="5"></div>
+                <div role="gridcell" tabindex="-1" data-row="6" data-col="6"></div>
+                <div role="gridcell" tabindex="-1" data-row="6" data-col="7"></div>
+                <div role="gridcell" tabindex="-1" data-row="6" data-col="8"></div>
+            </div>
+            <div role="row">
+                <div role="gridcell" tabindex="-1" data-row="7" data-col="0"></div>
+                <div role="gridcell" tabindex="-1" data-row="7" data-col="1"></div>
+                <div role="gridcell" tabindex="-1" data-row="7" data-col="2"></div>
+                <div role="gridcell" tabindex="-1" data-row="7" data-col="3"></div>
+                <div role="gridcell" tabindex="-1" data-row="7" data-col="4"></div>
+                <div role="gridcell" tabindex="-1" data-row="7" data-col="5"></div>
+                <div role="gridcell" tabindex="-1" data-row="7" data-col="6"></div>
+                <div role="gridcell" tabindex="-1" data-row="7" data-col="7"></div>
+                <div role="gridcell" tabindex="-1" data-row="7" data-col="8"></div>
+            </div>
+            <div role="row">
+                <div role="gridcell" tabindex="-1" data-row="8" data-col="0"></div>
+                <div role="gridcell" tabindex="-1" data-row="8" data-col="1"></div>
+                <div role="gridcell" tabindex="-1" data-row="8" data-col="2"></div>
+                <div role="gridcell" tabindex="-1" data-row="8" data-col="3"></div>
+                <div role="gridcell" tabindex="-1" data-row="8" data-col="4"></div>
+                <div role="gridcell" tabindex="-1" data-row="8" data-col="5"></div>
+                <div role="gridcell" tabindex="-1" data-row="8" data-col="6"></div>
+                <div role="gridcell" tabindex="-1" data-row="8" data-col="7"></div>
+                <div role="gridcell" tabindex="-1" data-row="8" data-col="8"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-column">
+        <div id="player2-panel"></div>
+        <button id="btn-restart">Restart</button>
+    </div>
+</div>
+<p id="status" style="display:none"></p>
+<img
+    id="status-underline" src="assets/decor_underline.svg" alt=""
+    class="title-underline" style="display:none"
+>
+<p id="wall-error"></p>
+<div id="live-region" class="visually-hidden" aria-live="polite"></div>
+<dialog
+    id="game-over-screen" role="dialog" aria-modal="true"
+    aria-labelledby="winner-message"
+>
+    <canvas id="winner-shape" width="100" height="100"></canvas>
+    <p id="winner-message"></p>
+    <button id="btn-play-again">Back to Main Menu</button>
+</dialog>
+</main>
+<dialog id="rules-modal" role="dialog" aria-modal="true" aria-labelledby="rules-title">
+    <h2 id="rules-title">Rules</h2>
+    <section>
+        <h3>Purpose of the Game</h3>
+        <p>
+            Be the first player to reach the opposite side of the board.
+        </p>
+    </section>
+    <section>
+        <h3>Game Setup</h3>
+        <p>
+            Each player starts with 10 walls. Each piece begins in the
+            centre square of its own starting baseline.
+        </p>
+    </section>
+    <section>
+        <h3>Taking a Turn</h3>
+        <p>
+            Players take turns choosing one of two actions: move their
+            piece or place a wall. Once a player has used all 10 walls,
+            they must move their piece on each turn.
+        </p>
+    </section>
+    <section>
+        <h3>Moving a Piece</h3>
+        <p>
+            Pieces move one square at a time, either horizontally or
+            vertically. They can move forwards, backwards, left or
+            right. Pieces cannot move through walls and must go around
+            them.
+        </p>
+    </section>
+    <section>
+        <h3>Placing Walls</h3>
+        <p>
+            Walls are placed between two pairs of squares. A wall can be
+            used to help your own route or block your opponent's
+            progress. However, both players must always have at least
+            one possible route to their goal line.
+        </p>
+    </section>
+    <section>
+        <h3>Face to Face</h3>
+        <p>
+            If two pieces are on neighbouring squares with no wall
+            between them, the player whose turn it is may jump over the
+            opponent's piece to the next square. If there is a wall
+            directly behind the opponent's piece, the player may move
+            diagonally to the left or right of that piece instead.
+        </p>
+    </section>
+    <button id="btn-close-rules" type="button">Close</button>
+</dialog>
