@@ -3,6 +3,19 @@
    Minimal, text-led, generous white space, muted purple accent
 --------------------------------------------------------- */
 
+/* Cross-document View Transitions: lets a project card's image morph
+   into the case-study hero image on click, matched via the shared
+   view-transition-name set inline on each pair. Chromium-only today;
+   unsupported browsers just navigate normally, no fallback needed. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 :root {
   --color-accent: #8f8ec2;
   --color-accent-dark: #6f6ea3;
