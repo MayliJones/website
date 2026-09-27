@@ -321,6 +321,13 @@ button:focus-visible {
   box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.08);
 }
 
+/* Phones: no pause, Projects follows About straight away */
+@media (max-width: 767px) {
+  .work {
+    margin-top: 0;
+  }
+}
+
 .about-section {
   /* Sticks once its bottom reaches the bottom of the screen; the offset is set in JS from its height */
   position: sticky;
@@ -1474,6 +1481,39 @@ button:focus-visible {
 .gallery-frame img {
   width: 100%;
   height: 100%;
+}
+
+/* Arrow buttons over the sides of a gallery: phones only (desktop has the edge fades and cursor steering) */
+.gallery-arrow {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .gallery-arrow {
+    position: absolute;
+    z-index: 2;
+    /* Centred on the image frame (cards are 4:3, 85vw wide) rather than on image + caption */
+    top: calc(85vw * 0.375 - 20px);
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid #dadada;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--color-text);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  .gallery-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .gallery-arrow--prev { left: 6px; }
+  .gallery-arrow--next { right: 6px; }
 }
 
 /* Gallery card still waiting for its image */

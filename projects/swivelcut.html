@@ -6,7 +6,7 @@
   <title>SwivelCut — Mayli Jones</title>
   <meta name="description" content="SwivelCut: a safe, accurate, two-degree-of-freedom cardboard-cutting system for secondary school Design and Technology classrooms.">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css?v=2026-09-27">
+  <link rel="stylesheet" href="../css/style.css?v=2026-09-27b">
   <!-- Page transition: don't paint until the hero exists, so the card can zoom straight into it -->
   <link rel="expect" href="#swivel-hero" blocking="render">
   <link rel="preload" as="image" href="../assets/projects/Swivel/swivel-hero.png" fetchpriority="high">
@@ -755,6 +755,33 @@
         },{passive:true});
 
         render();
+      });
+    })();
+
+    // Gallery arrows (shown on phones only, via CSS): step one card left or right. Pressing one pauses the
+    // auto-drift exactly like a manual scroll (the gallery script listens for pointerdown on the track).
+    (function initGalleryArrows(){
+      const arrow=(dir,label)=>{
+        const b=document.createElement('button');
+        b.type='button';
+        b.className='gallery-arrow gallery-arrow--'+dir;
+        b.setAttribute('aria-label',label);
+        b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+(dir==='prev'?'M15 6l-6 6 6 6':'M9 6l6 6-6 6')+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        return b;
+      };
+      document.querySelectorAll('.gallery').forEach(gallery=>{
+        const track=gallery.querySelector('.gallery-track');
+        if(!track) return;
+        const step=dir=>{
+          const card=track.querySelector('.gallery-card');
+          const gap=parseFloat(getComputedStyle(track).columnGap)||0;
+          track.dispatchEvent(new Event('pointerdown')); // hand control back from the auto-drift
+          requestAnimationFrame(()=>track.scrollBy({left:dir*((card?card.offsetWidth:300)+gap),behavior:'smooth'}));
+        };
+        const prev=arrow('prev','Previous image'), next=arrow('next','Next image');
+        prev.addEventListener('click',()=>step(-1));
+        next.addEventListener('click',()=>step(1));
+        gallery.append(prev,next);
       });
     })();
   </script>
