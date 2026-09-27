@@ -8,6 +8,15 @@
   <link rel="icon" href="assets/logo.png">
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Prerender a project page when its card is hovered (or pressed on touch), so on click the page and its hero
+       photo are already loaded and the card image can zoom straight into it -->
+  <script type="speculationrules">
+  {
+    "prerender": [
+      { "where": { "href_matches": "/projects/*" }, "eagerness": "moderate" }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="site-header">

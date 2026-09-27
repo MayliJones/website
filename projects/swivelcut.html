@@ -4,12 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SwivelCut — Mayli Jones</title>
-  <meta name="description" content="A two-DOF robotic cardboard-cutting system for secondary school D&amp;T classrooms">
+  <meta name="description" content="SwivelCut: a safe, accurate, two-degree-of-freedom cardboard-cutting system for secondary school Design and Technology classrooms.">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style.css?v=2026-09-27">
+  <!-- Page transition: don't paint until the hero exists, so the card can zoom straight into it -->
+  <link rel="expect" href="#swivel-hero" blocking="render">
+  <link rel="preload" as="image" href="../assets/projects/Swivel/swivel-hero.png" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="project-page">
+<body class="project-page theme-green">
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="logo">Mayli Jones</a>
@@ -26,56 +29,475 @@
   </header>
 
   <main>
-    <article class="case-study container">
+    <article class="editorial container">
       <a class="back-link" href="../index.html#work">&larr; All projects</a>
 
-      <header class="case-study-header">
-        <h1>SwivelCut</h1>
-        <p class="project-subtitle">A two-DOF robotic cardboard-cutting system for secondary school D&amp;T classrooms</p>
-        <ul class="project-tags">
-          <li>Robotics</li>
-          <li>Education</li>
-          <li>Mechanical Design</li>
-        </ul>
+      <!-- ============ 1. HERO ============ -->
+      <header class="editorial-hero">
+        <h1 class="editorial-title">SwivelCut</h1>
+        <p class="editorial-subtitle">Cardboard Made Even Easier</p>
+
+        <!-- IMAGE: hero photo (physical prototype). Keep view-transition-name so the project card morphs into it. -->
+        <div class="editorial-img editorial-img--hero" id="swivel-hero" style="view-transition-name: vt-swivelcut">
+          <img src="../assets/projects/Swivel/swivel-hero.png" decoding="sync" fetchpriority="high" alt="The SwivelCut SC1 prototype on a cutting mat, with its tracing head and cone-guarded cutting head">
+        </div>
       </header>
 
-      <div class="case-study-image" style="view-transition-name: vt-swivelcut">
-        <img src="../assets/projects/Swivelcut.png" alt="SwivelCut">
-      </div>
+      <!-- ============ 2. THE BRIEF ============ -->
+      <section class="editorial-section">
+        <div class="brief-grid">
+          <div class="brief-text">
+            <h2>The Brief</h2>
+            <div class="editorial-text editorial-text--full">
+              <p>The brief asked us to identify an underserved user group and design for a genuine, overlooked need. That search led us to Design and Technology students in UK secondary schools, a group whose subject is in real decline: GCSE DT entries have dropped <strong class="text-stat">63%</strong> since 2014, one of the steepest declines of any major subject, and specialist DT teacher numbers have fallen <strong class="text-stat">52%</strong> since 2012. Yet the skills DT builds are exactly what industry is short of, <strong class="text-stat">76%</strong> of engineering employers report struggling to find technical skills when recruiting. This made DT students a clear underserved group worth designing for.</p>
+            </div>
+          </div>
 
-      <section class="case-study-section">
-        <h2>Overview</h2>
-        <p>[Placeholder — a short summary of the project: what it is, the context it was made in (module, brief, timeframe, team or solo), and why it mattered.]</p>
+          <div class="brief-chart">
+            <!-- CHART: DT teacher numbers. Edit a bar's --v (value / 14,804) and label to change it. -->
+            <figure class="bar-figure" data-animate>
+              <div class="chart-headline">
+                <span class="chart-headline-number">-52%</span>
+                <span class="chart-headline-label">since 2012</span>
+              </div>
+              <div class="bar-chart" role="img" aria-label="Specialist DT teachers in England fell from 14,804 in 2012 to 7,108 in 2024. 2012: 14,804, 2015: 12,720, 2018: 10,187, 2021: 7,692, 2024: 7,108.">
+              <div class="bar-col" style="--v: 1.000; --bar: #cfe9d7">
+                <div class="bar-plot">
+                  <span class="bar-value">14,804</span>
+                  <span class="bar"></span>
+                </div>
+                <span class="bar-year">2012</span>
+              </div>
+              <div class="bar-col" style="--v: 0.859; --bar: #a9d8b8">
+                <div class="bar-plot">
+                  <span class="bar-value">12,720</span>
+                  <span class="bar"></span>
+                </div>
+                <span class="bar-year">2015</span>
+              </div>
+              <div class="bar-col" style="--v: 0.688; --bar: #7fc497">
+                <div class="bar-plot">
+                  <span class="bar-value">10,187</span>
+                  <span class="bar"></span>
+                </div>
+                <span class="bar-year">2018</span>
+              </div>
+              <div class="bar-col" style="--v: 0.520; --bar: #52aa74">
+                <div class="bar-plot">
+                  <span class="bar-value">7,692</span>
+                  <span class="bar"></span>
+                </div>
+                <span class="bar-year">2021</span>
+              </div>
+              <div class="bar-col" style="--v: 0.480; --bar: #2b8751">
+                <div class="bar-plot">
+                  <span class="bar-value">7,108</span>
+                  <span class="bar"></span>
+                </div>
+                <span class="bar-year">2024</span>
+              </div>
+              </div>
+              <figcaption class="chart-caption">Specialist DT teacher numbers, 2012–2024</figcaption>
+            </figure>
+          </div>
+        </div>
       </section>
 
-      <section class="case-study-section">
-        <h2>Problem</h2>
-        <p>[Placeholder — the brief or problem you were given, or the problem you identified yourself. What need or gap was this addressing?]</p>
+      <!-- ============ 3. THE PROBLEM ============ -->
+      <section class="editorial-section">
+        <h2>The Problem</h2>
+        <div class="editorial-text editorial-text--full">
+          <p>To find the specific gap within DT, we ran 11 interviews across two contrasting schools and a 92-response survey. The findings pointed to low-fidelity cardboard prototyping as a recurring weakness: craft knives were seen as the most dangerous tool in the workshop, 65.2% of students reported minor cuts or burns, and 41.2% specifically struggled to cut curves and complex geometries accurately by hand. The existing alternatives didn't close this gap either, the ChompSaw is safe but produces rough, inaccurate cuts, and laser cutters are accurate but expensive, intimidating, and require CAD skills many students don't have yet.</p>
+          <p>This left a clear gap: schools needed a tool safer than a craft knife, more accurate than a ChompSaw, and simpler than a laser cutter.</p>
+        </div>
+
+        <!-- Survey visuals (inline SVG). Left: 41.2% stat above the 65.2% donut. Right: the modelling pie. -->
+        <div class="problem-visuals">
+          <div class="problem-visuals-left">
+            <div class="viz">
+              <p class="viz-eyebrow">Survey</p>
+              <div class="viz-headline">
+                <span class="viz-headline-number">41.2%</span>
+                <span class="viz-headline-text">of students find cutting curves and complex geometries especially difficult</span>
+              </div>
+            </div>
+
+            <figure class="viz" data-animate>
+              <p class="viz-eyebrow">Survey</p>
+              <div class="viz-donut-row">
+                <div class="donut">
+                  <svg viewBox="0 0 120 120" aria-hidden="true">
+                    <circle class="donut-track" cx="60" cy="60" r="50"/>
+                    <circle class="donut-fill" cx="60" cy="60" r="50" style="--fill: 204.83; --circ: 314.16"/>
+                  </svg>
+                  <span class="donut-number">65.2%</span>
+                </div>
+                <p class="viz-text">of students report minor cuts and burns within the workshop</p>
+              </div>
+            </figure>
+          </div>
+
+          <figure class="viz viz--pie" data-animate>
+            <p class="viz-eyebrow">Survey</p>
+            <div class="viz-pie-row">
+              <div class="pie">
+                <svg viewBox="0 0 100 100" role="img" aria-label="How students felt about modelling: 35% found it useful but frustrating, 36% disliked it and found it time consuming, 29% liked it.">
+                  <g transform="rotate(-90 50 50)">
+                  <circle class="pie-seg" cx="50" cy="50" r="20" style="--len: 43.98; --i: 0" stroke="#bfe3cc" stroke-dashoffset="0.00"/>
+                  <circle class="pie-seg" cx="50" cy="50" r="20" style="--len: 45.24; --i: 1" stroke="#2b8751" stroke-dashoffset="-43.98"/>
+                  <circle class="pie-seg" cx="50" cy="50" r="20" style="--len: 36.44; --i: 2" stroke="#dadfdb" stroke-dashoffset="-89.22"/>
+                  </g>
+                  <text class="pie-label" x="73.2" y="38.2" fill="#1a1a1a" style="--i: 0">35%</text>
+                  <text class="pie-label" x="45.1" y="75.5" fill="#ffffff" style="--i: 1">36%</text>
+                  <text class="pie-label" x="29.5" y="34.1" fill="#1a1a1a" style="--i: 2">29%</text>
+                </svg>
+              </div>
+              <ul class="pie-legend">
+                <li><span class="pie-swatch" style="background: #bfe3cc"></span><span><strong>35%</strong> Students who found modelling useful but frustrating</span></li>
+                <li><span class="pie-swatch" style="background: #2b8751"></span><span><strong>36%</strong> Students who disliked modelling and found it time consuming</span></li>
+                <li><span class="pie-swatch" style="background: #dadfdb"></span><span><strong>29%</strong> Students who liked modelling</span></li>
+              </ul>
+            </div>
+          </figure>
+        </div>
       </section>
 
-      <section class="case-study-section">
-        <h2>Process</h2>
-        <p>[Placeholder — research and discovery: user needs, constraints, existing solutions, early concepts.]</p>
-        <p>[Placeholder — making and building: sketches, prototypes, CAD iterations, physical builds, testing, and what you learned from each round of making. Include images of models, rigs, or test setups here.]</p>
+      <!-- ============ 4. CONCEPT DEVELOPMENT ============ -->
+      <section class="editorial-section editorial-section--concept">
+        <!-- Row 1: title + text | original concept render (image top level with the title) -->
+        <div class="concept-row concept-row--intro">
+          <h2>Concept Development</h2>
+          <div class="editorial-text editorial-text--full">
+            <p>The original Term 2 concept used a mechanically-linked input arm that replicated hand movement directly onto a cutting arm. After review, the problem was redefined: rather than simply copying hand-drawn shapes, SwivelCut needed to support the whole cardboard prototyping process: how students input ideas, how accurately it cuts, and how safely and independently they can use it.</p>
+          </div>
+          <!-- IMAGE: the original Term 2 concept (annotated render) -->
+          <figure class="concept-media">
+            <img src="../assets/projects/Swivel/origional.png" width="1376" height="972" alt="The original Term 2 concept: a motor housing with an input arm on the right tracing over an A3 sheet, linked to an output arm on the left with a swivel-head replaceable blade cutting cardboard.">
+          </figure>
+        </div>
+
+        <hr class="concept-divider">
+
+        <!-- Row 2: morphological sketches (3 x 2) | text -->
+        <div class="concept-row concept-row--sketches">
+          <!-- IMAGES: morphological analysis sketches, cropped from morphological.png -->
+          <div class="sketch-grid">
+            <figure><img src="../assets/projects/Swivel/sketches/pizza-cutter.png" alt="Pizza cutter sketch: rotating wheel blade" loading="lazy"></figure>
+            <figure><img src="../assets/projects/Swivel/sketches/servo-driven.png" alt="Servo-driven sketch: servo-rotated blade" loading="lazy"></figure>
+            <figure><img src="../assets/projects/Swivel/sketches/linear-actuator.png" alt="Linear actuator + roller sketch: blade carriage on a linear actuator with a roller" loading="lazy"></figure>
+            <figure><img src="../assets/projects/Swivel/sketches/pillbox.png" alt="Pillbox sketch: two-arm rotating layout over a flat bed" loading="lazy"></figure>
+            <figure><img src="../assets/projects/Swivel/sketches/drag-knife.png" alt="Drag knife sketch: free-swivelling blade in a cone" loading="lazy"></figure>
+            <figure><img src="../assets/projects/Swivel/sketches/xy-gantry.png" alt="XY gantry sketch: blade carried on a two-axis gantry frame" loading="lazy"></figure>
+          </div>
+          <div class="editorial-text editorial-text--full">
+            <p>A morphological analysis explored options across cutting method, movement system, input method, feedback, and safety. A drag-knife 2DOF flat arm was selected over a 4-bar linkage (too inflexible), an XY gantry (too large and intimidating), and a moving robot, offering the best balance of compactness, visibility and cardboard-cutting suitability. Hand tracing was chosen as the input method over CAD upload or button control, since it kept the system accessible without sacrificing simplicity.</p>
+          </div>
+        </div>
       </section>
 
-      <section class="case-study-section">
-        <h2>Outcome</h2>
-        <p>[Placeholder — the final result: what was delivered, how it performed against the brief, and any feedback or evaluation received.]</p>
-      </section>
+      <!-- ============ 5. ENGINEERING & FORCE TESTING ============ -->
+      <section class="editorial-section">
+        <h2>Engineering &amp; Force Testing</h2>
 
-      <section class="case-study-section">
-        <h2>My Role</h2>
-        <p>[Placeholder — what you specifically did, especially if this was a team project. Be concrete about your contributions.]</p>
-      </section>
+        <div class="editorial-text editorial-text--full">
+          <p>Force testing shaped nearly every mechanical decision in the cutting head, from blade mounting to spring selection. Two custom rigs measured piercing and drag force directly, while a suspension mechanism was iteratively refined against the results.</p>
+        </div>
 
-      <section class="case-study-section">
-        <h2>Tools Used</h2>
-        <ul class="tools-list">
-          <li>[Tool 1]</li>
-          <li>[Tool 2]</li>
-          <li>[Tool 3]</li>
+        <!-- GALLERY: horizontal scroll-snap row. Images are 1.png to 9.png in assets/projects/Swivel/ -->
+        <div class="gallery">
+          <div class="gallery-track" tabindex="0" aria-label="Force testing gallery, scroll sideways for more">
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/1.png" alt="Diagram of the cutting head suspension: bolt blocks, spring compression range, travel limits, rotation point and blade offset" loading="lazy"></div>
+              <figcaption>Suspension system diagram</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--photo">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/2.png" alt="Piercing force rig: a blade on an orange 3D-printed frame pressed into cardboard on a digital scale, with an LED circuit that lights on contact" loading="lazy"></div>
+              <figcaption>Piercing force rig</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--photo">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/3.png" alt="Drag force test: a force gauge pulling the weighted cutting head across cardboard on a cutting mat" loading="lazy"></div>
+              <figcaption>Drag force test</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--photo">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/4.png" alt="Wooden drag test rig with a pulley, load cell wiring and the 3D-printed blade mount" loading="lazy"></div>
+              <figcaption>Instrumented drag rig</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/5.png" alt="Blue test mount annotated with yaw travel limits, towing point, spring compression and different pivot points relative to the knife tip" loading="lazy"></div>
+              <figcaption>Pivot point and spring testing</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/6.png" alt="Reach diagram: the cutting arm workspace, using 260 mm and 215 mm arm lengths, fully covering an A3 sheet" loading="lazy"></div>
+              <figcaption>Arm reach coverage</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--photo">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/7.png" alt="Cutting head prototype with lead screw, spring-loaded blade mount and cardboard on a cutting mat" loading="lazy"></div>
+              <figcaption>Cutting head prototype</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/8.png" alt="Typical NEMA 23 torque/speed curve at 12V, showing the usable speed range at an 18:1 reduction" loading="lazy"></div>
+              <figcaption>Motor torque/speed curve</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/9.png" alt="Render of the two-arm system over a cardboard sheet with a traced cutting path" loading="lazy"></div>
+              <figcaption>Traced path render</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="editorial-text editorial-text--full">
+          <p>A custom test rig measured piercing force using a digital scale and conductive-plate circuit, ten tests gave a typical piercing force of 8N. Drag force testing revealed the blade depth was extremely sensitive: small variations in height could increase drag force fivefold. A trailing-arm blade mount was developed to let the blade rotate under resistance, and a test rig comparing pivot positions and spring stiffness reduced maximum drag force from 28N to approximately 8N, a 71.4% reduction, while producing consistent results cutting with or across the cardboard corrugation.</p>
+        </div>
+
+        <ul class="stat-row">
+          <li class="stat"><span class="stat-number">8N</span><span class="stat-label">typical piercing force</span></li>
+          <li class="stat"><span class="stat-number">71.4%</span><span class="stat-label">reduction in max drag force</span></li>
+          <li class="stat"><span class="stat-number">±1mm</span><span class="stat-label">target path accuracy across an A3 workspace</span></li>
         </ul>
+
+      </section>
+
+      <!-- ============ 6. BRANDING CONSIDERATIONS ============ -->
+      <section class="editorial-section">
+        <h2>Branding Considerations</h2>
+        <div class="editorial-text editorial-text--full">
+          <p>Branding was part of the brief from the start, not an afterthought once the product existed. We compared several 3D printing and cutting brands, Bambu Lab, UltiMaker, Glowforge and Cricut, and chose Bambu Lab as the strongest reference: positioned between hobbyist and professional use, balancing affordability, innovation and student-friendly operation, exactly the middle ground SwivelCut needed to occupy. Procurement interviews with DT staff at two schools confirmed this, both had recently switched to Bambu Lab for its lower cost and easier maintenance.</p>
+          <p>This decision shaped nearly every design choice that followed: a white, grey and green palette, rounded forms, and an enclosed mechanism echoing Bambu&rsquo;s own products, covered in more detail below.</p>
+        </div>
+      </section>
+
+      <!-- ============ 7. FINAL DESIGN ============ -->
+      <section class="editorial-section">
+        <h2>Final Design</h2>
+
+        <!-- Text left, folded render right -->
+        <div class="final-row">
+          <div class="editorial-text editorial-text--full">
+            <p>SwivelCut SC1 is a compact, two-degree-of-freedom cardboard-cutting system. Users record a hand-drawn path with the tracing head, then reproduce it safely and accurately using the powered cutting head. The design language deliberately echoes Bambu Lab's own products: rounded edges, a protective cone inspired by enclosed printer doors, Bambu green marking every touchable component, and a spinning indicator disc adapted from the Bambu A1, making an unfamiliar classroom tool feel immediately recognisable and non-intimidating.</p>
+          </div>
+          <!-- IMAGE: folded render (trimmed web copy of foldedeverything.png) -->
+          <figure class="ed-figure">
+            <img src="../assets/projects/Swivel/folded-everything-trimmed.png" width="1422" height="592" alt="SwivelCut folded for storage: the base unit with its arms folded in, beside the tracing head and the cone-guarded cutting head">
+          </figure>
+        </div>
+
+        <!-- IMAGE: design language callouts (web copy of designlanguage.png) -->
+        <figure class="ed-figure ed-figure--lead">
+          <img src="../assets/projects/Swivel/design-language.png" width="1800" height="1196" alt="Annotated SwivelCut renders: spinning indicator, protective cone, circular user-interface buttons, status LEDs, rounded edges, Bambu Lab logo, Bambu green belt tensioners, grey base and bolted disassembly, each linked to the Bambu Lab printer it was inspired by" loading="lazy">
+          <figcaption>Design language callouts, adapted from Bambu Lab&rsquo;s own visual identity</figcaption>
+        </figure>
+        <div class="editorial-text editorial-text--full">
+          <p>The four brand values translated directly into physical design decisions: a white, grey and green palette echoing Bambu&rsquo;s own products, rounded edges to feel less intimidating in a classroom setting, a protective cone inspired by the enclosed doors on Bambu&rsquo;s printers, and a spinning status indicator adapted from the Bambu A1. Bambu green is used specifically on components students are expected to touch or adjust, giving a consistent, learnable visual language for interaction.</p>
+          <p>The name follows the same logic: &lsquo;Swivel&rsquo; reflects the two-degree-of-freedom arm, &lsquo;Cut&rsquo; states its function, and the SC1 designation follows Bambu&rsquo;s own letter-number naming convention while also standing for Safe, School, Student, Cut, Cardboard and Creativity.</p>
+        </div>
+
+        <div class="editorial-sub">
+          <h3>Engineering Behind the Arm</h3>
+          <div class="editorial-text editorial-text--full">
+            <p>Underneath its casing, SwivelCut&rsquo;s arm is built from a series of precisely mounted joints and tensioning mechanisms that keep movement smooth and accurate.</p>
+          </div>
+
+          <!-- IMAGE: full internal layout (web copy of seethroughfull.png) -->
+          <figure class="ed-figure ed-figure--lead">
+            <img src="../assets/projects/Swivel/see-through-full.png" width="1600" height="900" alt="See-through render of SwivelCut showing the motors, timing belts, pulleys and shafts inside the base and arms" loading="lazy">
+            <figcaption>Full internal layout: motor, belt and shaft assembly</figcaption>
+          </figure>
+          <div class="editorial-text editorial-text--full">
+            <p>Beneath the casing, a NEMA 23 motor drives the base joint through a 1:6 pulley reduction, while a NEMA 17 drives the second joint through a compound 1:9 reduction. GT2 timing belts provide smooth, accurate movement with less backlash than the geared systems considered earlier, with separate tensioners mounted to the aluminium structure so belt tension can be adjusted during assembly. Thrust bearings support vertical loads at each joint while keeping rotation smooth and low-friction.</p>
+          </div>
+
+          <!-- The three alternating rows: spacing between them is set once, on this wrapper -->
+          <div class="arm-rows">
+            <!-- Row 1: joint image left, text right -->
+            <div class="arm-row arm-row--image-left">
+              <!-- IMAGE: annotated joint (web copy of joint.png) -->
+              <figure class="ed-figure">
+                <img src="../assets/projects/Swivel/joint-web.png" width="1400" height="744" alt="Exploded joint with labels: extrude mounting point, joint compression bolts, thrust bearings, pulley, captive nuts, middle arm casing mount and belt tensioner bolts" loading="lazy">
+              </figure>
+              <div class="editorial-text editorial-text--full">
+                <p>Each joint combines a pulley-driven reduction with thrust bearings, keeping rotation smooth and low-friction under load. Joint compression bolts and captive nuts secure the arm sections together, while the middle arm casing mount ties the pulley and bearing assembly directly into the arm structure, keeping the joint rigid even as it moves.</p>
+              </div>
+            </div>
+
+            <!-- Row 2: text left, tensioner image right -->
+            <div class="arm-row arm-row--fit-text">
+              <div class="editorial-text editorial-text--full">
+                <p>Separate belt tensioners, mounted directly to the aluminium structure, let belt tension be adjusted during assembly. This keeps the GT2 timing belts taut for accurate, low-backlash movement, without needing to replace or re-route the belt itself if tension drifts over time.</p>
+              </div>
+              <!-- IMAGE: belt tensioner close-up -->
+              <figure class="ed-figure ed-figure--compact" style="--figure-max: 480px">
+                <img src="../assets/projects/Swivel/justbelttensioner.png" width="692" height="496" alt="Close-up render of a belt tensioner: a bolt pushing a sliding block that presses on the GT2 belt, mounted to the aluminium extrusion" loading="lazy">
+              </figure>
+            </div>
+
+            <!-- Row 3: latch image left, text right -->
+            <div class="arm-row arm-row--image-left arm-row--fit-text">
+              <!-- IMAGE: head latching mechanism (cutaway CAD render) -->
+              <figure class="ed-figure ed-figure--compact" style="--figure-max: 360px">
+                <img src="../assets/projects/Swivel/latching.png" width="644" height="624" alt="Cutaway render of the head connection: a green push-button on top of a purple spring-loaded catch, with the locking slot visible in the side of the housing" loading="lazy">
+              </figure>
+              <div class="editorial-text editorial-text--full">
+                <p>The final head connection uses a spring-loaded push-button latch, chosen after testing snap-fits, buckles and twist-locks. As a head is inserted into the arm, its locking feature pushes past an internal catch, and springs return the catch into position, locking it automatically. Pressing the button on top retracts the catch and releases the head, letting it slide out, no tools needed to swap between tracing and cutting heads.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============ 8. PACKAGING ============ -->
+      <section class="editorial-section">
+        <h2>Packaging</h2>
+        <div class="editorial-text editorial-text--full">
+          <p>Packaging was designed to reflect what SwivelCut actually is, a cardboard-cutting tool, so the packaging itself is entirely cardboard and paper-based. Inspired by the minimal, functional packaging of Bambu Lab&rsquo;s own A1 printer, the box uses folded and interlocking card with minimal adhesives or staples, making it easy to separate, reuse and recycle.</p>
+        </div>
+
+        <!-- Two images side by side; they slide and zoom in from the page edges once, when scrolled into view -->
+        <div class="pack-pair" data-reveal-once>
+          <!-- IMAGE: cutting head box die-line (web copy of packagingflat.png) -->
+          <figure class="pack-img pack-img--left">
+            <img src="../assets/projects/Swivel/packaging-flat-web.jpg" width="1000" height="916" alt="Flat die-line of the cutting head box in brown card, with fold lines marked and the Bambu Lab SC1 logo and cutting head drawing printed on the lid" loading="lazy">
+          </figure>
+          <!-- IMAGE: opened boxes with nested inserts (web copy of packaging1.png) -->
+          <figure class="pack-img pack-img--right">
+            <img src="../assets/projects/Swivel/packaging-open-web.png" width="840" height="868" alt="Render of the opened SC1 packaging: the main Bambu Lab SC1 box with the arm box stacked above it and the small cutting head box open at the top" loading="lazy">
+          </figure>
+        </div>
+
+        <div class="editorial-text editorial-text--full">
+          <p>Each component gets its own shaped cardboard insert, cut directly from the same die-line system used to manufacture the boxes. Rather than using foam or plastic protection, the inserts fold to hold each part securely during shipping.</p>
+          <p>Once unpacked, most of the packaging can be reused by students as modelling material rather than becoming immediate waste, a more environmentally responsible alternative to plastic bags and polystyrene inserts, and one that fits directly into SwivelCut&rsquo;s own purpose as a prototyping tool. The included test sheet doubles as a first project: trace the printed template, record the movement, attach the cutting head, and make the first cut, giving teachers a built-in setup test while demonstrating the product immediately.</p>
+        </div>
+      </section>
+
+      <!-- ============ 9. DESIGN FOR MANUFACTURE & ASSEMBLY ============ -->
+      <section class="editorial-section">
+        <h2>Design for Manufacture &amp; Assembly</h2>
+        <div class="editorial-text editorial-text--full">
+          <p>Manufacturing decisions were driven by an estimated production volume of 5,000 units. Materials were selected using Ashby plots in Granta CES EduPack: ABS for casings and brackets, aluminium for structural extrusion and pulleys, and mild steel for load-bearing brackets. The product was designed around five independent sub-assemblies built concurrently rather than in a single sequential process, reducing total build time, and assembles with just two tools and no adhesives.</p>
+          <p>Across 61 total operations, assembly takes approximately 867 seconds and costs an estimated &pound;0.83 in labour per unit, supporting a target retail price of &pound;299.</p>
+        </div>
+
+        <ul class="stat-row">
+          <li class="stat"><span class="stat-number">61</span><span class="stat-label">total operations</span></li>
+          <li class="stat"><span class="stat-number">867s</span><span class="stat-label">total assembly time</span></li>
+          <li class="stat"><span class="stat-number">&pound;0.83</span><span class="stat-label">labour cost per unit</span></li>
+          <li class="stat"><span class="stat-number">&pound;299</span><span class="stat-label">target retail price</span></li>
+        </ul>
+
+        <!-- GALLERY: DFM drawings and renders (11.png to 22.png; 22 is a web copy of the 82MB original).
+             Loops and drifts like the force-testing gallery, but the opposite way (data-direction="-1"),
+             starting with the card marked data-gallery-start (image 22) in the middle. -->
+        <div class="gallery">
+          <div class="gallery-track" data-direction="-1" tabindex="0" aria-label="Manufacturing drawings, scroll sideways for more">
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/11.png" width="1316" height="672" alt="Elbow top casing annotated with injection moulding features: uniform wall thickness, ribs and rib spacing, supported bosses and an open mould direction" loading="lazy"></div>
+              <figcaption>Elbow top casing: moulding features</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/12.png" width="1316" height="738" alt="Elbow top casing annotated with self-locating holes, moulded holes and rounded geometry" loading="lazy"></div>
+              <figcaption>Elbow top casing: assembly features</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/13.png" width="2612" height="860" alt="Sheet metal elbow mount shown bent and as a flat pattern, annotated with standardised bend angles, rounded corners, slots, bend line clearance and hole-to-bend distances" loading="lazy"></div>
+              <figcaption>Elbow mount: sheet metal features</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/14.png" width="2666" height="1752" alt="Exploded view of the five sub-assemblies with their operation counts and times, totalling 61 operations, 867 seconds and £0.83 labour, with a £299 retail price" loading="lazy"></div>
+              <figcaption>Sub-assembly breakdown: operations and timings</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/15.png" width="1180" height="842" alt="Dimensioned A3 technical drawing of the ABS elbow top" loading="lazy"></div>
+              <figcaption>Technical drawing: elbow top</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/16.png" width="1172" height="842" alt="Dimensioned A3 technical drawing of the mild steel elbow mount" loading="lazy"></div>
+              <figcaption>Technical drawing: elbow mount</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/17.png" width="1189" height="842" alt="Dimensioned A3 technical drawing of the mild steel forearm mount" loading="lazy"></div>
+              <figcaption>Technical drawing: forearm mount</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/18.png" width="1189" height="842" alt="Exploded assembly drawing of the top arm with its parts list" loading="lazy"></div>
+              <figcaption>Assembly drawing: top arm</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/19.png" width="1188" height="838" alt="Exploded assembly drawing of the bottom arm with its parts list" loading="lazy"></div>
+              <figcaption>Assembly drawing: bottom arm</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/20.png" width="1184" height="838" alt="Exploded assembly drawing of the stationary base with its parts list" loading="lazy"></div>
+              <figcaption>Assembly drawing: stationary base</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--diagram">
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/21.png" width="1190" height="842" alt="Assembly drawing of the full product: top arm, bottom arm and stationary base" loading="lazy"></div>
+              <figcaption>Assembly drawing: full product</figcaption>
+            </figure>
+            <figure class="gallery-card gallery-card--photo" data-gallery-start>
+              <div class="gallery-frame"><img src="../assets/projects/Swivel/22-web.jpg" width="1600" height="1080" alt="Render of SwivelCut on a workshop bench beside a cutting mat, with the tracing and cutting heads standing next to it" loading="lazy"></div>
+              <figcaption>SwivelCut in the classroom</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 10. USER TESTING & VALIDATION ============ -->
+      <section class="editorial-section">
+        <h2>User Testing &amp; Validation</h2>
+
+        <!-- IMAGE: final prototype set up for testing (web copy of "testing 4.png") -->
+        <figure class="ed-figure ed-figure--lead">
+          <img src="../assets/projects/Swivel/testing4-web.jpg" width="1800" height="941" alt="The SwivelCut prototype clamped to a workshop bench, with the cutting and tracing heads, a quick start guide and a sheet of cardboard on a cutting mat" loading="lazy">
+          <figcaption>The final prototype, set up for testing with its quick start guide</figcaption>
+        </figure>
+
+        <ul class="stat-row">
+          <li class="stat"><span class="stat-number">18</span><span class="stat-label">students tested at City of London School for Girls</span></li>
+          <li class="stat"><span class="stat-number">7&ndash;13</span><span class="stat-label">year groups tested, from Year 7 to Year 13</span></li>
+          <li class="stat"><span class="stat-number">2</span><span class="stat-label">days of final testing</span></li>
+        </ul>
+
+        <!-- Text left, the three testing photos right -->
+        <div class="arm-row">
+          <div class="editorial-text editorial-text--full">
+            <p>Final testing took place over two days with 18 students from Years 7–13. Students found the head-swapping mechanism immediately intuitive, though coordinating both arm joints while tracing had a short learning curve, but by the end of the task, students were confidently manipulating the arms. Clamping created the most uncertainty, with several students needing reassurance the product was securely fastened, a clearly marked clamping zone was identified as an improvement for the next iteration. The DT teacher said he'd be confident allowing normal classroom use after a brief demonstration, and considered the £299 price point reasonable.</p>
+          </div>
+          <!-- IMAGES: students using SwivelCut during testing (testing1.png to testing3.png) -->
+          <figure class="ed-figure testing-strip">
+            <div class="testing-strip-photos">
+              <img src="../assets/projects/Swivel/testing1.png" width="386" height="327" alt="Students in aprons gathered around SwivelCut while one traces a shape with the tracing head" loading="lazy">
+              <img src="../assets/projects/Swivel/testing2.png" width="280" height="327" alt="Overhead view of a student tracing a curved line on cardboard with the tracing head" loading="lazy">
+              <img src="../assets/projects/Swivel/testing3.png" width="375" height="371" alt="A student using the SwivelCut prototype on a workshop bench, guided by a team member" loading="lazy">
+            </div>
+            <figcaption>Students tracing and cutting during testing</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ============ 11. USER GUIDE ============ -->
+      <section class="editorial-section">
+        <h2>User Guide</h2>
+
+        <!-- FLIPBOOK (open book): 28 pages from assets/projects/Swivel/user-guide-final/page_01.png to page_28.png.
+             The pages are built by the script at the bottom of the page; only the current page +/- 3 are loaded. -->
+        <div class="flipbook" data-flipbook data-pages="28" data-src="../assets/projects/Swivel/user-guide-final/page_{n}.png"
+             tabindex="0" role="region" aria-roledescription="book" aria-label="SwivelCut quick start guide, 28 pages. Use the left and right arrow keys to turn pages.">
+          <div class="flipbook-pile flipbook-pile--left" aria-hidden="true"></div>
+          <div class="flipbook-pile flipbook-pile--right" aria-hidden="true"></div>
+          <div class="flipbook-pages"></div>
+          <div class="flipbook-spine" aria-hidden="true"></div>
+          <noscript><img src="../assets/projects/Swivel/user-guide-final/page_01.png" alt="SwivelCut quick start guide, cover"></noscript>
+        </div>
+        <div class="flipbook-controls">
+          <button type="button" class="flipbook-btn" data-flip="prev" aria-label="Previous page">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <span class="flipbook-count" aria-live="polite">1 / 28</span>
+          <button type="button" class="flipbook-btn" data-flip="next" aria-label="Next page">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </section>
     </article>
   </main>
@@ -84,6 +506,258 @@
     <p>&copy; 2026 Mayli Jones.</p>
   </footer>
 
+  <script>
+    // Charts animate in when they scroll into view and reset when they scroll out, every time
+    // (skipped if the user prefers reduced motion, in which case the chart is simply shown)
+    (function initBarCharts(){
+      const charts=document.querySelectorAll('[data-animate]');
+      if(!charts.length||!('IntersectionObserver' in window)) return;
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const io=new IntersectionObserver(entries=>{
+        entries.forEach(e=>{
+          e.target.classList.toggle('is-in', e.isIntersecting);
+        });
+      },{threshold:0.35});
+      charts.forEach(c=>{ c.classList.add('is-pending'); io.observe(c); });
+    })();
+
+    // Endless gallery: a copy of the cards sits on each side of the real set. Whenever scrolling settles in a
+    // copy, it jumps to the identical spot in the real set, so you can keep going either way forever.
+    // The copies are hidden from screen readers and keyboard focus.
+    (function initLoopingGalleries(){
+      document.querySelectorAll('.gallery-track:not([data-static])').forEach(track=>{
+        const originals=[...track.children];
+        const n=originals.length;
+        if(n<2) return;
+        const copies=()=>originals.map(card=>{
+          const copy=card.cloneNode(true);
+          copy.setAttribute('aria-hidden','true');
+          copy.setAttribute('inert','');
+          return copy;
+        });
+        track.prepend(...copies());
+        track.append(...copies());
+
+        // Width of one full set of cards, including the gaps
+        const setWidth=()=>track.children[n].offsetLeft-track.children[0].offsetLeft;
+        const jumpBy=dx=>{
+          track.style.scrollBehavior='auto';
+          track.scrollLeft+=dx;
+          requestAnimationFrame(()=>{ track.style.scrollBehavior=''; });
+        };
+
+        // Start with the chosen card centred (data-gallery-start), otherwise the first real card
+        const startAt=Math.max(0,originals.findIndex(c=>c.hasAttribute('data-gallery-start')));
+        const first=track.children[n+startAt];
+        track.style.scrollBehavior='auto';
+        track.scrollLeft=first.offsetLeft-(track.clientWidth-first.offsetWidth)/2;
+        requestAnimationFrame(()=>{ track.style.scrollBehavior=''; });
+
+        // Where the real (middle) set starts and ends, measured at the centre of the view
+        const bounds=()=>{
+          const gap=track.children[n].offsetLeft-(track.children[n-1].offsetLeft+track.children[n-1].offsetWidth);
+          return { w:setWidth(), start:track.children[n].offsetLeft-gap/2, end:track.children[2*n].offsetLeft-gap/2 };
+        };
+        // How far to shift a scroll position so the centred card is back in the real set
+        const wrapShift=x=>{
+          const b=bounds(), centre=x+track.clientWidth/2;
+          return centre<b.start ? b.w : centre>=b.end ? -b.w : 0;
+        };
+
+        let drifting=false; // true while the gallery is moving on its own
+
+        // Keep the centred card within the real (middle) set after the user scrolls
+        const recentre=()=>{ if(drifting) return; const dx=wrapShift(track.scrollLeft); if(dx) jumpBy(dx); };
+        let settle=null;
+        if('onscrollend' in window) track.addEventListener('scrollend',recentre);
+        else track.addEventListener('scroll',()=>{ clearTimeout(settle); settle=setTimeout(recentre,140); },{passive:true});
+
+        // Stay on the same card if the layout changes width
+        let lastW=setWidth();
+        window.addEventListener('resize',()=>{
+          const w=setWidth();
+          if(w!==lastW){ jumpBy(track.scrollLeft*(w/lastW)-track.scrollLeft); lastW=w; }
+        });
+
+        // Slow drift, steered by the cursor. Hovering left/right of centre scrolls that way, faster
+        // towards the edges; the middle keeps the gentle drift. Scrolling, dragging, swiping or arrow
+        // keys hand control back (with snapping); the drift resumes ~2.5s after the scrolling stops.
+        // Off for reduced motion.
+        if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const DIR=track.dataset.direction==='-1'?-1:1;       // which way it drifts on its own
+        const DRIFT=22*DIR, MAX=320, STILL=0.2, HANDBACK=2500; // px/s, px/s, share of half-width, ms
+        let pos=track.scrollLeft, speed=0, target=DRIFT, pausedUntil=0, onScreen=false, last=0;
+
+        track.addEventListener('pointermove',e=>{
+          if(e.pointerType!=='mouse') return;
+          const r=track.getBoundingClientRect();
+          const rel=((e.clientX-r.left)/r.width-0.5)*2;          // -1 (left edge) .. 1 (right edge)
+          const push=Math.max(0,Math.abs(rel)-STILL)/(1-STILL);  // 0 inside the middle zone
+          target=DRIFT*(1-push)+Math.sign(rel)*push*push*MAX;    // middle keeps the gentle drift; edges steer
+        });
+        track.addEventListener('pointerleave',()=>{ target=DRIFT; });
+
+        const handBack=()=>{ pausedUntil=performance.now()+HANDBACK; };
+        ['wheel','pointerdown','touchstart','keydown'].forEach(ev=>track.addEventListener(ev,handBack,{passive:true}));
+        // keep waiting while the user's own scroll (including trackpad/touch momentum) is still moving
+        track.addEventListener('scroll',()=>{ if(!drifting) handBack(); },{passive:true});
+
+        new IntersectionObserver(es=>{ onScreen=es[0].isIntersecting; },{threshold:0}).observe(track);
+
+        const tick=now=>{
+          const dt=Math.min(0.05,(now-(last||now))/1000); last=now;
+          const active=onScreen&&!document.hidden&&now>pausedUntil;
+          if(active){
+            if(!drifting){                       // taking over from the user: start from where they left it
+              drifting=true; pos=track.scrollLeft; speed=0;
+              track.style.scrollSnapType='none'; track.style.scrollBehavior='auto';
+            }
+            speed+=(target-speed)*Math.min(1,dt*3); // ease towards the target speed
+            pos+=speed*dt;
+            pos+=wrapShift(pos);                    // loop endlessly
+            track.scrollLeft=pos;
+          } else if(drifting){                   // hand control back with normal snapping
+            drifting=false;
+            track.style.scrollSnapType=''; track.style.scrollBehavior='';
+          }
+          requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    })();
+
+    // Belt tensioner image: its bottom stays level with the bottom of its text, and its top reaches up to
+    // just under the joint paragraph above. It grows upwards over the empty space without taking up any
+    // layout room, so nothing else on the page moves.
+    (function initTensionerReach(){
+      const img=document.querySelector('.arm-row--fit-text img[src*="justbelttensioner"]');
+      if(!img) return;
+      const row=img.closest('.arm-row');
+      const above=row.parentElement.children[[...row.parentElement.children].indexOf(row)-1];
+      const aboveText=above&&above.querySelector('.editorial-text');
+      if(!aboveText) return;
+      const CLEARANCE=16; // px left between the paragraph above and the top of the image
+      const update=()=>{
+        if(getComputedStyle(img).position!=='absolute'){ img.style.top=''; img.style.height=''; img.style.objectPosition=''; return; } // stacked on phones
+        const room=Math.max(0,row.getBoundingClientRect().top-aboveText.getBoundingClientRect().bottom-CLEARANCE);
+        img.style.top=-room+'px';
+        img.style.height=(row.getBoundingClientRect().height+room)+'px'; // from the raised top down to the row's bottom
+        img.style.objectPosition='50% 100%';                             // picture anchored to that bottom edge
+      };
+      if('ResizeObserver' in window){ const ro=new ResizeObserver(update); ro.observe(row); ro.observe(above); }
+      window.addEventListener('resize',update);
+      window.addEventListener('load',update);
+      update();
+    })();
+  </script>
+  <script>
+    // Reveal once: elements marked data-reveal-once animate in the first time they're ~25% on screen,
+    // and stay put afterwards. Skipped for reduced motion (they're simply shown).
+    (function initRevealOnce(){
+      const els=document.querySelectorAll('[data-reveal-once]');
+      if(!els.length||!('IntersectionObserver' in window)) return;
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const io=new IntersectionObserver(entries=>{
+        entries.forEach(e=>{
+          if(!e.isIntersecting) return;
+          e.target.classList.replace('is-waiting','is-revealed');
+          io.unobserve(e.target);
+        });
+      },{threshold:0.25});
+      els.forEach(el=>{ el.classList.add('is-waiting'); io.observe(el); });
+    })();
+
+    // Open-book flipbook. Two stacks lie side by side: turned pages on the left, unread pages on the right
+    // (page 1 on top at the start). "Next" turns the top right page over the spine (rotateY 0 to -180deg),
+    // where it lands face-up on top of the left stack; "Previous" turns the top left page back. Each page
+    // has a front and a back face showing the same image, so a turned page reads correctly on the left.
+    // Only pages near the current spread are shown and loaded. On narrow screens it's a single page.
+    // Arrow keys work when the book is focused; swipe on touch screens.
+    (function initFlipbooks(){
+      document.querySelectorAll('[data-flipbook]').forEach(book=>{
+        const total=parseInt(book.dataset.pages,10);
+        const srcFor=n=>book.dataset.src.replace('{n}',String(n).padStart(2,'0'));
+        const holder=book.querySelector('.flipbook-pages');
+        const controls=book.nextElementSibling;
+        const prevBtn=controls.querySelector('[data-flip="prev"]');
+        const nextBtn=controls.querySelector('[data-flip="next"]');
+        const count=controls.querySelector('.flipbook-count');
+        const WINDOW=3, TURN_MS=600, ABOVE=total+10;
+
+        const makeFace=(side,n)=>{
+          const face=document.createElement('div');
+          face.className='flip-face flip-face--'+side;
+          const img=document.createElement('img');
+          img.alt=side==='front'?`Quick start guide, page ${n} of ${total}`:'';
+          if(side==='back') img.setAttribute('aria-hidden','true');
+          img.decoding='auto'; img.width=1240; img.height=1335;
+          face.appendChild(img);
+          return face;
+        };
+        const pages=[];
+        for(let n=1;n<=total;n++){
+          const page=document.createElement('div');
+          page.className='flip-page';
+          page.appendChild(makeFace('front',n));
+          page.appendChild(makeFace('back',n));
+          holder.appendChild(page);
+          pages.push(page);
+        }
+
+        let current=0;           // index of the page on top of the right stack
+        const turning=new Map(); // page index -> timer while it's mid-turn (kept above both stacks)
+
+        // Stack order: untouched pages with page 1 highest; turned pages with the most recent highest
+        const baseZ=i=>i<current ? i+1 : total-i;
+
+        const render=()=>{
+          pages.forEach((page,i)=>{
+            const near=i>=current-1-WINDOW && i<=current+WINDOW;
+            page.hidden=!near&&!turning.has(i);
+            if(near) page.querySelectorAll('img').forEach(img=>{ if(!img.getAttribute('src')) img.src=srcFor(i+1); });
+            page.classList.toggle('is-turned',i<current);
+            page.style.zIndex=String(turning.has(i)?ABOVE:baseZ(i));
+            page.setAttribute('aria-hidden',(i===current||i===current-1)?'false':'true');
+          });
+          const left=current, right=total-current;
+          book.classList.toggle('has-left',left>0);
+          book.classList.toggle('left-thick',left>2);
+          book.classList.toggle('right-thick',right>2);
+          book.classList.toggle('right-thin',right<=1);
+          count.textContent=`${current+1} / ${total}`;
+          prevBtn.disabled=current===0;
+          nextBtn.disabled=current===total-1;
+        };
+
+        const go=step=>{
+          const to=Math.min(total-1,Math.max(0,current+step));
+          if(to===current) return;
+          const moving=step>0?current:current-1;   // the page that swings across the spine
+          clearTimeout(turning.get(moving));
+          turning.set(moving,setTimeout(()=>{ turning.delete(moving); render(); },TURN_MS));
+          current=to; render();
+        };
+
+        prevBtn.addEventListener('click',()=>go(-1));
+        nextBtn.addEventListener('click',()=>go(1));
+        book.addEventListener('keydown',e=>{
+          if(e.key==='ArrowRight'){ e.preventDefault(); go(1); }
+          else if(e.key==='ArrowLeft'){ e.preventDefault(); go(-1); }
+        });
+
+        let sx=null, sy=null;
+        book.addEventListener('touchstart',e=>{ const t=e.changedTouches[0]; sx=t.clientX; sy=t.clientY; },{passive:true});
+        book.addEventListener('touchend',e=>{
+          if(sx===null) return;
+          const t=e.changedTouches[0], dx=t.clientX-sx, dy=t.clientY-sy;
+          if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)) go(dx<0?1:-1);
+          sx=sy=null;
+        },{passive:true});
+
+        render();
+      });
+    })();
+  </script>
   <script src="../js/script.js"></script>
 </body>
 </html>
