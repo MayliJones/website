@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Self Balancing Robot — Mayli Jones</title>
-  <meta name="description" content="A self-balancing robot that reacts to music in real time">
+  <title>Self-Balancing Robot — Mayli Jones</title>
+  <meta name="description" content="A self-balancing robot that dances to live music: PID balancing and audio beat detection combined in one control loop.">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style.css?v=2026-09-28g">
+  <!-- Page transition: don't paint until the hero exists, so the card can zoom straight into it -->
+  <link rel="expect" href="#robot-hero" blocking="render">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="project-page">
+<body class="project-page theme-plum">
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="logo">Mayli Jones</a>
@@ -26,56 +28,207 @@
   </header>
 
   <main>
-    <article class="case-study container">
+    <article class="editorial container">
       <a class="back-link" href="../index.html#work">&larr; All projects</a>
 
-      <header class="case-study-header">
-        <h1>Self Balancing Robot</h1>
-        <p class="project-subtitle">A self-balancing robot that reacts to music in real time</p>
-        <ul class="project-tags">
-          <li>Electronics</li>
-          <li>Robotics</li>
-          <li>Programming</li>
-        </ul>
+      <!-- ============ 1. HERO ============ -->
+      <header class="editorial-hero">
+        <h1 class="editorial-title">Self-Balancing Robot</h1>
+        <p class="editorial-subtitle">Balancing and dancing to live music</p>
+
+        <!-- VIDEO: hero, the robot balancing and dancing. Fills the 16:9 frame (cropped); --crop-y picks which band of the
+             clip shows: lower % keeps more of the top, higher % more of the bottom. Keep id and view-transition-name so the
+             project card morphs into it. -->
+        <div class="video-frame video-frame--hero editorial-img--hero" id="robot-hero" style="view-transition-name: vt-self-balancing-music-reactive-robot; --crop-y: 55%">
+          <video class="site-video" autoplay muted loop playsinline preload="metadata" aria-label="The robot balancing upright while dancing to music">
+            <source src="../assets/projects/robot/balancing%20and%20dancing.mp4#t=0.1" type="video/mp4">
+          </video>
+        </div>
       </header>
 
-      <div class="case-study-image" style="view-transition-name: vt-self-balancing-music-reactive-robot">
-        <img src="../assets/projects/PID.png" alt="Self Balancing Robot">
-      </div>
-
-      <section class="case-study-section">
-        <h2>Overview</h2>
-        <p>[Placeholder — a short summary of the project: what it is, the context it was made in (module, brief, timeframe, team or solo), and why it mattered.]</p>
+      <!-- ============ 2. THE TENSION ============ -->
+      <section class="editorial-section">
+        <p class="tension-statement">Balancing means <span class="tension-still">staying still</span>. Dancing means <span class="tension-move">moving</span>. The robot had to do both at once.</p>
+        <div class="editorial-text editorial-text--full">
+          <p>Working from a robot board built for the module, we learned motor control, PID feedback control and real-time signal processing by building each part in MicroPython: balancing the robot, detecting beats in live audio, and turning those beats into wheel movements, then combining them into one control loop.</p>
+        </div>
       </section>
 
-      <section class="case-study-section">
-        <h2>Problem</h2>
-        <p>[Placeholder — the brief or problem you were given, or the problem you identified yourself. What need or gap was this addressing?]</p>
+      <!-- ============ 3. TWO SYSTEMS ============ -->
+      <!-- Two mirrored columns: the left one aligns towards the centre line from the left, the right one from the right -->
+      <section class="editorial-section twin" aria-label="Two systems">
+        <div class="twin-col twin-col--left">
+          <h2>Balance</h2>
+          <!-- VIDEO: robot balancing (portrait clip trimmed to 4:5; move --crop-y towards 0% to keep more of the top, 100% for the bottom) -->
+          <div class="video-frame video-frame--cropped twin-media" style="--crop-y: 50%">
+            <video class="site-video" autoplay muted loop playsinline preload="metadata" aria-label="The robot balancing upright on its two wheels">
+              <source src="../assets/projects/robot/balance.mp4#t=0.1" type="video/mp4">
+            </video>
+          </div>
+          <div class="editorial-text editorial-text--full">
+            <p>PID control keeps the robot upright in real time. I tuned the gains by hand, testing recovery on different surfaces until it stayed stable without oscillating.</p>
+          </div>
+        </div>
+
+        <div class="twin-col twin-col--right">
+          <h2>Listen</h2>
+          <!-- VIDEO: beat detection test (portrait clip trimmed to 4:5; move --crop-y towards 0% to keep more of the top, 100% for the bottom) -->
+          <div class="video-frame video-frame--cropped twin-media" style="--crop-y: 50%">
+            <video class="site-video" autoplay muted loop playsinline preload="metadata" aria-label="The beat detector reacting to music, with the NeoPixel strip lighting up on each beat">
+              <source src="../assets/projects/robot/beat%20detection.mp4#t=0.1" type="video/mp4">
+            </video>
+          </div>
+          <div class="editorial-text editorial-text--full">
+            <p>A moving average filter picks the beat out of the incoming audio. A NeoPixel strip shows each detected beat and its strength, which made it easy to test and tune against tracks like Billie Jean.</p>
+          </div>
+        </div>
       </section>
 
-      <section class="case-study-section">
-        <h2>Process</h2>
-        <p>[Placeholder — research and discovery: user needs, constraints, existing solutions, early concepts.]</p>
-        <p>[Placeholder — making and building: sketches, prototypes, CAD iterations, physical builds, testing, and what you learned from each round of making. Include images of models, rigs, or test setups here.]</p>
+      <!-- ============ 4. ONE LOOP ============ -->
+      <section class="editorial-section">
+        <h2>One Loop</h2>
+
+        <!-- DIAGRAM: two paths merging at the motors (inline SVG, coloured by the site's CSS variables).
+             Scrolls sideways on narrow screens rather than shrinking the labels. -->
+        <figure class="loop-diagram">
+          <div class="loop-scroll">
+            <svg viewBox="0 0 1000 300" role="img" aria-labelledby="loop-title loop-desc">
+              <title id="loop-title">Control loop diagram</title>
+              <desc id="loop-desc">Two paths feed the motors. Balance: tilt measurement, then PID, then motors. Listen: audio input, then moving average filter, then beat detected, then movement pattern, then motors.</desc>
+              <defs>
+                <marker id="loop-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <path d="M0 1L9 5L0 9z" class="loop-arrowhead"/>
+                </marker>
+              </defs>
+
+              <!-- Row labels -->
+              <text class="loop-row-label" x="0" y="26">Balance</text>
+              <text class="loop-row-label" x="0" y="194">Listen</text>
+
+              <!-- Path 1: Tilt measurement → PID -->
+              <g class="loop-node"><rect x="0" y="42" width="165" height="56" rx="10"/><text x="82.5" y="75">Tilt measurement</text></g>
+              <line class="loop-link" x1="165" y1="70" x2="198" y2="70" marker-end="url(#loop-arrow)"/>
+              <g class="loop-node loop-node--key"><rect x="200" y="42" width="165" height="56" rx="10"/><text x="282.5" y="75">PID</text></g>
+
+              <!-- Path 2: Audio input → Moving average filter → Beat detected → Movement pattern -->
+              <g class="loop-node"><rect x="0" y="210" width="165" height="56" rx="10"/><text x="82.5" y="243">Audio input</text></g>
+              <line class="loop-link" x1="165" y1="238" x2="198" y2="238" marker-end="url(#loop-arrow)"/>
+              <g class="loop-node"><rect x="200" y="210" width="165" height="56" rx="10"/><text x="282.5" y="235">Moving average<tspan x="282.5" dy="17">filter</tspan></text></g>
+              <line class="loop-link" x1="365" y1="238" x2="398" y2="238" marker-end="url(#loop-arrow)"/>
+              <g class="loop-node"><rect x="400" y="210" width="165" height="56" rx="10"/><text x="482.5" y="243">Beat detected</text></g>
+              <line class="loop-link" x1="565" y1="238" x2="598" y2="238" marker-end="url(#loop-arrow)"/>
+              <g class="loop-node loop-node--key"><rect x="600" y="210" width="165" height="56" rx="10"/><text x="682.5" y="243">Movement pattern</text></g>
+
+              <!-- Both paths merge into the motors -->
+              <path class="loop-link" d="M365 70H760C800 70 800 154 832 154" marker-end="url(#loop-arrow)"/>
+              <path class="loop-link" d="M765 238H770C800 238 800 154 832 154"/>
+              <g class="loop-node loop-node--out"><rect x="834" y="122" width="166" height="64" rx="12"/><text x="917" y="159">Motors</text></g>
+            </svg>
+          </div>
+        </figure>
+
+        <div class="editorial-text editorial-text--full">
+          <p>Each beat triggers a movement: the left wheel, the right wheel, or forwards and backwards. I tested balancing and beat detection separately first, then combined them into a single control loop so the robot dances without losing its balance.</p>
+        </div>
       </section>
 
-      <section class="case-study-section">
-        <h2>Outcome</h2>
-        <p>[Placeholder — the final result: what was delivered, how it performed against the brief, and any feedback or evaluation received.]</p>
-      </section>
+      <!-- ============ 5. UNDERSTANDING THE RESPONSE ============ -->
+      <section class="editorial-section">
+        <h2>Understanding the Response</h2>
 
-      <section class="case-study-section">
-        <h2>My Role</h2>
-        <p>[Placeholder — what you specifically did, especially if this was a team project. Be concrete about your contributions.]</p>
-      </section>
+        <div class="arm-row arm-row--image-left">
+          <!-- IMAGE: MATLAB simulation plot, tilt angle and control torque over time -->
+          <figure class="ed-figure">
+            <img src="../assets/projects/robot/matlab.png" width="860" height="668" alt="MATLAB plot of the simulated PID recovery: tilt angle falls smoothly from 8.6 degrees to zero in about 0.4 seconds with no overshoot, while control torque spikes to about minus 2.2 newton-metres at the start and settles to zero" loading="lazy">
+          </figure>
+          <div class="editorial-text editorial-text--full">
+            <p>After tuning by hand, I modelled the robot as an inverted pendulum in MATLAB to understand why it behaved as it did. Using estimated physical parameters, the simulation recovers from an 8.6&deg; tilt in around 0.4 seconds with no overshoot.</p>
+          </div>
+        </div>
 
-      <section class="case-study-section">
-        <h2>Tools Used</h2>
-        <ul class="tools-list">
-          <li>[Tool 1]</li>
-          <li>[Tool 2]</li>
-          <li>[Tool 3]</li>
+        <ul class="stat-row">
+          <li class="stat"><span class="stat-number">8.6&deg;</span><span class="stat-label">starting tilt (simulated)</span></li>
+          <li class="stat"><span class="stat-number">~0.4s</span><span class="stat-label">to recover</span></li>
+          <li class="stat"><span class="stat-number">0</span><span class="stat-label">overshoot</span></li>
         </ul>
+      </section>
+
+      <!-- ============ 6. MORE FOOTAGE ============ -->
+      <section class="editorial-section">
+        <h2>More Footage</h2>
+
+        <!-- GALLERY: scroll-snap row of looping clips (assets/projects/robot/1.mp4 to 8.mp4), scrolled by the viewer and
+             endless (data-loop: it wraps round in both directions). The clips are portrait, so each card trims them to 4:5 like the Balance/Listen
+             videos; set --crop-y on a card's frame to move its crop up or down. Clips only load when they scroll into view.
+             To caption a clip, add <figcaption>Your caption</figcaption> after its frame. -->
+        <div class="gallery gallery--portrait">
+          <div class="gallery-track" data-loop tabindex="0" aria-label="More footage, scroll sideways for more">
+            <figure class="gallery-card">
+              <!-- VIDEO: 1.mp4 -->
+              <div class="video-frame video-frame--cropped">
+                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 1 of 8">
+                  <source src="../assets/projects/robot/1.mp4#t=0.1" type="video/mp4">
+                </video>
+              </div>
+            </figure>
+            <figure class="gallery-card">
+              <!-- VIDEO: 2.mp4 -->
+              <div class="video-frame video-frame--cropped">
+                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 2 of 8">
+                  <source src="../assets/projects/robot/2.mp4#t=0.1" type="video/mp4">
+                </video>
+              </div>
+            </figure>
+            <figure class="gallery-card">
+              <!-- VIDEO: 3.mp4 -->
+              <div class="video-frame video-frame--cropped">
+                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 3 of 8">
+                  <source src="../assets/projects/robot/3.mp4#t=0.1" type="video/mp4">
+                </video>
+              </div>
+            </figure>
+            <figure class="gallery-card">
+              <!-- VIDEO: 4.mp4 -->
+              <div class="video-frame video-frame--cropped">
+                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 4 of 8">
+                  <source src="../assets/projects/robot/4.mp4#t=0.1" type="video/mp4">
+                </video>
+              </div>
+            </figure>
+            <figure class="gallery-card">
+              <!-- VIDEO: 5.mp4 -->
+              <div class="video-frame video-frame--cropped">
+                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 5 of 8">
+                  <source src="../assets/projects/robot/5.mp4#t=0.1" type="video/mp4">
+                </video>
+              </div>
+            </figure>
+            <figure class="gallery-card">
+              <!-- VIDEO: 6.mp4 -->
+              <div class="video-frame video-frame--cropped">
+                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 6 of 8">
+                  <source src="../assets/projects/robot/6.mp4#t=0.1" type="video/mp4">
+                </video>
+              </div>
+            </figure>
+            <figure class="gallery-card">
+              <!-- VIDEO: 7.mp4 -->
+              <div class="video-frame video-frame--cropped">
+                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 7 of 8">
+                  <source src="../assets/projects/robot/7.mp4#t=0.1" type="video/mp4">
+                </video>
+              </div>
+            </figure>
+            <figure class="gallery-card">
+              <!-- VIDEO: 8.mp4 -->
+              <div class="video-frame video-frame--cropped">
+                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 8 of 8">
+                  <source src="../assets/projects/robot/8.mp4#t=0.1" type="video/mp4">
+                </video>
+              </div>
+            </figure>
+          </div>
+        </div>
       </section>
     </article>
   </main>
@@ -84,6 +237,155 @@
     <p>&copy; 2026 Mayli Jones.</p>
   </footer>
 
+  <script>
+    // Looping videos (.video-frame): each plays only while it's on screen and pauses when scrolled away.
+    // They start muted (browsers only autoplay silent video); a sound button unmutes one at a time.
+    // Reduced motion: nothing autoplays, the first frame shows with normal controls to play it by hand.
+    // If a clip can't load, the frame keeps its size and shows a short message instead.
+    // Endless gallery (data-loop): a copy of the cards sits on each side of the real set. Whenever scrolling
+    // settles in a copy, it jumps to the identical spot in the real set, so it goes round forever either way.
+    // The copies are hidden from screen readers and keyboard focus. Runs before initVideos so the copied
+    // clips get the same play/pause and sound handling.
+    (function initLoopingGalleries(){
+      document.querySelectorAll('.gallery-track[data-loop]').forEach(track=>{
+        const originals=[...track.children];
+        const n=originals.length;
+        if(n<2) return;
+        const copies=()=>originals.map(card=>{
+          const copy=card.cloneNode(true);
+          copy.setAttribute('aria-hidden','true');
+          copy.setAttribute('inert','');
+          return copy;
+        });
+        track.prepend(...copies());
+        track.append(...copies());
+
+        const jumpBy=dx=>{
+          track.style.scrollBehavior='auto';
+          track.scrollLeft+=dx;
+          requestAnimationFrame(()=>{ track.style.scrollBehavior=''; });
+        };
+        // Width of one full set of cards (including the gaps), and where the real set starts and ends
+        const bounds=()=>{
+          const first=track.children[n], after=track.children[2*n], last=track.children[2*n-1];
+          const gap=first.offsetLeft-(track.children[n-1].offsetLeft+track.children[n-1].offsetWidth);
+          return { w:after.offsetLeft-first.offsetLeft, start:first.offsetLeft-gap/2, end:after.offsetLeft-gap/2 };
+        };
+
+        // Start with the first real card centred, so there are clips on both sides from the outset
+        const first=track.children[n];
+        jumpBy(first.offsetLeft-(track.clientWidth-first.offsetWidth)/2-track.scrollLeft);
+
+        // After any scroll settles, bring the centred card back into the real (middle) set
+        const recentre=()=>{
+          const b=bounds(), centre=track.scrollLeft+track.clientWidth/2;
+          if(centre<b.start) jumpBy(b.w); else if(centre>=b.end) jumpBy(-b.w);
+        };
+        let settle=null;
+        if('onscrollend' in window) track.addEventListener('scrollend',recentre);
+        else track.addEventListener('scroll',()=>{ clearTimeout(settle); settle=setTimeout(recentre,140); },{passive:true});
+
+        // Stay on the same card if the layout changes width
+        let lastW=bounds().w;
+        window.addEventListener('resize',()=>{
+          const w=bounds().w;
+          if(w!==lastW){ jumpBy(track.scrollLeft*(w/lastW)-track.scrollLeft); lastW=w; }
+        });
+      });
+    })();
+
+    (function initVideos(){
+      const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const frames=[...document.querySelectorAll('.video-frame')];
+      const mains=[];
+      const SOUND_OFF='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M17 9l5 6M22 9l-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+      const SOUND_ON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+
+      frames.forEach(frame=>{
+        const video=frame.querySelector('.site-video');
+        if(!video) return;
+        mains.push(video);
+
+        const fail=()=>{ frame.classList.add('is-failed'); video.pause(); };
+        video.querySelectorAll('source').forEach(s=>s.addEventListener('error',fail));
+        video.addEventListener('error',fail);
+
+        if(reduce){
+          video.removeAttribute('autoplay');
+          video.autoplay=false;
+          video.pause();
+          video.controls=true;
+          return;
+        }
+
+        const sound=document.createElement('button');
+        sound.type='button';
+        sound.className='video-sound';
+        const setSound=on=>{
+          video.muted=!on;
+          sound.innerHTML=on?SOUND_ON:SOUND_OFF;
+          sound.setAttribute('aria-pressed',String(on));
+          sound.setAttribute('aria-label',on?'Turn sound off':'Turn sound on');
+        };
+        setSound(false);
+        sound.addEventListener('click',()=>{
+          const on=video.muted;
+          if(on) mains.forEach(v=>{ if(v!==video&&!v.muted) v.closest('.video-frame').querySelector('.video-sound').click(); });
+          setSound(on);
+          if(video.paused) video.play().catch(()=>{});
+        });
+        frame.appendChild(sound);
+      });
+
+      if(reduce) return;
+      // Play while at least a quarter is visible; if the browser refuses to autoplay (e.g. low-power mode),
+      // show the normal controls so it can still be started by hand
+      const io=new IntersectionObserver(entries=>{
+        entries.forEach(e=>{
+          const video=e.target.querySelector('.site-video');
+          if(!video||e.target.classList.contains('is-failed')) return;
+          if(e.isIntersecting) video.play().catch(()=>{ video.controls=true; });
+          else video.pause();
+        });
+      },{threshold:0.25});
+      frames.forEach(f=>io.observe(f));
+    })();
+
+    // Gallery arrows on both sides: each press scrolls one card. On an endless gallery (data-loop) both
+    // always show; otherwise an arrow hides when there's nothing further that way.
+    (function initGalleryArrows(){
+      const arrow=(dir,label)=>{
+        const b=document.createElement('button');
+        b.type='button';
+        b.className='gallery-arrow gallery-arrow--'+dir;
+        b.setAttribute('aria-label',label);
+        b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+(dir==='prev'?'M15 6l-6 6 6 6':'M9 6l6 6-6 6')+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        return b;
+      };
+      document.querySelectorAll('.gallery').forEach(gallery=>{
+        const track=gallery.querySelector('.gallery-track');
+        if(!track) return;
+        const prev=arrow('prev','Previous video'), next=arrow('next','Next video');
+        const step=dir=>{
+          const card=track.querySelector('.gallery-card');
+          const gap=parseFloat(getComputedStyle(track).columnGap)||0;
+          track.scrollBy({left:dir*((card?card.offsetWidth:300)+gap),behavior:'smooth'});
+        };
+        const update=()=>{
+          if(track.hasAttribute('data-loop')) return;
+          const max=track.scrollWidth-track.clientWidth;
+          prev.disabled=track.scrollLeft<=2;
+          next.disabled=track.scrollLeft>=max-2;
+        };
+        prev.addEventListener('click',()=>step(-1));
+        next.addEventListener('click',()=>step(1));
+        track.addEventListener('scroll',update,{passive:true});
+        window.addEventListener('resize',update);
+        gallery.append(prev,next);
+        update();
+      });
+    })();
+  </script>
   <script src="../js/script.js"></script>
 </body>
 </html>

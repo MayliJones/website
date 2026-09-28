@@ -24,6 +24,13 @@
   --chart-track: #e5efe8;
 }
 
+/* Self-Balancing Robot: deep plum */
+.theme-plum {
+  --color-accent: #67187e;
+  --color-accent-dark: #4d115e;
+  --chart-track: #eee4f1;
+}
+
 /* Project image zoom (card <-> project page hero): a touch slower with a soft ease-out,
    rounded corners kept throughout, and the photo cropped rather than stretched while the
    shape changes from the card's 4:3 to the hero's 16:9 */
@@ -277,7 +284,6 @@ button:focus-visible {
 @keyframes wander5{0%{transform:translate(18vw,-26vh) rotate(-6deg)}50%{transform:translate(-22vw,8vh) rotate(-5deg)}100%{transform:translate(-38vw,-20vh) rotate(-6deg)}}
 .splash .splash-m{will-change:transform; transition:transform .2s ease-out}
 .hero-inner{position:relative; text-align:center; max-width:1100px; z-index:3}
-.hero-notice{display:inline-block; margin:0 0 20px; padding:6px 14px; border-radius:999px; background:rgba(255,255,255,.6); border:1px solid #e2ddc9; color:#5a5240; font-size:13px; font-weight:500; animation:fadeUp .6s ease .1s backwards}
 .hero-title{margin:0 0 10px; font-size:clamp(44px,7.2vw,92px); font-weight:600; letter-spacing:-0.02em; animation:dropIn .6s cubic-bezier(.34,1.56,.64,1) .2s backwards}
 @keyframes dropIn{from{opacity:0; transform:translateY(-16px)} to{opacity:1; transform:translateY(0)}}
 .hero-subline{margin:6px 0 18px; color:#333; opacity:.85; font-size:clamp(12px,1.6vw,14px); font-weight:500; letter-spacing:.14em; text-transform:uppercase; animation:fadeUp .6s ease .4s backwards}
@@ -1109,6 +1115,11 @@ button:focus-visible {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
 }
 
+/* Every sheet turned: a plain inside-back-cover surface, like the empty left side at the start */
+.flipbook.no-right .flipbook-pile--right {
+  background: #f4f4f2;
+}
+
 .flipbook.has-left .flipbook-pile--left {
   background: #ffffff;
   box-shadow:
@@ -1157,7 +1168,7 @@ button:focus-visible {
   backface-visibility: hidden;
 }
 
-/* The back face carries the same image, turned round so it reads correctly once the page lies on the left */
+/* The back face carries the next (even) page, turned round so it reads correctly once the sheet lies on the left */
 .flip-face--back {
   transform: rotateY(180deg);
 }
@@ -1227,7 +1238,8 @@ button:focus-visible {
   color: var(--color-text-muted);
 }
 
-/* Phones: a two-page spread would be too small to read, so show one page that turns away */
+/* Phones: a two-page spread would be too small to read, so show one page that turns away
+   (the script builds single-sided sheets at this width) */
 @media (max-width: 640px) {
   .flipbook {
     width: min(100%, calc((100vh - 240px) / 1.0766));
@@ -1407,8 +1419,8 @@ button:focus-visible {
   display: grid;
   place-items: center;
   padding: var(--space-sm);
-  background: var(--color-bg-alt);
-  border: 0.5px dashed var(--color-border);
+  background: #f1f1f3;
+  border: 1px dashed #c9c8d0;
   border-radius: 12px;
   text-align: center;
   font-size: 14px;
@@ -1483,33 +1495,56 @@ button:focus-visible {
   height: 100%;
 }
 
-/* Arrow buttons over the sides of a gallery: phones only (desktop has the edge fades and cursor steering) */
+/* Arrow buttons over the sides of a gallery, above the edge fades. Centred on the image frame
+   (cards are 4:3, 380px wide; 85vw on phones) rather than on image + caption. */
 .gallery-arrow {
-  display: none;
+  position: absolute;
+  z-index: 2;
+  top: calc(380px * 0.375 - 22px);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #dadada;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-text);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
+
+.gallery-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.gallery-arrow:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.gallery-arrow:active {
+  transform: scale(0.94);
+}
+
+.gallery-arrow:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.gallery-arrow--prev { left: 10px; }
+.gallery-arrow--next { right: 10px; }
 
 @media (max-width: 767px) {
   .gallery-arrow {
-    position: absolute;
-    z-index: 2;
-    /* Centred on the image frame (cards are 4:3, 85vw wide) rather than on image + caption */
     top: calc(85vw * 0.375 - 20px);
-    display: grid;
-    place-items: center;
     width: 40px;
     height: 40px;
-    padding: 0;
-    border: 1px solid #dadada;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.92);
-    color: var(--color-text);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-  }
-
-  .gallery-arrow svg {
-    width: 20px;
-    height: 20px;
   }
 
   .gallery-arrow--prev { left: 6px; }
@@ -1566,6 +1601,264 @@ button:focus-visible {
   .gallery-card {
     flex-basis: 85vw;
   }
+}
+
+/* Gallery arrows hide at the ends of a gallery that doesn't loop */
+.gallery-arrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Galleries of portrait clips (trimmed to 4:5): narrower cards, arrows centred on the clip */
+.gallery--portrait .gallery-card {
+  flex-basis: 280px;
+}
+
+.gallery--portrait .gallery-arrow {
+  top: calc(280px * 0.625 - 22px);
+}
+
+@media (max-width: 767px) {
+  .gallery--portrait .gallery-card {
+    flex-basis: 70vw;
+  }
+
+  .gallery--portrait .gallery-arrow {
+    top: calc(70vw * 0.625 - 20px);
+  }
+}
+
+/* ---------------- Self-Balancing Robot page ---------------- */
+
+/* One large statement, bigger than body text, about three lines wide */
+.tension-statement {
+  max-width: 30ch;
+  margin: 0 0 var(--space-md);
+  font-size: clamp(1.5rem, 3.8vw, 2.9rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.tension-still,
+.tension-move {
+  color: var(--color-accent);
+}
+
+/* Two systems side by side, mirrored about a hairline down the middle: the left column aligns
+   towards the line from the left, the right column from the right */
+.twin {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 7vw, 112px);
+}
+
+.twin::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--color-border);
+}
+
+.twin-col--left { text-align: right; }
+.twin-col--right { text-align: left; }
+
+/* Each column's clip sits against the centre line, so the two mirror each other */
+.twin-media {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: var(--space-md);
+}
+
+.twin-col--left .twin-media { margin-left: auto; }
+.twin-col--right .twin-media { margin-right: auto; }
+
+/* Looping video in a frame styled like the site's images: rounded, 0.5px border, no visible controls */
+.video-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 0.5px solid var(--color-border);
+  background: var(--color-bg-alt);
+}
+
+.video-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.video-frame .site-video {
+  object-fit: contain;
+}
+
+/* Portrait clip trimmed to 4:5: equal amounts come off the top and bottom. To keep more of the top or
+   bottom of one clip, set --crop-y on its frame (0% keeps the very top, 100% the very bottom). */
+.video-frame--cropped {
+  aspect-ratio: 4 / 5;
+}
+
+.video-frame--cropped .site-video {
+  object-fit: cover;
+  object-position: 50% var(--crop-y, 50%);
+}
+
+/* Hero: full-width 16:9 block, the clip filling it. The crop band is set by --crop-y on the frame
+   (60% sits a little below centre, where the robot is; lower keeps more of the top, higher more of the bottom). */
+.video-frame--hero {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.video-frame--hero .site-video {
+  object-fit: cover;
+  object-position: 50% var(--crop-y, 60%);
+}
+
+/* A clip that couldn't load: keep the frame, say so */
+.video-frame.is-failed video,
+.video-frame.is-failed .video-sound {
+  display: none;
+}
+
+.video-frame.is-failed::after {
+  content: "Video unavailable";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* Sound on/off, bottom right of each clip */
+.video-sound {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.video-sound:hover {
+  background: var(--color-accent);
+}
+
+.video-sound:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--color-accent);
+}
+
+.video-sound svg {
+  width: 20px;
+  height: 20px;
+}
+
+.twin-col .editorial-text p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 767px) {
+  .twin {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .twin::before {
+    display: none;
+  }
+
+  .twin-col--left { text-align: left; }
+  .twin-col--left .twin-media { margin-left: 0; }
+
+  .twin-col--right {
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+/* Control loop diagram (inline SVG). Too wide to shrink on phones, so it scrolls sideways instead. */
+.loop-diagram {
+  margin: 0 0 var(--space-md);
+}
+
+.loop-scroll {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.loop-scroll svg {
+  display: block;
+  width: 100%;
+  min-width: 780px;
+  height: auto;
+}
+
+.loop-node rect {
+  fill: var(--color-bg-alt);
+  stroke: var(--color-border);
+  stroke-width: 1.5;
+}
+
+.loop-node text {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  text-anchor: middle;
+  fill: var(--color-text);
+}
+
+/* The two steps that decide how the wheels move */
+.loop-node--key rect {
+  fill: #ffffff;
+  stroke: var(--color-accent);
+  stroke-width: 2;
+}
+
+.loop-node--out rect {
+  fill: var(--color-accent);
+  stroke: none;
+}
+
+.loop-node--out text {
+  font-size: 18px;
+  font-weight: 600;
+  fill: #ffffff;
+}
+
+.loop-link {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2;
+}
+
+.loop-arrowhead {
+  fill: var(--color-accent);
+}
+
+.loop-row-label {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--color-text-muted);
 }
 
 /* Stat callouts: large bold number, small muted label beneath */
@@ -2070,7 +2363,8 @@ button:focus-visible {
   margin: var(--space-md) 0;
 }
 
-/* Video placeholder: 16:9 box with a drawn play button */
+/* Video placeholder: 16:9 box with a drawn play button (solid hairline; image placeholders are dashed).
+   Swap for a <video> (look for the VIDEO comment above it). */
 .video-placeholder {
   aspect-ratio: 16 / 9;
   display: flex;
@@ -2079,7 +2373,7 @@ button:focus-visible {
   justify-content: center;
   gap: 12px;
   background: var(--color-bg-alt);
-  border: 0.5px dashed var(--color-border);
+  border: 0.5px solid var(--color-border);
   border-radius: 12px;
   font-size: 14px;
   color: var(--color-text-muted);
@@ -2089,6 +2383,12 @@ button:focus-visible {
   width: 64px;
   height: 64px;
   color: var(--color-accent);
+}
+
+/* Smaller play button inside gallery cards */
+.gallery-card .video-play {
+  width: 44px;
+  height: 44px;
 }
 
 @media (max-width: 700px) {

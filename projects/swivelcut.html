@@ -6,7 +6,7 @@
   <title>SwivelCut — Mayli Jones</title>
   <meta name="description" content="SwivelCut: a safe, accurate, two-degree-of-freedom cardboard-cutting system for secondary school Design and Technology classrooms.">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css?v=2026-09-27b">
+  <link rel="stylesheet" href="../css/style.css?v=2026-09-28g">
   <!-- Page transition: don't paint until the hero exists, so the card can zoom straight into it -->
   <link rel="expect" href="#swivel-hero" blocking="render">
   <link rel="preload" as="image" href="../assets/projects/Swivel/swivel-hero.png" fetchpriority="high">
@@ -479,15 +479,16 @@
       <section class="editorial-section">
         <h2>User Guide</h2>
 
-        <!-- FLIPBOOK (open book): 28 pages from assets/projects/Swivel/user-guide-final/page_01.png to page_28.png.
+        <!-- FLIPBOOK (open book): 28 pages from assets/projects/Swivel/user-guide-square/page_01.png to page_28.png.
+             data-back-cover: the back cover file (27) is moved to the very end so it lands on the outside of the last sheet.
              The pages are built by the script at the bottom of the page; only the current page +/- 3 are loaded. -->
-        <div class="flipbook" data-flipbook data-pages="28" data-src="../assets/projects/Swivel/user-guide-final/page_{n}.png"
+        <div class="flipbook" data-flipbook data-pages="28" data-back-cover="27" data-src="../assets/projects/Swivel/user-guide-square/page_{n}.png"
              tabindex="0" role="region" aria-roledescription="book" aria-label="SwivelCut quick start guide, 28 pages. Use the left and right arrow keys to turn pages.">
           <div class="flipbook-pile flipbook-pile--left" aria-hidden="true"></div>
           <div class="flipbook-pile flipbook-pile--right" aria-hidden="true"></div>
           <div class="flipbook-pages"></div>
           <div class="flipbook-spine" aria-hidden="true"></div>
-          <noscript><img src="../assets/projects/Swivel/user-guide-final/page_01.png" alt="SwivelCut quick start guide, cover"></noscript>
+          <noscript><img src="../assets/projects/Swivel/user-guide-square/page_01.png" alt="SwivelCut quick start guide, cover"></noscript>
         </div>
         <div class="flipbook-controls">
           <button type="button" class="flipbook-btn" data-flip="prev" aria-label="Previous page">
@@ -582,11 +583,24 @@
         // Slow drift, steered by the cursor. Hovering left/right of centre scrolls that way, faster
         // towards the edges; the middle keeps the gentle drift. Scrolling, dragging, swiping or arrow
         // keys hand control back (with snapping); the drift resumes ~2.5s after the scrolling stops.
+        // The arrow buttons glide quickly card by card (glideBy below).
         // Off for reduced motion.
         if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const DIR=track.dataset.direction==='-1'?-1:1;       // which way it drifts on its own
         const DRIFT=22*DIR, MAX=320, STILL=0.2, HANDBACK=2500; // px/s, px/s, share of half-width, ms
         let pos=track.scrollLeft, speed=0, target=DRIFT, pausedUntil=0, onScreen=false, last=0;
+        let glide=0; // distance still to travel after an arrow press (px); runs much faster than the drift
+        const GLIDE_MIN=500; // px/s: slowest a glide moves, so its last stretch doesn't creep
+
+        // Arrow buttons call this: glide quickly to centre the next card that way. Presses stack, so
+        // clicking repeatedly (or holding) keeps going further and faster.
+        track.glideBy=dir=>{
+          const centre=(drifting?pos:track.scrollLeft)+glide+track.clientWidth/2;
+          const centres=[...track.children].map(c=>c.offsetLeft+c.offsetWidth/2);
+          const skip=track.children[0].offsetWidth*0.4; // ignore the card that's already (nearly) centred
+          const next=dir>0 ? centres.find(x=>x>centre+skip) : centres.reverse().find(x=>x<centre-skip);
+          if(next!==undefined) glide+=next-centre;
+        };
 
         track.addEventListener('pointermove',e=>{
           if(e.pointerType!=='mouse') return;
@@ -606,14 +620,22 @@
 
         const tick=now=>{
           const dt=Math.min(0.05,(now-(last||now))/1000); last=now;
-          const active=onScreen&&!document.hidden&&now>pausedUntil;
+          const gliding=Math.abs(glide)>0.5;
+          const active=onScreen&&!document.hidden&&(gliding||now>pausedUntil);
           if(active){
             if(!drifting){                       // taking over from the user: start from where they left it
               drifting=true; pos=track.scrollLeft; speed=0;
               track.style.scrollSnapType='none'; track.style.scrollBehavior='auto';
             }
-            speed+=(target-speed)*Math.min(1,dt*3); // ease towards the target speed
-            pos+=speed*dt;
+            if(gliding){                         // arrow press: ease quickly onto the chosen card
+              const left=Math.abs(glide);
+              const move=Math.sign(glide)*Math.min(left,Math.max(left*dt*8,GLIDE_MIN*dt)); // eases out, never crawls
+              pos+=move; glide-=move; speed=0;
+              if(Math.abs(glide)<=0.5){ pos+=glide; glide=0; pausedUntil=now+HANDBACK; } // rest there a moment
+            } else {
+              speed+=(target-speed)*Math.min(1,dt*3); // ease towards the target speed
+              pos+=speed*dt;
+            }
             pos+=wrapShift(pos);                    // loop endlessly
             track.scrollLeft=pos;
           } else if(drifting){                   // hand control back with normal snapping
@@ -667,72 +689,102 @@
       els.forEach(el=>{ el.classList.add('is-waiting'); io.observe(el); });
     })();
 
-    // Open-book flipbook. Two stacks lie side by side: turned pages on the left, unread pages on the right
-    // (page 1 on top at the start). "Next" turns the top right page over the spine (rotateY 0 to -180deg),
-    // where it lands face-up on top of the left stack; "Previous" turns the top left page back. Each page
-    // has a front and a back face showing the same image, so a turned page reads correctly on the left.
-    // Only pages near the current spread are shown and loaded. On narrow screens it's a single page.
+    // Open-book flipbook, built like a real book: each sheet (leaf) is printed on both sides, the front
+    // with an odd page and the back with the next even page. Unread sheets are stacked on the right (the
+    // cover on top at the start); "Next" turns the top right sheet over the spine (rotateY 0 to -180deg),
+    // so its back page lands on the left beside the front of the next sheet: cover, 2|3, 4|5 ... 28.
+    // "Previous" turns the top left sheet back. Only sheets near the current spread are shown and loaded.
+    // On narrow screens a two-page spread is too small, so each sheet carries a single page instead.
     // Arrow keys work when the book is focused; swipe on touch screens.
     (function initFlipbooks(){
       document.querySelectorAll('[data-flipbook]').forEach(book=>{
         const total=parseInt(book.dataset.pages,10);
-        const srcFor=n=>book.dataset.src.replace('{n}',String(n).padStart(2,'0'));
+        // Reading order: file numbers 1..total, with the back cover (if named) moved to the very end
+        const back=parseInt(book.dataset.backCover,10);
+        const order=[...Array(total)].map((_,i)=>i+1).filter(n=>n!==back);
+        if(back) order.push(back);
+        const srcFor=n=>book.dataset.src.replace('{n}',String(order[n-1]).padStart(2,'0'));
         const holder=book.querySelector('.flipbook-pages');
         const controls=book.nextElementSibling;
         const prevBtn=controls.querySelector('[data-flip="prev"]');
         const nextBtn=controls.querySelector('[data-flip="next"]');
         const count=controls.querySelector('.flipbook-count');
-        const WINDOW=3, TURN_MS=600, ABOVE=total+10;
+        const narrow=window.matchMedia('(max-width: 640px)');
+        const WINDOW=2, TURN_MS=600;
+
+        let perLeaf, leaves, current, turning=new Map();
+
+        // Page numbers printed on a leaf: [front, back]; back is null on phones or past the last page
+        const pagesOf=i=>perLeaf===1 ? [i+1,null] : [2*i+1, 2*i+2<=total ? 2*i+2 : null];
 
         const makeFace=(side,n)=>{
           const face=document.createElement('div');
           face.className='flip-face flip-face--'+side;
-          const img=document.createElement('img');
-          img.alt=side==='front'?`Quick start guide, page ${n} of ${total}`:'';
-          if(side==='back') img.setAttribute('aria-hidden','true');
-          img.decoding='auto'; img.width=1240; img.height=1335;
-          face.appendChild(img);
+          if(n){
+            const img=document.createElement('img');
+            img.alt=`Quick start guide, page ${n} of ${total}`;
+            img.dataset.src=srcFor(n);
+            img.decoding='auto'; img.width=1240; img.height=1335;
+            face.appendChild(img);
+          }
           return face;
         };
-        const pages=[];
-        for(let n=1;n<=total;n++){
-          const page=document.createElement('div');
-          page.className='flip-page';
-          page.appendChild(makeFace('front',n));
-          page.appendChild(makeFace('back',n));
-          holder.appendChild(page);
-          pages.push(page);
-        }
 
-        let current=0;           // index of the page on top of the right stack
-        const turning=new Map(); // page index -> timer while it's mid-turn (kept above both stacks)
+        // (Re)build the sheets for the current screen size, keeping the reader on the same page
+        const build=firstPage=>{
+          turning.forEach(t=>clearTimeout(t)); turning=new Map();
+          perLeaf=narrow.matches?1:2;
+          const n=Math.ceil(total/perLeaf);
+          holder.textContent='';
+          leaves=[];
+          for(let i=0;i<n;i++){
+            const [front,back]=pagesOf(i);
+            const leaf=document.createElement('div');
+            leaf.className='flip-page';
+            leaf.appendChild(makeFace('front',front));
+            if(perLeaf===2) leaf.appendChild(makeFace('back',back));
+            holder.appendChild(leaf);
+            leaves.push(leaf);
+          }
+          // Turned sheets for a given page: on a spread the even page sits on the left
+          current=perLeaf===1 ? firstPage-1 : Math.floor(firstPage/2);
+        };
 
-        // Stack order: untouched pages with page 1 highest; turned pages with the most recent highest
-        const baseZ=i=>i<current ? i+1 : total-i;
+        // Pages on the open spread, left to right, as [left, right] (either may be null)
+        const spread=()=>perLeaf===1
+          ? [null, current+1]
+          : [current>0 ? pagesOf(current-1)[1] : null, current<leaves.length ? pagesOf(current)[0] : null];
+        const maxTurn=()=>perLeaf===1 ? leaves.length-1 : leaves.length;
+
+        // Stack order: unread sheets with the next one highest; turned sheets with the most recent highest
+        const baseZ=i=>i<current ? i+1 : leaves.length-i;
 
         const render=()=>{
-          pages.forEach((page,i)=>{
+          const L=leaves.length;
+          leaves.forEach((leaf,i)=>{
             const near=i>=current-1-WINDOW && i<=current+WINDOW;
-            page.hidden=!near&&!turning.has(i);
-            if(near) page.querySelectorAll('img').forEach(img=>{ if(!img.getAttribute('src')) img.src=srcFor(i+1); });
-            page.classList.toggle('is-turned',i<current);
-            page.style.zIndex=String(turning.has(i)?ABOVE:baseZ(i));
-            page.setAttribute('aria-hidden',(i===current||i===current-1)?'false':'true');
+            leaf.hidden=!near&&!turning.has(i);
+            if(near) leaf.querySelectorAll('img').forEach(img=>{ if(!img.getAttribute('src')) img.src=img.dataset.src; });
+            leaf.classList.toggle('is-turned',i<current);
+            leaf.style.zIndex=String(turning.has(i)?L+10:baseZ(i));
+            leaf.setAttribute('aria-hidden',(i===current||i===current-1)?'false':'true');
           });
-          const left=current, right=total-current;
+          const left=current, right=L-current;
           book.classList.toggle('has-left',left>0);
           book.classList.toggle('left-thick',left>2);
           book.classList.toggle('right-thick',right>2);
           book.classList.toggle('right-thin',right<=1);
-          count.textContent=`${current+1} / ${total}`;
+          book.classList.toggle('no-right',right===0);
+          const shown=spread().filter(Boolean);
+          count.textContent=`${shown.join('–')} / ${total}`;
           prevBtn.disabled=current===0;
-          nextBtn.disabled=current===total-1;
+          nextBtn.disabled=current===maxTurn();
         };
 
         const go=step=>{
-          const to=Math.min(total-1,Math.max(0,current+step));
+          const to=Math.min(maxTurn(),Math.max(0,current+step));
           if(to===current) return;
-          const moving=step>0?current:current-1;   // the page that swings across the spine
+          const moving=step>0?current:current-1;   // the sheet that swings across the spine
           clearTimeout(turning.get(moving));
           turning.set(moving,setTimeout(()=>{ turning.delete(moving); render(); },TURN_MS));
           current=to; render();
@@ -754,12 +806,18 @@
           sx=sy=null;
         },{passive:true});
 
-        render();
+        narrow.addEventListener('change',()=>{
+          const [l,r]=spread();
+          build(l||r||1); render();
+        });
+
+        build(1); render();
       });
     })();
 
-    // Gallery arrows (shown on phones only, via CSS): step one card left or right. Pressing one pauses the
-    // auto-drift exactly like a manual scroll (the gallery script listens for pointerdown on the track).
+    // Gallery arrows on both sides of each gallery. A press glides quickly to the next card (much faster
+    // than the drift); presses stack, and holding an arrow keeps it going. With reduced motion (no drift
+    // loop, so no glideBy) an arrow simply scrolls one card.
     (function initGalleryArrows(){
       const arrow=(dir,label)=>{
         const b=document.createElement('button');
@@ -769,18 +827,30 @@
         b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+(dir==='prev'?'M15 6l-6 6 6 6':'M9 6l6 6-6 6')+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
         return b;
       };
+      const HOLD_DELAY=380, HOLD_REPEAT=200; // ms before a held arrow repeats, then between repeats
       document.querySelectorAll('.gallery').forEach(gallery=>{
         const track=gallery.querySelector('.gallery-track');
         if(!track) return;
         const step=dir=>{
+          if(track.glideBy){ track.glideBy(dir); return; }
           const card=track.querySelector('.gallery-card');
           const gap=parseFloat(getComputedStyle(track).columnGap)||0;
-          track.dispatchEvent(new Event('pointerdown')); // hand control back from the auto-drift
-          requestAnimationFrame(()=>track.scrollBy({left:dir*((card?card.offsetWidth:300)+gap),behavior:'smooth'}));
+          track.scrollBy({left:dir*((card?card.offsetWidth:300)+gap),behavior:'smooth'});
+        };
+        const wire=(btn,dir)=>{
+          let timer=null;
+          const stop=()=>{ clearTimeout(timer); timer=null; };
+          btn.addEventListener('pointerdown',e=>{
+            if(e.button!==0) return;
+            step(dir);
+            const repeat=()=>{ step(dir); timer=setTimeout(repeat,HOLD_REPEAT); };
+            timer=setTimeout(repeat,HOLD_DELAY);
+          });
+          ['pointerup','pointerleave','pointercancel'].forEach(ev=>btn.addEventListener(ev,stop));
+          btn.addEventListener('click',e=>{ if(e.detail===0) step(dir); }); // keyboard (Enter/Space)
         };
         const prev=arrow('prev','Previous image'), next=arrow('next','Next image');
-        prev.addEventListener('click',()=>step(-1));
-        next.addEventListener('click',()=>step(1));
+        wire(prev,-1); wire(next,1);
         gallery.append(prev,next);
       });
     })();
