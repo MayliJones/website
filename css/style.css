@@ -1793,21 +1793,26 @@ button:focus-visible {
   }
 }
 
-/* Control loop diagram (inline SVG). Too wide to shrink on phones, so it scrolls sideways instead. */
+/* Control loop diagram (inline SVG). The wide version scales to the column; on phones it would be too small
+   to read, so a stacked version (Balance and Listen side by side, running down into the motors) shows instead. */
 .loop-diagram {
   margin: 0 0 var(--space-md);
 }
 
-.loop-scroll {
-  overflow-x: auto;
-  padding-bottom: 4px;
-}
-
-.loop-scroll svg {
+.loop-svg {
   display: block;
   width: 100%;
-  min-width: 780px;
   height: auto;
+}
+
+.loop-svg--tall {
+  display: none;
+  max-width: 420px;
+}
+
+@media (max-width: 767px) {
+  .loop-svg--wide { display: none; }
+  .loop-svg--tall { display: block; }
 }
 
 .loop-node rect {

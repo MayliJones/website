@@ -6,7 +6,7 @@
   <title>Self-Balancing Robot — Mayli Jones</title>
   <meta name="description" content="A self-balancing robot that dances to live music: PID balancing and audio beat detection combined in one control loop.">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css?v=2026-09-28g">
+  <link rel="stylesheet" href="../css/style.css?v=2026-09-28h">
   <!-- Page transition: don't paint until the hero exists, so the card can zoom straight into it -->
   <link rel="expect" href="#robot-hero" blocking="render">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
              clip shows: lower % keeps more of the top, higher % more of the bottom. Keep id and view-transition-name so the
              project card morphs into it. -->
         <div class="video-frame video-frame--hero editorial-img--hero" id="robot-hero" style="view-transition-name: vt-self-balancing-music-reactive-robot; --crop-y: 55%">
-          <video class="site-video" autoplay muted loop playsinline preload="metadata" aria-label="The robot balancing upright while dancing to music">
+          <video class="site-video" poster="../assets/projects/robot/posters/balancing-and-dancing.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The robot balancing upright while dancing to music">
             <source src="../assets/projects/robot/balancing%20and%20dancing.mp4#t=0.1" type="video/mp4">
           </video>
         </div>
@@ -61,7 +61,7 @@
           <h2>Balance</h2>
           <!-- VIDEO: robot balancing (portrait clip trimmed to 4:5; move --crop-y towards 0% to keep more of the top, 100% for the bottom) -->
           <div class="video-frame video-frame--cropped twin-media" style="--crop-y: 50%">
-            <video class="site-video" autoplay muted loop playsinline preload="metadata" aria-label="The robot balancing upright on its two wheels">
+            <video class="site-video" poster="../assets/projects/robot/posters/balance.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The robot balancing upright on its two wheels">
               <source src="../assets/projects/robot/balance.mp4#t=0.1" type="video/mp4">
             </video>
           </div>
@@ -74,7 +74,7 @@
           <h2>Listen</h2>
           <!-- VIDEO: beat detection test (portrait clip trimmed to 4:5; move --crop-y towards 0% to keep more of the top, 100% for the bottom) -->
           <div class="video-frame video-frame--cropped twin-media" style="--crop-y: 50%">
-            <video class="site-video" autoplay muted loop playsinline preload="metadata" aria-label="The beat detector reacting to music, with the NeoPixel strip lighting up on each beat">
+            <video class="site-video" poster="../assets/projects/robot/posters/beat-detection.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The beat detector reacting to music, with the NeoPixel strip lighting up on each beat">
               <source src="../assets/projects/robot/beat%20detection.mp4#t=0.1" type="video/mp4">
             </video>
           </div>
@@ -89,42 +89,73 @@
         <h2>One Loop</h2>
 
         <!-- DIAGRAM: two paths merging at the motors (inline SVG, coloured by the site's CSS variables).
-             Scrolls sideways on narrow screens rather than shrinking the labels. -->
+             Two versions: a wide one for larger screens and a stacked one for phones; CSS shows one at a time. -->
         <figure class="loop-diagram">
-          <div class="loop-scroll">
-            <svg viewBox="0 0 1000 300" role="img" aria-labelledby="loop-title loop-desc">
-              <title id="loop-title">Control loop diagram</title>
-              <desc id="loop-desc">Two paths feed the motors. Balance: tilt measurement, then PID, then motors. Listen: audio input, then moving average filter, then beat detected, then movement pattern, then motors.</desc>
-              <defs>
-                <marker id="loop-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                  <path d="M0 1L9 5L0 9z" class="loop-arrowhead"/>
-                </marker>
-              </defs>
+          <svg class="loop-svg loop-svg--wide" viewBox="0 0 1000 300" role="img" aria-labelledby="loop-title loop-desc">
+            <title id="loop-title">Control loop diagram</title>
+            <desc id="loop-desc">Two paths feed the motors. Balance: tilt measurement, then PID, then motors. Listen: audio input, then moving average filter, then beat detected, then movement pattern, then motors.</desc>
+            <defs>
+              <marker id="loop-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M0 1L9 5L0 9z" class="loop-arrowhead"/>
+              </marker>
+            </defs>
 
-              <!-- Row labels -->
-              <text class="loop-row-label" x="0" y="26">Balance</text>
-              <text class="loop-row-label" x="0" y="194">Listen</text>
+            <!-- Row labels -->
+            <text class="loop-row-label" x="0" y="26">Balance</text>
+            <text class="loop-row-label" x="0" y="194">Listen</text>
 
-              <!-- Path 1: Tilt measurement → PID -->
-              <g class="loop-node"><rect x="0" y="42" width="165" height="56" rx="10"/><text x="82.5" y="75">Tilt measurement</text></g>
-              <line class="loop-link" x1="165" y1="70" x2="198" y2="70" marker-end="url(#loop-arrow)"/>
-              <g class="loop-node loop-node--key"><rect x="200" y="42" width="165" height="56" rx="10"/><text x="282.5" y="75">PID</text></g>
+            <!-- Path 1: Tilt measurement → PID -->
+            <g class="loop-node"><rect x="0" y="42" width="165" height="56" rx="10"/><text x="82.5" y="75">Tilt measurement</text></g>
+            <line class="loop-link" x1="165" y1="70" x2="198" y2="70" marker-end="url(#loop-arrow)"/>
+            <g class="loop-node loop-node--key"><rect x="200" y="42" width="165" height="56" rx="10"/><text x="282.5" y="75">PID</text></g>
 
-              <!-- Path 2: Audio input → Moving average filter → Beat detected → Movement pattern -->
-              <g class="loop-node"><rect x="0" y="210" width="165" height="56" rx="10"/><text x="82.5" y="243">Audio input</text></g>
-              <line class="loop-link" x1="165" y1="238" x2="198" y2="238" marker-end="url(#loop-arrow)"/>
-              <g class="loop-node"><rect x="200" y="210" width="165" height="56" rx="10"/><text x="282.5" y="235">Moving average<tspan x="282.5" dy="17">filter</tspan></text></g>
-              <line class="loop-link" x1="365" y1="238" x2="398" y2="238" marker-end="url(#loop-arrow)"/>
-              <g class="loop-node"><rect x="400" y="210" width="165" height="56" rx="10"/><text x="482.5" y="243">Beat detected</text></g>
-              <line class="loop-link" x1="565" y1="238" x2="598" y2="238" marker-end="url(#loop-arrow)"/>
-              <g class="loop-node loop-node--key"><rect x="600" y="210" width="165" height="56" rx="10"/><text x="682.5" y="243">Movement pattern</text></g>
+            <!-- Path 2: Audio input → Moving average filter → Beat detected → Movement pattern -->
+            <g class="loop-node"><rect x="0" y="210" width="165" height="56" rx="10"/><text x="82.5" y="243">Audio input</text></g>
+            <line class="loop-link" x1="165" y1="238" x2="198" y2="238" marker-end="url(#loop-arrow)"/>
+            <g class="loop-node"><rect x="200" y="210" width="165" height="56" rx="10"/><text x="282.5" y="235">Moving average<tspan x="282.5" dy="17">filter</tspan></text></g>
+            <line class="loop-link" x1="365" y1="238" x2="398" y2="238" marker-end="url(#loop-arrow)"/>
+            <g class="loop-node"><rect x="400" y="210" width="165" height="56" rx="10"/><text x="482.5" y="243">Beat detected</text></g>
+            <line class="loop-link" x1="565" y1="238" x2="598" y2="238" marker-end="url(#loop-arrow)"/>
+            <g class="loop-node loop-node--key"><rect x="600" y="210" width="165" height="56" rx="10"/><text x="682.5" y="243">Movement pattern</text></g>
 
-              <!-- Both paths merge into the motors -->
-              <path class="loop-link" d="M365 70H760C800 70 800 154 832 154" marker-end="url(#loop-arrow)"/>
-              <path class="loop-link" d="M765 238H770C800 238 800 154 832 154"/>
-              <g class="loop-node loop-node--out"><rect x="834" y="122" width="166" height="64" rx="12"/><text x="917" y="159">Motors</text></g>
-            </svg>
-          </div>
+            <!-- Both paths merge into the motors -->
+            <path class="loop-link" d="M365 70H760C800 70 800 154 832 154" marker-end="url(#loop-arrow)"/>
+            <path class="loop-link" d="M765 238H770C800 238 800 154 832 154"/>
+            <g class="loop-node loop-node--out"><rect x="834" y="122" width="166" height="64" rx="12"/><text x="917" y="159">Motors</text></g>
+          </svg>
+          <!-- Phones: the same diagram stacked, Balance and Listen running down side by side into the motors -->
+          <svg class="loop-svg loop-svg--tall" viewBox="0 0 340 412" role="img" aria-labelledby="loop-title-m loop-desc-m">
+            <title id="loop-title-m">Control loop diagram</title>
+            <desc id="loop-desc-m">Two paths feed the motors. Balance: tilt measurement, then PID, then motors. Listen: audio input, then moving average filter, then beat detected, then movement pattern, then motors.</desc>
+            <defs>
+              <marker id="loop-arrow-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M0 1L9 5L0 9z" class="loop-arrowhead"/>
+              </marker>
+            </defs>
+
+            <!-- Column labels -->
+            <text class="loop-row-label" x="0" y="14">Balance</text>
+            <text class="loop-row-label" x="180" y="14">Listen</text>
+
+            <!-- Path 1: Tilt measurement → PID -->
+            <g class="loop-node"><rect x="0" y="26" width="160" height="50" rx="10"/><text x="80" y="56">Tilt measurement</text></g>
+            <line class="loop-link" x1="80" y1="76" x2="80" y2="98" marker-end="url(#loop-arrow-m)"/>
+            <g class="loop-node loop-node--key"><rect x="0" y="100" width="160" height="50" rx="10"/><text x="80" y="130">PID</text></g>
+
+            <!-- Path 2: Audio input → Moving average filter → Beat detected → Movement pattern -->
+            <g class="loop-node"><rect x="180" y="26" width="160" height="50" rx="10"/><text x="260" y="56">Audio input</text></g>
+            <line class="loop-link" x1="260" y1="76" x2="260" y2="98" marker-end="url(#loop-arrow-m)"/>
+            <g class="loop-node"><rect x="180" y="100" width="160" height="50" rx="10"/><text x="260" y="122">Moving average<tspan x="260" dy="16">filter</tspan></text></g>
+            <line class="loop-link" x1="260" y1="150" x2="260" y2="172" marker-end="url(#loop-arrow-m)"/>
+            <g class="loop-node"><rect x="180" y="174" width="160" height="50" rx="10"/><text x="260" y="204">Beat detected</text></g>
+            <line class="loop-link" x1="260" y1="224" x2="260" y2="246" marker-end="url(#loop-arrow-m)"/>
+            <g class="loop-node loop-node--key"><rect x="180" y="248" width="160" height="50" rx="10"/><text x="260" y="278">Movement pattern</text></g>
+
+            <!-- Both paths merge into the motors -->
+            <path class="loop-link" d="M80 150V318C80 342 170 330 170 354" marker-end="url(#loop-arrow-m)"/>
+            <path class="loop-link" d="M260 298V318C260 342 170 330 170 354"/>
+            <g class="loop-node loop-node--out"><rect x="90" y="356" width="160" height="54" rx="12"/><text x="170" y="389">Motors</text></g>
+          </svg>
         </figure>
 
         <div class="editorial-text editorial-text--full">
@@ -166,7 +197,7 @@
             <figure class="gallery-card">
               <!-- VIDEO: 1.mp4 -->
               <div class="video-frame video-frame--cropped">
-                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 1 of 8">
+                <video class="site-video" poster="../assets/projects/robot/posters/1.jpg" muted loop playsinline preload="none" aria-label="Robot footage, clip 1 of 8">
                   <source src="../assets/projects/robot/1.mp4#t=0.1" type="video/mp4">
                 </video>
               </div>
@@ -174,7 +205,7 @@
             <figure class="gallery-card">
               <!-- VIDEO: 2.mp4 -->
               <div class="video-frame video-frame--cropped">
-                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 2 of 8">
+                <video class="site-video" poster="../assets/projects/robot/posters/2.jpg" muted loop playsinline preload="none" aria-label="Robot footage, clip 2 of 8">
                   <source src="../assets/projects/robot/2.mp4#t=0.1" type="video/mp4">
                 </video>
               </div>
@@ -182,7 +213,7 @@
             <figure class="gallery-card">
               <!-- VIDEO: 3.mp4 -->
               <div class="video-frame video-frame--cropped">
-                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 3 of 8">
+                <video class="site-video" poster="../assets/projects/robot/posters/3.jpg" muted loop playsinline preload="none" aria-label="Robot footage, clip 3 of 8">
                   <source src="../assets/projects/robot/3.mp4#t=0.1" type="video/mp4">
                 </video>
               </div>
@@ -190,7 +221,7 @@
             <figure class="gallery-card">
               <!-- VIDEO: 4.mp4 -->
               <div class="video-frame video-frame--cropped">
-                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 4 of 8">
+                <video class="site-video" poster="../assets/projects/robot/posters/4.jpg" muted loop playsinline preload="none" aria-label="Robot footage, clip 4 of 8">
                   <source src="../assets/projects/robot/4.mp4#t=0.1" type="video/mp4">
                 </video>
               </div>
@@ -198,7 +229,7 @@
             <figure class="gallery-card">
               <!-- VIDEO: 5.mp4 -->
               <div class="video-frame video-frame--cropped">
-                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 5 of 8">
+                <video class="site-video" poster="../assets/projects/robot/posters/5.jpg" muted loop playsinline preload="none" aria-label="Robot footage, clip 5 of 8">
                   <source src="../assets/projects/robot/5.mp4#t=0.1" type="video/mp4">
                 </video>
               </div>
@@ -206,7 +237,7 @@
             <figure class="gallery-card">
               <!-- VIDEO: 6.mp4 -->
               <div class="video-frame video-frame--cropped">
-                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 6 of 8">
+                <video class="site-video" poster="../assets/projects/robot/posters/6.jpg" muted loop playsinline preload="none" aria-label="Robot footage, clip 6 of 8">
                   <source src="../assets/projects/robot/6.mp4#t=0.1" type="video/mp4">
                 </video>
               </div>
@@ -214,7 +245,7 @@
             <figure class="gallery-card">
               <!-- VIDEO: 7.mp4 -->
               <div class="video-frame video-frame--cropped">
-                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 7 of 8">
+                <video class="site-video" poster="../assets/projects/robot/posters/7.jpg" muted loop playsinline preload="none" aria-label="Robot footage, clip 7 of 8">
                   <source src="../assets/projects/robot/7.mp4#t=0.1" type="video/mp4">
                 </video>
               </div>
@@ -222,7 +253,7 @@
             <figure class="gallery-card">
               <!-- VIDEO: 8.mp4 -->
               <div class="video-frame video-frame--cropped">
-                <video class="site-video" muted loop playsinline preload="none" aria-label="Robot footage, clip 8 of 8">
+                <video class="site-video" poster="../assets/projects/robot/posters/8.jpg" muted loop playsinline preload="none" aria-label="Robot footage, clip 8 of 8">
                   <source src="../assets/projects/robot/8.mp4#t=0.1" type="video/mp4">
                 </video>
               </div>
