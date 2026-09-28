@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quorridors — Mayli Jones</title>
-  <meta name="description" content="A digital implementation of the strategy board game Quoridor">
+  <title>Quorridors | Mayli Jones</title>
+  <meta name="description" content="Quorridors: a playable Quoridor with an AI opponent, built in JavaScript with breadth-first search and minimax.">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style.css?v=2026-09-28i">
+  <!-- Styles for this page only; every rule is scoped to body.page-quorridors -->
+  <link rel="stylesheet" href="../css/quorridors.css?v=6">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="project-page">
+<body class="project-page page-quorridors">
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="logo">Mayli Jones</a>
@@ -26,65 +28,258 @@
   </header>
 
   <main>
-    <article class="case-study container">
+    <article class="editorial container">
       <a class="back-link" href="../index.html#work">&larr; All projects</a>
 
-      <header class="case-study-header">
-        <h1>Quorridors</h1>
-        <p class="project-subtitle">A digital implementation of the strategy board game Quoridor</p>
-        <ul class="project-tags">
-          <li>Software</li>
-          <li>Programming</li>
-          <li>Game Design</li>
-        </ul>
-        <a class="cta" href="quoridor-game/index.html" target="_blank" rel="noopener">Play Now &rarr;</a>
+      <!-- ============ 1. HERO ============ -->
+      <header class="q-hero">
+        <div class="q-hero-text">
+          <h1 class="q-title"><span class="sr-only">Quorridors</span><span class="q-title-q" aria-hidden="true">Q</span><span aria-hidden="true">u</span><span class="q-title-hex" aria-hidden="true"></span><span aria-hidden="true">rrid</span><span class="q-title-tri" aria-hidden="true"></span><span aria-hidden="true">r</span><span class="q-title-s" aria-hidden="true">s</span></h1>
+          <p class="q-subtitle">A playable Quoridor with an AI opponent</p>
+          <p class="q-intro">Built in JavaScript, with pathfinding and a minimax AI.</p>
+          <!-- CREDIT LINE: add here -->
+        </div>
       </header>
 
-      <div class="case-study-image" style="view-transition-name: vt-quoridor">
-        <img src="../assets/projects/quorridors.png" alt="Quorridors">
-      </div>
+      <!-- ============ 2. PLAY ============ -->
+      <section class="editorial-section q-section" id="play">
+        <h2 class="q-h2 q-h2--blue">Play it</h2>
+        <p class="q-lead">Choose one of three difficulty levels and take on the AI.</p>
 
-      <section class="case-study-section">
-        <h2>Overview</h2>
-        <p>[Placeholder — a short summary of the project: what it is, the context it was made in (module, brief, timeframe, team or solo), and why it mattered.]</p>
+        <!-- GAME: the playable game (projects/quoridor-game/index.html, unchanged), framed like a board.
+             Its height follows the game's own content, so it never scrolls inside the frame. -->
+        <div class="q-game-frame">
+          <iframe class="q-game" src="quoridor-game/index.html" title="Quorridors, playable game" loading="lazy"></iframe>
+        </div>
+        <p class="q-open-full"><a href="quoridor-game/index.html" target="_blank" rel="noopener">Open the game in a new tab &rarr;</a></p>
       </section>
 
-      <section class="case-study-section">
-        <h2>Problem</h2>
-        <p>[Placeholder — the brief or problem you were given, or the problem you identified yourself. What need or gap was this addressing?]</p>
-      </section>
-
-      <section class="case-study-section">
-        <h2>Process</h2>
-        <p>[Placeholder — research and discovery: user needs, constraints, existing solutions, early concepts.]</p>
-        <p>[Placeholder — making and building: sketches, prototypes, CAD iterations, physical builds, testing, and what you learned from each round of making. Include images of models, rigs, or test setups here.]</p>
-      </section>
-
-      <section class="case-study-section">
-        <h2>Outcome</h2>
-        <p>[Placeholder — the final result: what was delivered, how it performed against the brief, and any feedback or evaluation received.]</p>
-      </section>
-
-      <section class="case-study-section">
-        <h2>My Role</h2>
-        <p>[Placeholder — what you specifically did, especially if this was a team project. Be concrete about your contributions.]</p>
-      </section>
-
-      <section class="case-study-section">
-        <h2>Tools Used</h2>
-        <ul class="tools-list">
-          <li>[Tool 1]</li>
-          <li>[Tool 2]</li>
-          <li>[Tool 3]</li>
+      <!-- ============ 3. HOW TO PLAY ============ -->
+      <!-- Rules: worded to match the game's own Rules screen (quoridor-game/index.html, #rules-modal).
+           Each bullet zooms in from the left once as the list scrolls into view (script at the bottom). -->
+      <section class="editorial-section q-section">
+        <h2 class="q-h2 q-h2--orange">How to play</h2>
+        <ul class="q-rules-list">
+          <li>Two players, a 9x9 board. Each pawn starts in the centre square of its own edge.</li>
+          <li>Goal: be the first to reach the opposite side of the board.</li>
+          <li>On your turn, either move your pawn one square (forwards, backwards, left or right) or place a wall. Pawns can't move through walls.</li>
+          <li>Each wall spans two squares, and you get 10 walls. Both players must always have at least one route to their goal.</li>
+          <li>If the pawns meet face to face, you can jump over your opponent. If there's a wall directly behind them, step diagonally instead.</li>
         </ul>
+      </section>
+
+      <!-- ============ 4. UNDER THE HOOD ============ -->
+      <!-- Rows separated by hairlines: title on the left, text on the right (stacked on phones).
+           Each row fades up once as it scrolls into view (script at the bottom). -->
+      <section class="editorial-section q-section">
+        <h2 class="q-h2 q-h2--blue">Under the hood</h2>
+        <p class="q-lead">Quorridors is written in JavaScript, HTML and CSS. The rules, the pathfinding and the AI all run in the browser.</p>
+
+        <div class="q-rows">
+          <div class="q-row">
+            <h3 class="q-row-title">Game state and rules</h3>
+            <div class="q-row-text">
+              <p>The game keeps one state object: pawn positions, placed walls, walls remaining and whose turn it is. Every move, from a person or the AI, goes through the same validation, so the rules for movement and wall placement are enforced in a single place.</p>
+            </div>
+          </div>
+
+          <div class="q-row">
+            <h3 class="q-row-title">Pathfinding</h3>
+            <div class="q-row-text">
+              <p>Breadth-first search finds the shortest route across the grid, with walls treated as blocked edges. It's used twice: to check that a proposed wall still leaves both players a route to their goal, which is what rejects illegal walls, and to measure each player's shortest distance. Because every step costs the same, the first time the search reaches a goal square is guaranteed to be the shortest path.</p>
+            </div>
+          </div>
+
+          <div class="q-row">
+            <h3 class="q-row-title">The AI</h3>
+            <div class="q-row-text">
+              <p>The AI uses minimax: it looks ahead through possible moves, assuming each side picks the move that is best for them, and scores the positions it reaches. Alpha-beta pruning skips branches that cannot change the decision, so it can search further in the same time. Each position is scored by comparing the two players' shortest path lengths: the shorter your route is compared with your opponent's, the better the position. The game offers three difficulty tiers: Easy, Hard and Impossible.</p>
+              <!-- ADD: how the three tiers differ (e.g. search depth) -->
+            </div>
+          </div>
+
+          <div class="q-row">
+            <h3 class="q-row-title">Tuning</h3>
+            <div class="q-row-text">
+              <p>Early versions were wall-happy, placing walls at almost every turn instead of racing to the goal. Playtesting exposed it, and we refined the scoring until the AI balanced blocking with advancing.</p>
+              <!-- ADD: what specifically changed in the scoring, if you can say -->
+            </div>
+          </div>
+
+          <div class="q-row">
+            <h3 class="q-row-title">Accessibility</h3>
+            <div class="q-row-text">
+              <p>Accessibility was part of the build from the start. We used Firefox Developer Tools to inspect the accessibility tree and check the game for problems, and fixed what it found. The two players are told apart by shape (a hexagon and a triangle) as well as colour, so the game does not rely on colour alone.</p>
+              <!-- ADD: what the inspector flagged and what changed, keyboard controls, screen reader labels, contrast checks -->
+              <!-- IMAGE: accessibility inspector screenshot -->
+              <div class="img-placeholder img-placeholder--wide16 q-row-media">Firefox accessibility inspector screenshot</div>
+            </div>
+          </div>
+        </div>
       </section>
     </article>
   </main>
 
   <footer class="site-footer container">
-    <p>&copy; 2026 Mayli Jones.</p>
+    <p><span class="q-copy" data-tip="No walls were harmed.">&copy; 2026 Mayli Jones.</span></p>
   </footer>
 
+  <div class="q-toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function(){
+      const body=document.body;
+      const reduce=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Game frame: match the iframe's height to the game's content (menu and game differ), and when the
+      // game opens one of its pop-ups (rules, game over), centre the frame on screen so the pop-up is visible
+      const frame=document.querySelector('.q-game');
+      frame.addEventListener('load',()=>{
+        const doc=frame.contentDocument, win=frame.contentWindow;
+        if(!doc) return;
+        const main=doc.querySelector('main');
+        const fit=()=>{
+          const bottom=main.getBoundingClientRect().bottom+win.scrollY;
+          frame.style.height=Math.ceil(bottom+32)+'px';
+        };
+        fit();
+        new win.ResizeObserver(fit).observe(main);
+        // Also refit whenever the game shows/hides a screen or resizes its board (catches every layout change)
+        new win.MutationObserver(fit).observe(doc.body,{subtree:true,childList:true,attributes:true,attributeFilter:['style','class','width','height']});
+        win.addEventListener('resize',fit);
+        new win.MutationObserver(ms=>{
+          if(ms.some(m=>m.target.hasAttribute('open'))){
+            const r=frame.getBoundingClientRect();
+            if(r.height>window.innerHeight*0.9||r.top<0||r.bottom>window.innerHeight)
+              frame.scrollIntoView({block:'center',behavior:reduce()?'auto':'smooth'});
+          }
+        }).observe(doc.body,{subtree:true,attributes:true,attributeFilter:['open']});
+      });
+
+      // How to play: each bullet zooms in from the left, 100ms apart, once the list is a quarter visible.
+      // Plays once; with reduced motion (or no IntersectionObserver) the list is simply shown.
+      const rules=document.querySelector('.q-rules-list');
+      if(rules&&!reduce()&&'IntersectionObserver' in window){
+        [...rules.children].forEach((li,i)=>li.style.setProperty('--i',i));
+        rules.classList.add('is-waiting');
+        const io=new IntersectionObserver(entries=>{
+          if(!entries.some(e=>e.isIntersecting)) return;
+          rules.classList.remove('is-waiting');
+          rules.classList.add('is-revealed');
+          io.disconnect();
+        },{threshold:0.25});
+        io.observe(rules);
+      }
+
+      // Under the hood: each row fades in and rises as it scrolls into view, once.
+      // With reduced motion (or no IntersectionObserver) the rows are simply shown.
+      const rows=[...document.querySelectorAll('.q-row')];
+      if(rows.length&&!reduce()&&'IntersectionObserver' in window){
+        rows.forEach(r=>r.classList.add('is-waiting'));
+        const rowIo=new IntersectionObserver(entries=>{
+          entries.forEach(e=>{
+            if(!e.isIntersecting) return;
+            e.target.classList.remove('is-waiting');
+            e.target.classList.add('is-revealed');
+            rowIo.unobserve(e.target);
+          });
+        },{threshold:0.2});
+        rows.forEach(r=>rowIo.observe(r));
+      }
+
+      // Small toast message
+      const toast=document.querySelector('.q-toast');
+      let toastTimer=null;
+      const showToast=(text,ms)=>{
+        toast.textContent=text; toast.classList.add('is-shown');
+        clearTimeout(toastTimer);
+        if(ms) toastTimer=setTimeout(hideToast,ms);
+      };
+      const hideToast=()=>{ toast.classList.remove('is-shown'); };
+
+      // Easter egg: click the "Q" three times to swap blue and orange across the page (and three more to swap back)
+      let qClicks=0, qTimer=null;
+      document.querySelector('.q-title-q').addEventListener('click',()=>{
+        qClicks++; clearTimeout(qTimer); qTimer=setTimeout(()=>{ qClicks=0; },1500);
+        if(qClicks<3) return;
+        qClicks=0;
+        if(!reduce()){ body.classList.add('q-swap-anim'); setTimeout(()=>body.classList.remove('q-swap-anim'),600); }
+        body.classList.toggle('q-swapped');
+      });
+
+      // Easter egg: click the blue hexagon or orange triangle in the title for a storm of walls in that colour
+      // ("the early AI"). Click anywhere (or press Esc) to clear.
+      let storm=null;
+      const clearStorm=()=>{ if(!storm) return; storm.remove(); storm=null; hideToast(); };
+      const wallStorm=colour=>{
+        if(storm) return;
+        storm=document.createElement('div');
+        storm.className='q-storm q-storm--'+colour;
+        storm.setAttribute('aria-hidden','true');
+        storm.addEventListener('click',clearStorm);
+        body.appendChild(storm);
+        const COUNT=70, still=reduce();
+        for(let i=0;i<COUNT;i++){
+          const add=()=>{
+            if(!storm) return;
+            const w=document.createElement('span');
+            const vertical=Math.random()<0.5, len=70+Math.random()*90;
+            w.className='q-storm-wall'+(still?' is-still':'');
+            w.style.width=(vertical?12:len)+'px';
+            w.style.height=(vertical?len:12)+'px';
+            w.style.left=(Math.random()*100)+'vw';
+            w.style.top=(Math.random()*100)+'vh';
+            w.style.marginLeft=(vertical?-6:-len/2)+'px';
+            w.style.marginTop=(vertical?-len/2:-6)+'px';
+            storm.appendChild(w);
+          };
+          if(still) add(); else setTimeout(add,i*22);
+        }
+        showToast('The early AI, basically.');
+      };
+      document.querySelector('.q-title-hex').addEventListener('click',e=>{ e.stopPropagation(); wallStorm('blue'); });
+      document.querySelector('.q-title-tri').addEventListener('click',e=>{ e.stopPropagation(); wallStorm('orange'); });
+      document.addEventListener('keydown',e=>{ if(e.key==='Escape') clearStorm(); });
+
+      // Easter egg: Konami code rains pawns of both colours for three seconds
+      const KONAMI=['arrowup','arrowup','arrowdown','arrowdown','arrowleft','arrowright','arrowleft','arrowright','b','a'];
+      let pos=0, raining=false;
+      document.addEventListener('keydown',e=>{
+        const k=(e.key||'').toLowerCase();
+        pos=(k===KONAMI[pos])?pos+1:(k===KONAMI[0]?1:0);
+        if(pos<KONAMI.length) return;
+        pos=0;
+        if(raining) return;
+        raining=true;
+        const rain=document.createElement('div');
+        rain.className='q-rain';
+        rain.setAttribute('aria-hidden','true');
+        body.appendChild(rain);
+        const still=reduce(), DURATION=3000;
+        const drop=()=>{
+          const p=document.createElement('span');
+          p.className='q-rain-pawn '+(Math.random()<0.5?'q-rain-pawn--blue':'q-rain-pawn--orange')+(still?' is-still':'');
+          const size=14+Math.random()*16;
+          p.style.width=p.style.height=size+'px';
+          p.style.left=(Math.random()*100)+'vw';
+          if(still) p.style.top=(Math.random()*100)+'vh';
+          else p.style.animationDuration=(1.1+Math.random()*1.1)+'s';
+          p.addEventListener('animationend',()=>p.remove());
+          rain.appendChild(p);
+        };
+        if(still){
+          for(let i=0;i<36;i++) drop();
+          setTimeout(()=>{ rain.remove(); raining=false; },DURATION);
+        } else {
+          const spawner=setInterval(drop,45);
+          setTimeout(()=>{
+            clearInterval(spawner);
+            setTimeout(()=>{ rain.remove(); raining=false; },2400); // let the last ones finish falling
+          },DURATION);
+        }
+      });
+    })();
+  </script>
   <script src="../js/script.js"></script>
 </body>
 </html>

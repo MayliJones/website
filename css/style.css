@@ -209,6 +209,28 @@ button:focus-visible {
   padding: var(--space-xs);
 }
 
+/* Bigger tap areas for small controls (at least 24px tall, the menu button 44px), made with an invisible
+   layer around each one so nothing changes visually or moves in the layout */
+.nav-toggle,
+.back-link,
+.project-filter-tag,
+.contact-item {
+  position: relative;
+}
+
+.nav-toggle::after,
+.back-link::after,
+.project-filter-tag::after,
+.contact-item::after {
+  content: "";
+  position: absolute;
+  inset: -6px -4px;
+}
+
+.nav-toggle::after {
+  inset: -13px -3px;
+}
+
 .nav-toggle-bar,
 .nav-toggle-bar::before,
 .nav-toggle-bar::after {
