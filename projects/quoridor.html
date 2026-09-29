@@ -8,7 +8,7 @@
   <link rel="icon" href="../assets/logo.png">
   <link rel="stylesheet" href="../css/style.css?v=2026-09-28i">
   <!-- Styles for this page only; every rule is scoped to body.page-quorridors -->
-  <link rel="stylesheet" href="../css/quorridors.css?v=6">
+  <link rel="stylesheet" href="../css/quorridors.css?v=9">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="project-page page-quorridors">
@@ -111,8 +111,11 @@
             <div class="q-row-text">
               <p>Accessibility was part of the build from the start. We used Firefox Developer Tools to inspect the accessibility tree and check the game for problems, and fixed what it found. The two players are told apart by shape (a hexagon and a triangle) as well as colour, so the game does not rely on colour alone.</p>
               <!-- ADD: what the inspector flagged and what changed, keyboard controls, screen reader labels, contrast checks -->
-              <!-- IMAGE: accessibility inspector screenshot -->
-              <div class="img-placeholder img-placeholder--wide16 q-row-media">Firefox accessibility inspector screenshot</div>
+              <!-- IMAGE: accessibility check screenshot (axe DevTools in Firefox) -->
+              <figure class="q-row-media q-shot">
+                <img src="../assets/projects/quorridors/firefox.png" width="1280" height="695" loading="lazy" alt="The Quorridors start screen with Firefox Developer Tools open below it. The axe DevTools panel reports 0 accessibility issues: none critical, serious, moderate or minor, tested against WCAG 2.1 AA with best practices on.">
+                <figcaption>An axe DevTools scan in Firefox: 0 issues against WCAG 2.1 AA.</figcaption>
+              </figure>
             </div>
           </div>
         </div>
@@ -203,7 +206,7 @@
         qClicks++; clearTimeout(qTimer); qTimer=setTimeout(()=>{ qClicks=0; },1500);
         if(qClicks<3) return;
         qClicks=0;
-        if(!reduce()){ body.classList.add('q-swap-anim'); setTimeout(()=>body.classList.remove('q-swap-anim'),600); }
+        body.classList.add('q-swap-anim'); setTimeout(()=>body.classList.remove('q-swap-anim'),600); // a colour fade, so fine with reduced motion too
         body.classList.toggle('q-swapped');
       });
 
@@ -233,7 +236,7 @@
             w.style.marginTop=(vertical?-len/2:-6)+'px';
             storm.appendChild(w);
           };
-          if(still) add(); else setTimeout(add,i*22);
+          setTimeout(add,i*22); // one after another; with reduced motion they fade in rather than pop (see CSS)
         }
         showToast('The early AI, basically.');
       };

@@ -188,10 +188,6 @@
   color: #1b1b1f;
 }
 
-.page-quorridors .q-row-text {
-  max-width: 62ch;
-}
-
 .page-quorridors .q-row-text p {
   margin: 0 0 var(--space-sm);
   font-size: 1.05rem;
@@ -203,9 +199,24 @@
   margin-bottom: 0;
 }
 
-/* Screenshot placeholder under the accessibility text, as wide as the text column */
+/* Screenshot under the accessibility text, as wide as the text column */
 .page-quorridors .q-row-media {
   margin: var(--space-md) 0 0;
+}
+
+/* Screenshot: a hairline edge so its white top doesn't melt into the page */
+.page-quorridors .q-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid #e3e3e8;
+  border-radius: 6px;
+}
+
+.page-quorridors .q-shot figcaption {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #6b6b73;
 }
 
 /* Scroll-in: each row fades in and rises once (script adds the classes) */
@@ -325,7 +336,7 @@
   to { transform: translateY(calc(100vh + 80px)); }
 }
 
-/* Reduced motion: nothing zooms, falls or pops; the easter eggs appear still */
+/* Reduced motion: nothing zooms, slides, rises or falls; the easter eggs fade in instead */
 @media (prefers-reduced-motion: reduce) {
   .page-quorridors .q-storm-wall,
   .page-quorridors .q-rain-pawn {
@@ -344,13 +355,27 @@
     transition: none;
   }
 
-  .page-quorridors .q-toast,
   .page-quorridors .q-copy::after {
     transition: none;
   }
+
+  /* The toast still fades in, it just doesn't slide */
+  .page-quorridors .q-toast,
+  .page-quorridors .q-toast.is-shown {
+    transform: translate(-50%, 0);
+    transition: opacity 0.25s ease;
+  }
 }
 
-.page-quorridors .q-storm-wall.is-still,
+/* Reduced motion: walls still build up one by one, but fade in instead of popping */
+.page-quorridors .q-storm-wall.is-still {
+  animation: q-wall-fade 0.25s ease-out backwards;
+}
+
+@keyframes q-wall-fade {
+  from { opacity: 0; }
+}
+
 .page-quorridors .q-rain-pawn.is-still {
   animation: none;
 }
