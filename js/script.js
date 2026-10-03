@@ -56,6 +56,24 @@ if (emailButton) {
   });
 }
 
+// Media carousel (project pages): arrows step through the images one at a time and wrap round at either end
+document.querySelectorAll(".media-carousel").forEach((carousel) => {
+  const slides = Array.from(carousel.querySelectorAll(".media-carousel-frame img"));
+  const dotsRow = carousel.querySelector(".media-carousel-dots");
+  const dots = slides.map(() => dotsRow.appendChild(document.createElement("span")));
+  let current = Math.max(0, slides.findIndex((s) => s.classList.contains("is-active")));
+
+  const show = (n) => {
+    current = (n + slides.length) % slides.length;
+    slides.forEach((s, k) => s.classList.toggle("is-active", k === current));
+    dots.forEach((d, k) => d.classList.toggle("is-active", k === current));
+  };
+
+  carousel.querySelector(".gallery-arrow--prev").addEventListener("click", () => show(current - 1));
+  carousel.querySelector(".gallery-arrow--next").addEventListener("click", () => show(current + 1));
+  show(current);
+});
+
 // Footer: auto-update copyright year
 const currentYear = document.getElementById("current-year");
 

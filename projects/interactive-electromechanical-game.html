@@ -6,12 +6,12 @@
   <title>MindMeter | Mayli Jones</title>
   <meta name="description" content="MindMeter: a playful mechatronic machine that measures sanity, perception, luck and emotion through sensors, lights and mechanical games.">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css?v=2026-09-29a">
+  <link rel="stylesheet" href="../css/style.css?v=2026-10-03m">
   <!-- Page transition: don't paint until the hero exists, so the card can zoom straight into it -->
   <link rel="expect" href="#mm-hero" blocking="render">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="project-page">
+<body class="project-page theme-blue">
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="logo">Mayli Jones</a>
@@ -33,8 +33,24 @@
 
       <!-- ============ 1. HERO ============ -->
       <header class="editorial-hero">
-        <h1 class="editorial-title">MindMeter</h1>
-        <p class="editorial-subtitle">Measuring the Unmeasurable</p>
+        <!-- Title on the left, skills on the right (they drop below the title on phones).
+             The skills reuse the homepage About columns (.about-grid-col), a size smaller. -->
+        <div class="hero-head">
+          <div>
+            <h1 class="editorial-title">MindMeter</h1>
+            <p class="editorial-subtitle">Measuring the Unmeasurable</p>
+          </div>
+          <div class="hero-skills" aria-label="Skills developed">
+            <div class="about-grid-col">
+              <h3 class="about-grid-heading">Technical</h3>
+              <p>CAD, Mechanical Design, Rapid Prototyping, DFA, Arduino, Electronics Integration, Soldering</p>
+            </div>
+            <div class="about-grid-col">
+              <h3 class="about-grid-heading">Transferable</h3>
+              <p>Creativity, Resourcefulness, Resilience, Teamwork, Presentation</p>
+            </div>
+          </div>
+        </div>
 
         <!-- VIDEO: YouTube (privacy-enhanced youtube-nocookie.com). Keep id and view-transition-name so the project card morphs into it. -->
         <div class="editorial-img editorial-img--hero mm-video" id="mm-hero" style="view-transition-name: vt-interactive-electromechanical-game">
@@ -42,7 +58,7 @@
                   allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
-        <!-- CREDIT LINE: add here -->
+        <p class="editorial-credit">Pair project with Aidan Ryder</p>
       </header>
 
       <!-- ============ 2. THE CHALLENGE / THE SOLUTION ============ -->
@@ -62,58 +78,82 @@
       </section>
 
       <!-- ============ 3. MY ROLE ============ -->
-      <section class="editorial-section">
-        <h2>My Role</h2>
-        <ul class="ed-list">
-          <li>Developed the full CAD model and mechanical systems</li>
-          <li>3D printed, finished and assembled the prototype</li>
-          <li>Integrated electronics through soldering and wiring</li>
-          <li>Presented and demonstrated the working machine to visitors</li>
-        </ul>
-
-        <h3 class="mm-skills-title">Key skills</h3>
-        <ul class="project-tags mm-skills">
-          <li>CAD</li>
-          <li>3D Printing</li>
-          <li>Rapid Prototyping</li>
-          <li>Arduino</li>
-          <li>DFA</li>
-          <li>Electronics Integration</li>
-          <li>Mechanical Design</li>
-          <li>C++</li>
-          <li>Soldering</li>
-        </ul>
+      <!-- Text on the left, image carousel on the right, half each; stacked on phones.
+           Reusable on any project page: .role-split + .media-carousel (script in js/script.js). -->
+      <section class="editorial-section role-split">
+        <div>
+          <h2>My Role</h2>
+          <ul class="ed-list">
+            <li>Developed the full CAD model and mechanical systems</li>
+            <li>3D printed, finished and assembled the prototype</li>
+            <li>Integrated electronics through soldering and wiring</li>
+            <li>Presented and demonstrated the working machine to visitors</li>
+          </ul>
+        </div>
+        <!-- One image at a time; the slide marked is-active shows on load. is-contain shows an image whole (no crop). -->
+        <div class="media-carousel" aria-roledescription="carousel" aria-label="MindMeter photos">
+          <div class="media-carousel-stage">
+            <div class="media-carousel-frame">
+              <img class="is-active" src="../assets/projects/mind/present.jpg" alt="Mayli presenting MindMeter in front of a screen showing its CAD render" width="1320" height="1048">
+              <img class="is-contain" src="../assets/projects/mind/sketch.jpg" alt="Early concept sketches: the first machine layout, a barrel cam and a cam follower" width="1376" height="1096" loading="lazy">
+              <img class="is-contain" src="../assets/projects/mind/cad1-web.png" alt="CAD render of MindMeter: the Insanity tower, diamond pistons, Wheel of Luck, Slides of Emotions and side lever" width="916" height="1100" loading="lazy">
+              <img src="../assets/projects/mind/test.jpg" alt="Mayli testing MindMeter's wiring, with the piston gear train exposed" width="840" height="668" loading="lazy">
+            </div>
+            <button type="button" class="gallery-arrow gallery-arrow--prev" aria-label="Previous image">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button type="button" class="gallery-arrow gallery-arrow--next" aria-label="Next image">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <div class="media-carousel-dots" aria-hidden="true"></div>
+        </div>
       </section>
 
       <!-- ============ 4. DEVELOPMENT JOURNEY ============ -->
       <section class="editorial-section">
         <h2>Development Journey</h2>
         <div class="editorial-text editorial-text--full">
-          <p>The project developed through rapid prototyping, CAD iteration and repeated trial and error. Rather than following a fixed design from the start, each mechanism was built, tested and refined as we learned how the different moving parts behaved in practice.</p>
-          <p>CAD helped explore gear trains, linkages and internal layouts before manufacturing, while physical prototypes revealed issues with friction, alignment and reliability. These findings guided each new iteration, allowing the mechanical and electronic systems to gradually develop into one integrated interactive machine.</p>
+          <p>MindMeter measures four invented stats, Sanity, Perception, Luck and Emotion, each inspired by a different reference: a carnival strength-test game, a crankshaft-driven piston row, and a slot machine. We stayed deliberately resourceful throughout: the only components bought beyond the supplied kit were bearings and a ToF sensor, four LED colours were combined to produce seven output colours instead of buying an LED strip, and every sticker and sign was designed, printed and cut by hand.</p>
         </div>
 
-        <div class="mm-grid">
-          <figure class="mm-figure">
-            <!-- IMAGE: concept development sketches -->
-            <div class="img-placeholder mm-media">Concept Development</div>
-            <figcaption><strong>Concept Development</strong>Explored and combined interactive mechanism ideas through sketches.</figcaption>
-          </figure>
-          <figure class="mm-figure">
-            <!-- IMAGE: mechanical design (CAD and prototypes) -->
-            <div class="img-placeholder mm-media">Mechanical Design</div>
-            <figcaption><strong>Mechanical Design</strong>Refined gears, linkages and moving assemblies through CAD and prototypes.</figcaption>
-          </figure>
-          <figure class="mm-figure">
-            <!-- IMAGE: electronic integration (soldering, Arduino, sensors) -->
-            <div class="img-placeholder mm-media">Electronic Integration</div>
-            <figcaption><strong>Electronic Integration</strong>Soldered and integrated Arduino, sensors, motors and LEDs.</figcaption>
-          </figure>
-          <figure class="mm-figure">
-            <!-- IMAGE: public presentation at GERF / Open Day -->
-            <div class="img-placeholder mm-media">Public Presentation</div>
-            <figcaption><strong>Public Presentation</strong>Presented and demonstrated at GERF and the 2026 Open Day to visitors.</figcaption>
-          </figure>
+        <!-- Image beside text on desktop, image above text on phones -->
+        <div class="mm-steps">
+          <div class="mm-step">
+            <!-- IMAGE: Insanity Tower, glowing -->
+            <div class="img-placeholder mm-media">Insanity Tower, glowing</div>
+            <div class="mm-step-text">
+              <h3>Insanity Tower</h3>
+              <p>The tower measures Sanity. In idle it glows blue with a flickering letter 'A', stoppable with a capacitive touch sensor behind it. Pressing the button runs a 'sanity check': a microphone reads peak volume through an op-amp circuit with 11× gain, and a rising bar of 16 LEDs, driven by two shift registers on just 3 microcontroller pins, shows the result. Past a threshold, the tower goes 'haywire' and triggers the rest of the machine. The original concept was two separate ideas, a broken sign with the touch sensor, and a separate loudness check, combined into one tower to cut down on large prints and make the design feel more cohesive.</p>
+            </div>
+          </div>
+
+          <div class="mm-step">
+            <!-- IMAGE: Magic Diamonds pistons -->
+            <div class="img-placeholder mm-media">Magic Diamonds pistons</div>
+            <div class="mm-step-text">
+              <h3>Magic Diamonds</h3>
+              <p>Six diamond-topped pistons measure Perception. In idle they track a hand using a time-of-flight sensor; in test mode, a countdown plays on the tower and the user has exactly 3 seconds to move their hand to the end of the row, graded red, yellow or green. A single servo drives all six pistons through a shared gear shaft, one Scotch-yoke mechanism per piston, phased so the pistons rise in a travelling wave rather than together. The first version used a barrel cam system, but 3D-printed cam followers had too much friction to climb the barrel, so we switched to the Scotch-yoke design, then reinforced the shaft after the first version proved too weak.</p>
+            </div>
+          </div>
+
+          <div class="mm-step">
+            <!-- IMAGE: Wheel and emotion slides mechanism -->
+            <div class="img-placeholder mm-media">Wheel and emotion slides mechanism</div>
+            <div class="mm-step-text">
+              <h3>Wheel of Luck &amp; Slides of Emotion</h3>
+              <p>Pulling a side lever spins a wheel and a set of emotion slides continuously; releasing it lets both coast to a random stop, revealing a luck and emotion result. A single DC motor drives the wheel directly and, through a 1:1 bevel gear pair, a second shaft carrying a rotating barrel that carries the emotion slides, held in place by a fixed stopper so one slide is always visible. The lever itself drives a rack and pinion, sized using the arc-length relationship <em>s</em>&nbsp;=&nbsp;<em>r</em>θ, a 20mm rack travel at 90° of lever rotation gave a required pinion radius of 12.8mm, met with a standard module 0.8, 32-tooth gear. The emotion slides were originally geared 2:1 to spin faster than the wheel, but testing showed direct drive was already fast enough, so the extra gear was removed to simplify the mechanism.</p>
+            </div>
+          </div>
+
+          <div class="mm-step">
+            <!-- IMAGE: Full circuit diagram -->
+            <div class="img-placeholder mm-media">Full circuit diagram</div>
+            <div class="mm-step-text">
+              <h3>Circuit and Code</h3>
+              <p>Everything runs from a single Arduino Uno. High-current and low-level signal components sit on separate power rails to cut electrical noise, decoupling capacitors and flyback diodes protect the circuit, and a MOSFET switches the DC motor instead of an H-bridge, since only one direction of movement was needed. The code is built around enums and switch-case logic implementing several finite state machines, one each for the pistons, the tower, and the motor subsystems, run with non-blocking timing so nothing stalls while something else is active.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -121,8 +161,22 @@
       <section class="editorial-section">
         <h2>Final Design</h2>
 
-        <!-- IMAGE: annotated final build (full width) -->
-        <div class="img-placeholder img-placeholder--wide16">MindMeter: annotated final build</div>
+        <!-- Final build photo first, then the annotated CAD; same carousel as My Role (script in js/script.js) -->
+        <div class="media-carousel media-carousel--feature" aria-roledescription="carousel" aria-label="MindMeter final design">
+          <div class="media-carousel-stage">
+            <div class="media-carousel-frame">
+              <img class="is-active" src="../assets/projects/mind/hands.jpg?v=2" alt="The finished MindMeter in use: one hand pressing the glowing Insanity tower button, one held over the diamond pistons and one pulling the side lever" width="1600" height="1478" loading="lazy">
+              <img class="is-contain" src="../assets/projects/mind/final-design.jpg" alt="Annotated CAD of MindMeter from the front and back: ToF sensor, Magic Rising Diamonds, mic and button, Scotch-yoke mechanism, Wheel of Luck, stopper for the emotion slides, rack and pinion lever, and wiring hidden in the tower" width="1836" height="1524" loading="lazy">
+            </div>
+            <button type="button" class="gallery-arrow gallery-arrow--prev" aria-label="Previous image">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button type="button" class="gallery-arrow gallery-arrow--next" aria-label="Next image">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <div class="media-carousel-dots" aria-hidden="true"></div>
+        </div>
 
         <div class="mm-features">
           <div class="mm-feature">
@@ -158,6 +212,6 @@
     <p>&copy; 2026 Mayli Jones.</p>
   </footer>
 
-  <script src="../js/script.js"></script>
+  <script src="../js/script.js?v=2026-10-03j"></script>
 </body>
 </html>

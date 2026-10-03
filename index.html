@@ -6,7 +6,7 @@
   <title>Mayli Jones | Portfolio</title>
   <meta name="description" content="Portfolio of Mayli Jones, design engineer working across human-centred design, electronics, and manufacturing.">
   <link rel="icon" href="assets/logo.png">
-  <link rel="stylesheet" href="css/style.css?v=2026-09-29a">
+  <link rel="stylesheet" href="css/style.css?v=2026-10-03m">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Prerender a project page when its card is hovered (or pressed on touch), so on click the page and its hero
        photo are already loaded and the card image can zoom straight into it -->
@@ -235,7 +235,7 @@
             </div>
           </a>
 
-          <a class="project-card" href="projects/thermofluids-project.html" data-tags="cad-simulation">
+          <a class="project-card" href="projects/thermofluids-project.html" data-coming-soon hidden data-tags="cad-simulation">
             <div class="project-image" style="view-transition-name: vt-thermofluids-project">
               <img src="assets/projects/car.png" alt="Roadster Redesign">
             </div>
@@ -247,7 +247,7 @@
             </div>
           </a>
 
-          <a class="project-card" href="projects/sustainable-modular-aircraft-seat.html" data-tags="human-centred-design sustainability">
+          <a class="project-card" href="projects/sustainable-modular-aircraft-seat.html" data-coming-soon hidden data-tags="human-centred-design sustainability">
             <div class="project-image" style="view-transition-name: vt-sustainable-modular-aircraft-seat">
               <img src="assets/projects/SDE.png" alt="Sustainable Childrens Aircraft Seat">
             </div>
@@ -260,7 +260,7 @@
             </div>
           </a>
 
-          <a class="project-card" href="projects/step-pawsitive.html" data-tags="human-centred-design">
+          <a class="project-card" href="projects/step-pawsitive.html" data-coming-soon hidden data-tags="human-centred-design">
             <div class="project-image" style="view-transition-name: vt-step-pawsitive">
               <img src="assets/projects/shoe.png" alt="Step Pawsitive">
             </div>
@@ -272,7 +272,7 @@
             </div>
           </a>
 
-          <a class="project-card" href="projects/running-leg-fea.html" data-tags="cad-simulation">
+          <a class="project-card" href="projects/running-leg-fea.html" data-coming-soon hidden data-tags="cad-simulation">
             <div class="project-image" style="view-transition-name: vt-running-leg-fea">
               <img src="assets/projects/fea.png" alt="Prosthetic Running Leg">
             </div>
@@ -284,7 +284,7 @@
             </div>
           </a>
 
-          <a class="project-card" href="projects/reveng.html" data-tags="sustainability dfm">
+          <a class="project-card" href="projects/reveng.html" data-coming-soon hidden data-tags="sustainability dfm">
             <div class="project-image" style="view-transition-name: vt-reveng">
               <img src="assets/projects/reveng.png" alt="REVENG">
             </div>
@@ -297,7 +297,7 @@
             </div>
           </a>
 
-          <a class="project-card" href="projects/tilt-quest.html" data-tags="human-centred-design cad-simulation">
+          <a class="project-card" href="projects/tilt-quest.html" data-coming-soon hidden data-tags="human-centred-design cad-simulation">
             <div class="project-image" style="view-transition-name: vt-tilt-quest">
               <img src="assets/projects/TiltQuest.png" alt="Tilt Quest">
             </div>
@@ -310,7 +310,7 @@
             </div>
           </a>
 
-          <a class="project-card" href="projects/health-prediction-model-svr.html" data-tags="data-science">
+          <a class="project-card" href="projects/health-prediction-model-svr.html" data-coming-soon hidden data-tags="data-science">
             <div class="project-image" style="view-transition-name: vt-health-prediction-model-svr">
               <img src="assets/projects/data.png" alt="Data Science Health Prediction Model (SVR)">
             </div>
@@ -322,7 +322,7 @@
             </div>
           </a>
 
-          <a class="project-card" href="projects/piano-trainer.html" data-tags="electronics">
+          <a class="project-card" href="projects/piano-trainer.html" data-coming-soon hidden data-tags="electronics">
             <div class="project-image" style="view-transition-name: vt-piano-trainer">
               <img src="assets/projects/piano.png" alt="Piano Trainer">
             </div>
@@ -334,7 +334,7 @@
             </div>
           </a>
 
-          <a class="project-card" href="projects/battery-design-project.html" data-tags="cad-simulation">
+          <a class="project-card" href="projects/battery-design-project.html" data-coming-soon hidden data-tags="cad-simulation">
             <div class="project-image" style="view-transition-name: vt-battery-design-project">
               <img src="assets/projects/battery.png" alt="Battery Design Project">
             </div>
@@ -346,7 +346,7 @@
             </div>
           </a>
 
-          <a class="project-card" href="projects/flat-pack-phone-stand.html" data-tags="cad-simulation dfm">
+          <a class="project-card" href="projects/flat-pack-phone-stand.html" data-coming-soon hidden data-tags="cad-simulation dfm">
             <div class="project-image" style="view-transition-name: vt-flat-pack-phone-stand">
               <img src="assets/projects/flatpack.png" alt="Flat-Pack Phone Stand">
             </div>
@@ -362,6 +362,8 @@
         </div>
         <p class="project-empty" hidden>No projects match.</p>
         <button type="button" class="project-more" hidden>See more</button>
+        <!-- Shown instead of "See more" while some projects are held back (cards marked data-coming-soon) -->
+        <p class="project-more project-coming" hidden>More coming in the future</p>
       </div>
     </section>
 
@@ -395,7 +397,7 @@
     </div>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script src="js/script.js?v=2026-10-03j"></script>
   <script>
     (function initSplodges(){
       const groups=Array.from(document.querySelectorAll('.splash .splash-m'));
@@ -539,13 +541,16 @@
       const grid=document.querySelector('.project-grid');
       const filterRow=document.querySelector('.project-filter');
       const search=document.querySelector('.project-search');
-      const more=document.querySelector('.project-more');
+      const more=document.querySelector('button.project-more');
+      const coming=document.querySelector('.project-coming');
       const empty=document.querySelector('.project-empty');
       if(!grid||!filterRow||!search||!more) return;
 
       const PAGE_SIZE=8;
       const slug=s=>s.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-      const cards=Array.from(grid.querySelectorAll('.project-card')).map(el=>({
+      // Projects marked data-coming-soon stay hidden and out of the filters and search until they're ready
+      const holdingBack=grid.querySelector('.project-card[data-coming-soon]')!==null;
+      const cards=Array.from(grid.querySelectorAll('.project-card:not([data-coming-soon])')).map(el=>({
         el,
         title:el.querySelector('.project-title').textContent.toLowerCase(),
         tags:(el.dataset.tags||'').split(/\s+/).filter(Boolean)
@@ -553,7 +558,7 @@
 
       // Labels come from the visible captions; fall back to title-casing the slug
       const labels={};
-      grid.querySelectorAll('.project-tags li').forEach(li=>{ labels[slug(li.textContent)]=li.textContent.trim(); });
+      grid.querySelectorAll('.project-card:not([data-coming-soon]) .project-tags li').forEach(li=>{ labels[slug(li.textContent)]=li.textContent.trim(); });
       const labelFor=t=>labels[t]||t.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
 
       const tags=[...new Set(cards.flatMap(c=>c.tags))].sort((a,b)=>labelFor(a).localeCompare(labelFor(b)));
@@ -592,17 +597,22 @@
         more.hidden=matches.length<=PAGE_SIZE;
         more.textContent=expanded?'See less':'See more';
         more.setAttribute('aria-expanded',expanded);
+        // Nothing more to expand but projects are held back: say more are on the way instead
+        if(coming) coming.hidden=!(holdingBack&&more.hidden&&!activeTag&&!q);
         if(empty) empty.hidden=matches.length>0;
         placeMore();
       }
 
-      // Sit the link in the empty slot at the end of the last row; if the last row is full, drop it below the grid
+      // Sit the link (or the "more coming" note) in the empty slot at the end of the last row;
+      // if the last row is full, drop it below the grid
       function placeMore(){
         const cols=getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length;
         const count=cards.filter(c=>!c.el.hidden).length;
         const inGrid=count%cols!==0;
-        if(inGrid&&more.parentNode!==grid) grid.appendChild(more);
-        else if(!inGrid&&more.parentNode===grid) grid.insertAdjacentElement('afterend',more);
+        [more,coming].filter(Boolean).forEach(el=>{
+          if(inGrid&&el.parentNode!==grid) grid.appendChild(el);
+          else if(!inGrid&&el.parentNode===grid) grid.insertAdjacentElement('afterend',el);
+        });
       }
 
       let resizeRaf=null;
