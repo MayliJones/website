@@ -6,7 +6,7 @@
   <title>Mayli Jones | Portfolio</title>
   <meta name="description" content="Portfolio of Mayli Jones, design engineer working across human-centred design, electronics, and manufacturing.">
   <link rel="icon" href="assets/logo.png">
-  <link rel="stylesheet" href="css/style.css?v=2026-09-28i">
+  <link rel="stylesheet" href="css/style.css?v=2026-09-29a">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Prerender a project page when its card is hovered (or pressed on touch), so on click the page and its hero
        photo are already loaded and the card image can zoom straight into it -->
@@ -35,7 +35,7 @@
   </header>
 
   <section class="hero" id="top" aria-label="Intro">
-    <div class="hero-bg" aria-hidden="true">
+    <div class="hero-bg" aria-hidden="true" data-palette="pastel">
       <svg class="splash s1" viewBox="0 0 200 200" aria-hidden="true">
         <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#ff9f6b"/></linearGradient></defs>
         <g class="splash-m"><path fill="url(#g1)" d="M61.6,-49.3C76.6,-33.3,82.2,-9.1,77.7,12.3C73.1,33.7,58.4,52.3,39.4,63.3C20.4,74.3,-3,77.8,-23.1,69.3C-43.2,60.7,-60.1,40.1,-67.6,16.7C-75,-6.7,-72.9,-32.9,-59.8,-49.3C-46.8,-65.7,-23.4,-72.3,0.2,-72.5C23.8,-72.8,47.6,-66,61.6,-49.3Z" transform="translate(100 100)"/></g>
@@ -412,9 +412,10 @@
         rafId=null;
         const R=260, max=26;
 
-        groups.forEach(g=>{
-          const svg=g.closest('.splash');
-          const b=svg.getBoundingClientRect();
+        // Measure every blob before moving any, so the browser only lays out once per frame
+        const rects=groups.map(g=>g.closest('.splash').getBoundingClientRect());
+        groups.forEach((g,i)=>{
+          const b=rects[i];
           const cx=(b.left+b.right)/2;
           const cy=(b.top+b.bottom)/2;
           const dx=cx-px, dy=cy-py;
@@ -432,7 +433,12 @@
         });
       }
 
-      window.addEventListener('pointermove', e=>{ px=e.clientX; py=e.clientY; if(!rafId) rafId=requestAnimationFrame(apply); }, {passive:true});
+      // Mouse only: touch and pen drags on tablets would otherwise run this every frame while scrolling
+      const hero=document.querySelector('.hero');
+      window.addEventListener('pointermove', e=>{
+        if(e.pointerType!=='mouse' || (hero&&hero.classList.contains('is-covered'))) return;
+        px=e.clientX; py=e.clientY; if(!rafId) rafId=requestAnimationFrame(apply);
+      }, {passive:true});
     })();
 
     // Where a section's top edge sits when it's "framed": tucked just under the fixed header, so nothing from

@@ -293,7 +293,7 @@ button:focus-visible {
 .hero{position:sticky; top:0; z-index:1; min-height:100dvh; overflow:hidden; display:grid; place-items:center; padding:120px 24px 60px}
 .hero.is-covered{visibility:hidden; pointer-events:none}
 .hero-bg{position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:-1}
-.splash{position:absolute; opacity:.18; filter:blur(1px); will-change:transform}
+.splash{position:absolute; opacity:.18; will-change:transform}
 .s1{ width:520px; top:4%;  left:2%;  transform:rotate(-10deg); animation:wander1 79s ease-in-out infinite alternate }
 .s2{ width:620px; bottom:2%; right:6%; transform:rotate(12deg);  animation:wander2 88s ease-in-out infinite alternate }
 .s3{ width:420px; top:10%; right:10%; opacity:.14; transform:rotate(-4deg); animation:wander3 84s ease-in-out infinite alternate }
@@ -304,7 +304,24 @@ button:focus-visible {
 @keyframes wander3{0%{transform:translate(34vw,-22vh) rotate(-4deg)}50%{transform:translate(12vw,18vh) rotate(-3deg)}100%{transform:translate(-30vw,-16vh) rotate(-4deg)}}
 @keyframes wander4{0%{transform:translate(-26vw,18vh) rotate(6deg)}50%{transform:translate(22vw,-12vh) rotate(7deg)}100%{transform:translate(40vw,24vh) rotate(6deg)}}
 @keyframes wander5{0%{transform:translate(18vw,-26vh) rotate(-6deg)}50%{transform:translate(-22vw,8vh) rotate(-5deg)}100%{transform:translate(-38vw,-20vh) rotate(-6deg)}}
-.splash .splash-m{will-change:transform; transition:transform .2s ease-out}
+.splash .splash-m{transition:transform .2s ease-out}
+/* Hero blob palettes. With no data-palette on .hero-bg the original rainbow colours in index.html are used.
+   Each palette sets the start (a) and end (b) of the five blob gradients. */
+.hero-bg[data-palette] #g1 stop:first-child{stop-color:var(--b1a)} .hero-bg[data-palette] #g1 stop:last-child{stop-color:var(--b1b)}
+.hero-bg[data-palette] #g2 stop:first-child{stop-color:var(--b2a)} .hero-bg[data-palette] #g2 stop:last-child{stop-color:var(--b2b)}
+.hero-bg[data-palette] #g3 stop:first-child{stop-color:var(--b3a)} .hero-bg[data-palette] #g3 stop:last-child{stop-color:var(--b3b)}
+.hero-bg[data-palette] #g4 stop:first-child{stop-color:var(--b4a)} .hero-bg[data-palette] #g4 stop:last-child{stop-color:var(--b4b)}
+.hero-bg[data-palette] #g5 stop:first-child{stop-color:var(--b5a)} .hero-bg[data-palette] #g5 stop:last-child{stop-color:var(--b5b)}
+.hero-bg[data-palette] .splash{opacity:.24}
+.hero-bg[data-palette] .s3{opacity:.2}
+/* Lilac: all shades of the site purple */
+.hero-bg[data-palette="lilac"]{--b1a:#8f8ec2; --b1b:#b4a8e6; --b2a:#7d7cc0; --b2b:#a9b4ec; --b3a:#6f6ea3; --b3b:#9f8fd0; --b4a:#a68ad8; --b4b:#d6a8e8; --b5a:#b9b8e2; --b5b:#8f8ec2}
+/* Pastel: the site purple with soft neighbours (pink, blue, mint, peach) */
+.hero-bg[data-palette="pastel"]{--b1a:#e79ac0; --b1b:#f2b9d3; --b2a:#8fb0e6; --b2b:#a9c8f2; --b3a:#9fd4c2; --b3b:#c4e8d8; --b4a:#8f8ec2; --b4b:#c09ae6; --b5a:#f2bf9a; --b5b:#f8dcc0}
+/* Mix: mostly lilac, with one soft pink and one soft blue from Pastel */
+.hero-bg[data-palette="mix"]{--b1a:#8f8ec2; --b1b:#b4a8e6; --b2a:#7d7cc0; --b2b:#a9b4ec; --b3a:#e79ac0; --b3b:#f2b9d3; --b4a:#a68ad8; --b4b:#d6a8e8; --b5a:#8fb0e6; --b5b:#a9c8f2}
+/* Twilight: purple running into cool blue and violet-pink */
+.hero-bg[data-palette="twilight"]{--b1a:#8f8ec2; --b1b:#e19fd0; --b2a:#6f9bd8; --b2b:#8f8ec2; --b3a:#9a7fd6; --b3b:#c7b6f0; --b4a:#b07ac8; --b4b:#e8a6c8; --b5a:#7fb4e0; --b5b:#b9b8e2}
 .hero-inner{position:relative; text-align:center; max-width:1100px; z-index:3}
 .hero-title{margin:0 0 10px; font-size:clamp(44px,7.2vw,92px); font-weight:600; letter-spacing:-0.02em; animation:dropIn .6s cubic-bezier(.34,1.56,.64,1) .2s backwards}
 @keyframes dropIn{from{opacity:0; transform:translateY(-16px)} to{opacity:1; transform:translateY(0)}}
@@ -312,13 +329,14 @@ button:focus-visible {
 @keyframes fadeUp{from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:translateY(0)}}
 .hero-subline .sep{opacity:.35; padding:0 10px}
 .hero-actions{display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; animation:fadeUp .6s ease .6s backwards}
-.cta{display:inline-block; padding:9px 13px; border-radius:999px; background:transparent; color:#111; text-decoration:none; font-weight:600; border:1px solid #dadada; font-size:15px}
-.cta:hover{background:#111; color:#fff}
+.cta{display:inline-block; padding:9px 13px; border-radius:999px; background:transparent; color:#111; text-decoration:none; font-weight:600; border:1px solid #dadada; font-size:15px; transition:background .15s ease, border-color .15s ease, color .15s ease}
+.cta:hover, .cta:focus-visible, .cta:active{background:var(--color-accent); border-color:var(--color-accent); color:#fff}
 .scroll-indicator{position:absolute; left:50%; bottom:56px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:6px; text-decoration:none; color:#333; z-index:3; animation:bob 1.8s ease-in-out infinite}
 .scroll-label{font-size:11px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; opacity:.6; margin-bottom:-2px}
 .scroll-chevron{width:18px; height:18px; opacity:.6}
 @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
-@media (prefers-reduced-motion:reduce){ .splash .splash-m{transition:none!important} .scroll-indicator{animation:none!important} .tab-panel{animation:none!important} }
+.hero.is-covered .splash{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){ .splash{animation:none!important} .splash .splash-m{transition:none!important} .scroll-indicator{animation:none!important} .tab-panel{animation:none!important} }
 
 /* Same indicator at the foot of About, pointing on to Projects; sits inside the existing bottom padding */
 .scroll-indicator--about{bottom:10px}
@@ -2440,4 +2458,133 @@ button:focus-visible {
   border-radius: 100px;
   padding: 0.25rem 0.75rem;
   margin: 0 0.4rem 0.4rem 0;
+}
+
+/* ---------------- MindMeter page ---------------- */
+
+/* Hero video: a YouTube embed filling the 16:9 hero frame (same rounded corners as images) */
+.mm-video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* The Challenge / The Solution: two columns, stacked on phones */
+.mm-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md) clamp(32px, 5vw, 72px);
+}
+
+.mm-duo .editorial-text p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 767px) {
+  .mm-duo {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Bulleted list in body text (the site resets list bullets, so they're put back here) */
+.ed-list {
+  margin: 0;
+  padding-left: 1.3em;
+  list-style: disc;
+}
+
+.ed-list li {
+  margin: 0 0 8px;
+  padding-left: 0.3em;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.ed-list li::marker {
+  color: var(--color-accent);
+}
+
+/* Key skills: the same dot-separated tag style as the project cards, a little larger */
+.mm-skills-title {
+  margin: var(--space-md) 0 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.mm-skills li {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* Development journey: 2 x 2 captioned images, one column on phones */
+.mm-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: var(--space-md);
+}
+
+.mm-figure {
+  margin: 0;
+}
+
+.mm-media {
+  aspect-ratio: 4 / 3;
+  margin-bottom: 0;
+}
+
+.mm-figure figcaption {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.mm-figure figcaption strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+@media (max-width: 767px) {
+  .mm-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Final design: six features in a two-column grid below the annotated image */
+.mm-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 clamp(32px, 5vw, 72px);
+}
+
+.mm-feature {
+  padding: 20px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.mm-feature h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.mm-feature p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 767px) {
+  .mm-features {
+    grid-template-columns: 1fr;
+  }
 }

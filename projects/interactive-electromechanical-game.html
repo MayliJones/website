@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MindMeter | Mayli Jones</title>
-  <meta name="description" content="An electromechanical game blending physical play with electronic control">
+  <meta name="description" content="MindMeter: a playful mechatronic machine that measures sanity, perception, luck and emotion through sensors, lights and mechanical games.">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style.css?v=2026-09-29a">
+  <!-- Page transition: don't paint until the hero exists, so the card can zoom straight into it -->
+  <link rel="expect" href="#mm-hero" blocking="render">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="project-page">
@@ -26,56 +28,128 @@
   </header>
 
   <main>
-    <article class="case-study container">
+    <article class="editorial container">
       <a class="back-link" href="../index.html#work">&larr; All projects</a>
 
-      <header class="case-study-header">
-        <h1>MindMeter</h1>
-        <p class="project-subtitle">An electromechanical game blending physical play with electronic control</p>
-        <ul class="project-tags">
-          <li>Electronics</li>
-          <li>Mechanical Design</li>
-          <li>Interaction Design</li>
-        </ul>
+      <!-- ============ 1. HERO ============ -->
+      <header class="editorial-hero">
+        <h1 class="editorial-title">MindMeter</h1>
+        <p class="editorial-subtitle">Measuring the Unmeasurable</p>
+
+        <!-- VIDEO: YouTube (privacy-enhanced youtube-nocookie.com). Keep id and view-transition-name so the project card morphs into it. -->
+        <div class="editorial-img editorial-img--hero mm-video" id="mm-hero" style="view-transition-name: vt-interactive-electromechanical-game">
+          <iframe src="https://www.youtube-nocookie.com/embed/cF3y3gjE7io" title="MindMeter video" loading="lazy"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <!-- CREDIT LINE: add here -->
       </header>
 
-      <div class="case-study-image" style="view-transition-name: vt-interactive-electromechanical-game">
-        <img src="../assets/projects/Mindmeter.png" alt="MindMeter">
-      </div>
-
-      <section class="case-study-section">
-        <h2>Overview</h2>
-        <p>[Placeholder: a short summary of the project: what it is, the context it was made in (module, brief, timeframe, team or solo), and why it mattered.]</p>
+      <!-- ============ 2. THE CHALLENGE / THE SOLUTION ============ -->
+      <section class="editorial-section mm-duo">
+        <div>
+          <h2>The Challenge</h2>
+          <div class="editorial-text editorial-text--full">
+            <p>Create an interactive mechatronic product using resourceful design, simple electronics and a range of engaging mechanical movements.</p>
+          </div>
+        </div>
+        <div>
+          <h2>The Solution</h2>
+          <div class="editorial-text editorial-text--full">
+            <p>A playful machine that measures sanity, perception, luck and emotion through sensors, lights and interactive mechanical games, creating a varied user experience.</p>
+          </div>
+        </div>
       </section>
 
-      <section class="case-study-section">
-        <h2>Problem</h2>
-        <p>[Placeholder: the brief or problem you were given, or the problem you identified yourself. What need or gap was this addressing?]</p>
-      </section>
-
-      <section class="case-study-section">
-        <h2>Process</h2>
-        <p>[Placeholder: research and discovery: user needs, constraints, existing solutions, early concepts.]</p>
-        <p>[Placeholder: making and building: sketches, prototypes, CAD iterations, physical builds, testing, and what you learned from each round of making. Include images of models, rigs, or test setups here.]</p>
-      </section>
-
-      <section class="case-study-section">
-        <h2>Outcome</h2>
-        <p>[Placeholder: the final result: what was delivered, how it performed against the brief, and any feedback or evaluation received.]</p>
-      </section>
-
-      <section class="case-study-section">
+      <!-- ============ 3. MY ROLE ============ -->
+      <section class="editorial-section">
         <h2>My Role</h2>
-        <p>[Placeholder: what you specifically did, especially if this was a team project. Be concrete about your contributions.]</p>
+        <ul class="ed-list">
+          <li>Developed the full CAD model and mechanical systems</li>
+          <li>3D printed, finished and assembled the prototype</li>
+          <li>Integrated electronics through soldering and wiring</li>
+          <li>Presented and demonstrated the working machine to visitors</li>
+        </ul>
+
+        <h3 class="mm-skills-title">Key skills</h3>
+        <ul class="project-tags mm-skills">
+          <li>CAD</li>
+          <li>3D Printing</li>
+          <li>Rapid Prototyping</li>
+          <li>Arduino</li>
+          <li>DFA</li>
+          <li>Electronics Integration</li>
+          <li>Mechanical Design</li>
+          <li>C++</li>
+          <li>Soldering</li>
+        </ul>
       </section>
 
-      <section class="case-study-section">
-        <h2>Tools Used</h2>
-        <ul class="tools-list">
-          <li>[Tool 1]</li>
-          <li>[Tool 2]</li>
-          <li>[Tool 3]</li>
-        </ul>
+      <!-- ============ 4. DEVELOPMENT JOURNEY ============ -->
+      <section class="editorial-section">
+        <h2>Development Journey</h2>
+        <div class="editorial-text editorial-text--full">
+          <p>The project developed through rapid prototyping, CAD iteration and repeated trial and error. Rather than following a fixed design from the start, each mechanism was built, tested and refined as we learned how the different moving parts behaved in practice.</p>
+          <p>CAD helped explore gear trains, linkages and internal layouts before manufacturing, while physical prototypes revealed issues with friction, alignment and reliability. These findings guided each new iteration, allowing the mechanical and electronic systems to gradually develop into one integrated interactive machine.</p>
+        </div>
+
+        <div class="mm-grid">
+          <figure class="mm-figure">
+            <!-- IMAGE: concept development sketches -->
+            <div class="img-placeholder mm-media">Concept Development</div>
+            <figcaption><strong>Concept Development</strong>Explored and combined interactive mechanism ideas through sketches.</figcaption>
+          </figure>
+          <figure class="mm-figure">
+            <!-- IMAGE: mechanical design (CAD and prototypes) -->
+            <div class="img-placeholder mm-media">Mechanical Design</div>
+            <figcaption><strong>Mechanical Design</strong>Refined gears, linkages and moving assemblies through CAD and prototypes.</figcaption>
+          </figure>
+          <figure class="mm-figure">
+            <!-- IMAGE: electronic integration (soldering, Arduino, sensors) -->
+            <div class="img-placeholder mm-media">Electronic Integration</div>
+            <figcaption><strong>Electronic Integration</strong>Soldered and integrated Arduino, sensors, motors and LEDs.</figcaption>
+          </figure>
+          <figure class="mm-figure">
+            <!-- IMAGE: public presentation at GERF / Open Day -->
+            <div class="img-placeholder mm-media">Public Presentation</div>
+            <figcaption><strong>Public Presentation</strong>Presented and demonstrated at GERF and the 2026 Open Day to visitors.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ============ 5. FINAL DESIGN ============ -->
+      <section class="editorial-section">
+        <h2>Final Design</h2>
+
+        <!-- IMAGE: annotated final build (full width) -->
+        <div class="img-placeholder img-placeholder--wide16">MindMeter: annotated final build</div>
+
+        <div class="mm-features">
+          <div class="mm-feature">
+            <h3>Sound-Responsive Tower</h3>
+            <p>A push button activates the microphone, which measures sound level and changes the LEDs from green to red.</p>
+          </div>
+          <div class="mm-feature">
+            <h3>Hand-Tracking Pistons</h3>
+            <p>A ToF sensor measures hand distance, letting the crystal-topped pistons follow the user in a wave-like motion.</p>
+          </div>
+          <div class="mm-feature">
+            <h3>Scotch-Yoke Mechanism</h3>
+            <p>One servo drives six pistons through a shared Scotch-Yoke and gear system.</p>
+          </div>
+          <div class="mm-feature">
+            <h3>Capacitive Touch Input</h3>
+            <p>Touching the sensor stops the flickering light.</p>
+          </div>
+          <div class="mm-feature">
+            <h3>Luck and Emotion Mechanism</h3>
+            <p>Bevel gears transfer rotation through supported shafts and bearings, letting one motor drive both the Wheel of Luck and the flip-clock-style emotion display.</p>
+          </div>
+          <div class="mm-feature">
+            <h3>Rack-and-Pinion Lever</h3>
+            <p>The side lever drives a rack-and-pinion mechanism, triggering the Wheel of Luck and Slides of Emotion.</p>
+          </div>
+        </div>
       </section>
     </article>
   </main>
