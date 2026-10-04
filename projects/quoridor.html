@@ -6,7 +6,7 @@
   <title>Quorridors | Mayli Jones</title>
   <meta name="description" content="Quorridors: a playable Quoridor with an AI opponent, built in JavaScript with breadth-first search and minimax.">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css?v=2026-10-03m">
+  <link rel="stylesheet" href="../css/style.css?v=2026-10-04c">
   <!-- Styles for this page only; every rule is scoped to body.page-quorridors -->
   <link rel="stylesheet" href="../css/quorridors.css?v=9">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -33,11 +33,25 @@
 
       <!-- ============ 1. HERO ============ -->
       <header class="q-hero">
-        <div class="q-hero-text">
-          <h1 class="q-title"><span class="sr-only">Quorridors</span><span class="q-title-q" aria-hidden="true">Q</span><span aria-hidden="true">u</span><span class="q-title-hex" aria-hidden="true"></span><span aria-hidden="true">rrid</span><span class="q-title-tri" aria-hidden="true"></span><span aria-hidden="true">r</span><span class="q-title-s" aria-hidden="true">s</span></h1>
-          <p class="q-subtitle">A playable Quoridor with an AI opponent</p>
-          <p class="q-intro">Built in JavaScript, with pathfinding and a minimax AI.</p>
-          <!-- CREDIT LINE: add here -->
+        <!-- Title on the left, skills on the right (they drop below the title on phones).
+             Same shared component as the MindMeter, Self-Balancing Robot and SwivelCut pages: .hero-head + .hero-skills. -->
+        <div class="hero-head">
+          <div class="q-hero-text">
+            <h1 class="q-title"><span class="sr-only">Quorridors</span><span class="q-title-q" aria-hidden="true">Q</span><span aria-hidden="true">u</span><span class="q-title-hex" aria-hidden="true"></span><span aria-hidden="true">rrid</span><span class="q-title-tri" aria-hidden="true"></span><span aria-hidden="true">r</span><span class="q-title-s" aria-hidden="true">s</span></h1>
+            <p class="q-subtitle">A playable Quoridor with an AI opponent</p>
+            <p class="q-intro">Built in JavaScript, with pathfinding and a minimax AI.</p>
+            <!-- CREDIT LINE: add here -->
+          </div>
+          <div class="hero-skills" aria-label="Skills developed">
+            <div class="about-grid-col">
+              <h3 class="about-grid-heading">Technical</h3>
+              <p>JavaScript, HTML/CSS, Game Logic, Pathfinding Algorithms, UI Design, Firefox Developer Tools, Debugging, Git</p>
+            </div>
+            <div class="about-grid-col">
+              <h3 class="about-grid-heading">Transferable</h3>
+              <p>Problem Solving, Logical Thinking, Attention to Detail, Independent Learning</p>
+            </div>
+          </div>
         </div>
       </header>
 

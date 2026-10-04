@@ -6,7 +6,7 @@
   <title>SwivelCut | Mayli Jones</title>
   <meta name="description" content="SwivelCut: a safe, accurate, two-degree-of-freedom cardboard-cutting system for secondary school Design and Technology classrooms.">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css?v=2026-10-03m">
+  <link rel="stylesheet" href="../css/style.css?v=2026-10-04c">
   <!-- Page transition: don't paint until the hero exists, so the card can zoom straight into it -->
   <link rel="expect" href="#swivel-hero" blocking="render">
   <link rel="preload" as="image" href="../assets/projects/Swivel/swivel-hero.png" fetchpriority="high">
@@ -34,8 +34,24 @@
 
       <!-- ============ 1. HERO ============ -->
       <header class="editorial-hero">
-        <h1 class="editorial-title">SwivelCut</h1>
-        <p class="editorial-subtitle">Cardboard Made Even Easier</p>
+        <!-- Title on the left, skills on the right (they drop below the title on phones).
+             Same shared component as the MindMeter and Self-Balancing Robot pages: .hero-head + .hero-skills. -->
+        <div class="hero-head">
+          <div>
+            <h1 class="editorial-title">SwivelCut</h1>
+            <p class="editorial-subtitle">Cardboard Made Even Easier</p>
+          </div>
+          <div class="hero-skills" aria-label="Skills developed">
+            <div class="about-grid-col">
+              <h3 class="about-grid-heading">Technical</h3>
+              <p>CAD, Rendering, Rapid Prototyping, User Research, Technical Drawings, Videography, DFM/DFA, User Testing</p>
+            </div>
+            <div class="about-grid-col">
+              <h3 class="about-grid-heading">Transferable</h3>
+              <p>Project Management, Organisation, Communication, Teamwork</p>
+            </div>
+          </div>
+        </div>
 
         <!-- IMAGE: hero photo (physical prototype). Keep view-transition-name so the project card morphs into it. -->
         <div class="editorial-img editorial-img--hero" id="swivel-hero" style="view-transition-name: vt-swivelcut">

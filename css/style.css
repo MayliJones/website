@@ -2611,7 +2611,8 @@ button:focus-visible {
   color: var(--color-accent);
 }
 
-/* Hero title on the left, skills on the right; the skills drop below the title on phones */
+/* Project page hero (shared by MindMeter, the Self-Balancing Robot, SwivelCut and Quorridors): title on the left,
+   skills on the right; the skills drop below the title on phones */
 .hero-head {
   display: flex;
   justify-content: space-between;

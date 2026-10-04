@@ -6,7 +6,7 @@
   <title>Self-Balancing Robot | Mayli Jones</title>
   <meta name="description" content="A self-balancing robot that dances to live music: PID balancing and audio beat detection combined in one control loop.">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css?v=2026-10-03m">
+  <link rel="stylesheet" href="../css/style.css?v=2026-10-04c">
   <!-- Page transition: don't paint until the hero exists, so the card can zoom straight into it -->
   <link rel="expect" href="#robot-hero" blocking="render">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -33,8 +33,24 @@
 
       <!-- ============ 1. HERO ============ -->
       <header class="editorial-hero">
-        <h1 class="editorial-title">Self-Balancing Robot</h1>
-        <p class="editorial-subtitle">Balancing and dancing to live music</p>
+        <!-- Title on the left, skills on the right (they drop below the title on phones).
+             Same shared component as the MindMeter page: .hero-head + .hero-skills. -->
+        <div class="hero-head">
+          <div>
+            <h1 class="editorial-title">Self-Balancing Robot</h1>
+            <p class="editorial-subtitle">Balancing and dancing to live music</p>
+          </div>
+          <div class="hero-skills" aria-label="Skills developed">
+            <div class="about-grid-col">
+              <h3 class="about-grid-heading">Technical</h3>
+              <p>Control Theory, MATLAB, PID Tuning, MicroPython, Signal Processing, Embedded Systems</p>
+            </div>
+            <div class="about-grid-col">
+              <h3 class="about-grid-heading">Transferable</h3>
+              <p>Perseverance, Systematic Debugging, Problem Solving</p>
+            </div>
+          </div>
+        </div>
 
         <!-- VIDEO: hero, the robot balancing and dancing. Fills the 16:9 frame (cropped); --crop-y picks which band of the
              clip shows: lower % keeps more of the top, higher % more of the bottom. Keep id and view-transition-name so the
