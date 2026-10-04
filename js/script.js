@@ -56,10 +56,14 @@ if (emailButton) {
   });
 }
 
-// Media carousel (project pages): arrows step through the images one at a time and wrap round at either end
-document.querySelectorAll(".media-carousel").forEach((carousel) => {
+// Media carousel (project pages): arrows step through the images one at a time and wrap round at either end.
+// Optional: a .media-carousel-caption element shows each image's data-caption. Exposed as
+// window.initMediaCarousel for carousels built later by other scripts (e.g. js/part-section.js);
+// onChange(activeImg) runs whenever the slide changes.
+function initMediaCarousel(carousel, onChange) {
   const slides = Array.from(carousel.querySelectorAll(".media-carousel-frame img"));
   const dotsRow = carousel.querySelector(".media-carousel-dots");
+  const caption = carousel.querySelector(".media-carousel-caption");
   const dots = slides.map(() => dotsRow.appendChild(document.createElement("span")));
   let current = Math.max(0, slides.findIndex((s) => s.classList.contains("is-active")));
 
@@ -67,12 +71,17 @@ document.querySelectorAll(".media-carousel").forEach((carousel) => {
     current = (n + slides.length) % slides.length;
     slides.forEach((s, k) => s.classList.toggle("is-active", k === current));
     dots.forEach((d, k) => d.classList.toggle("is-active", k === current));
+    if (caption) caption.textContent = slides[current].dataset.caption || "";
+    if (onChange) onChange(slides[current]);
   };
 
   carousel.querySelector(".gallery-arrow--prev").addEventListener("click", () => show(current - 1));
   carousel.querySelector(".gallery-arrow--next").addEventListener("click", () => show(current + 1));
   show(current);
-});
+}
+
+window.initMediaCarousel = initMediaCarousel;
+document.querySelectorAll(".media-carousel").forEach((carousel) => initMediaCarousel(carousel));
 
 // Footer: auto-update copyright year
 const currentYear = document.getElementById("current-year");

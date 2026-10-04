@@ -1,0 +1,301 @@
+/* Virtual MindMeter ("Try it" section on the MindMeter page).
+   The SVG markup lives in the page; virtual-gizmo.js adds behaviour. Everything here is scoped to .vg. */
+
+.vg-intro {
+  margin: calc(-1 * var(--space-sm)) 0 var(--space-md);
+  color: var(--color-text-secondary);
+}
+
+.vg-stage-wrap {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.vg-stage {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: 'Montserrat', sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none; /* no long-press menu on iOS while holding PUSH or the lever */
+}
+
+/* Phones: use a little more of the screen width, so the machine and its controls are bigger */
+@media (max-width: 480px) {
+  .vg-stage-wrap {
+    margin-inline: -16px;
+  }
+}
+
+/* ---- Static drawing ---- */
+.vg-panel-title {
+  font-size: 13px;
+  font-weight: 700;
+  fill: #2563c9;
+}
+
+.vg-box-label {
+  font-size: 12px;
+  font-weight: 700;
+  fill: #2e8a3a;
+  text-anchor: middle;
+  letter-spacing: 0.04em;
+}
+
+.vg-wheel-text {
+  font-size: 6.2px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.vg-sticker {
+  font-size: 7.5px;
+  font-weight: 600;
+  fill: #2563c9;
+  text-anchor: middle;
+}
+
+.vg-sign text {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.vg-push-text {
+  font-size: 9px;
+  font-weight: 700;
+  fill: #fff;
+  text-anchor: middle;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+}
+
+/* Tower letters: thin serif, glowing blue in idle */
+.vg-letter {
+  font-family: 'Times New Roman', Times, Georgia, serif;
+  font-size: 46px;
+  font-weight: 400;
+  text-anchor: middle;
+  fill: #3b6ff0;
+  transition: fill 0.08s linear;
+}
+
+.vg--fading .vg-letter {
+  transition-duration: 0.7s;
+}
+
+/* ---- Buttons inside the SVG ---- */
+.vg-hit {
+  fill: transparent;
+}
+
+.vg-btn {
+  cursor: pointer;
+  outline: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Press-and-hold controls: a slight finger wobble mustn't turn into a page scroll and cancel the hold */
+#button,
+#lever {
+  touch-action: none;
+}
+
+.vg-focus-ring {
+  fill: none;
+  stroke: #1b4a99;
+  stroke-width: 2.5;
+  stroke-dasharray: 5 3;
+  opacity: 0;
+}
+
+.vg-btn:focus-visible .vg-focus-ring {
+  opacity: 1;
+}
+
+.vg-push-cap {
+  transition: transform 0.1s ease, fill 0.15s ease;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+#button:hover .vg-push-cap {
+  fill: #48b955;
+}
+
+#button.is-pressed .vg-push-cap {
+  transform: scaleY(0.7);
+}
+
+/* ---- Signs: during a session the ladder lights from "You Alive?" up to the current level; the top
+   lit sign is lifted with a glow and the rest dim ---- */
+.vg-sign {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.vg-signs--focus .vg-sign {
+  opacity: 0.35;
+}
+
+.vg-signs--focus .vg-sign.is-lit {
+  opacity: 1;
+}
+
+.vg-signs--focus .vg-sign.is-hi {
+  opacity: 1;
+  transform: scale(1.12);
+  filter: url(#vg-sign-glow);
+}
+
+/* Haywire: signs swing on their chains (slow, so nothing flashes) */
+.vg--haywire .vg-sign {
+  animation: vg-swing 1.1s ease-in-out infinite alternate;
+}
+
+.vg--haywire .vg-sign:nth-of-type(2n) { animation-delay: -0.55s; }
+.vg--haywire .vg-sign:nth-of-type(3n) { animation-duration: 0.9s; }
+
+@keyframes vg-swing {
+  from { transform: rotate(-7deg); }
+  to   { transform: rotate(7deg); }
+}
+
+/* Off screen or tab hidden: freeze any CSS animation too */
+.vg--paused .vg-sign,
+.vg--paused .vg-dot {
+  animation-play-state: paused;
+}
+
+/* ---- Pointer area over the crystals (viewBox x 370-700, y 80-255, as percentages of the stage) ----
+   pan-y: a horizontal finger drag moves the crystals, a vertical swipe still scrolls the page */
+.vg-crystal-zone {
+  position: absolute;
+  left: 46.25%;
+  top: 13.33%;
+  width: 41.25%;
+  height: 29.17%;
+  touch-action: pan-y;
+}
+
+#lever.is-busy {
+  cursor: default;
+}
+
+/* ---- Listening label (top right of the stage) ---- */
+.vg-listening {
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-accent-dark);
+  box-shadow: 0 1px 4px rgba(27, 74, 153, 0.15);
+}
+
+.vg-listening[hidden] {
+  display: none;
+}
+
+.vg-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e5533d;
+  animation: vg-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes vg-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.75); }
+}
+
+/* ---- Controls and small print under the stage ---- */
+.vg-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 20px;
+  max-width: 900px;
+  margin: var(--space-sm) auto 0;
+}
+
+.vg-shout {
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-accent);
+  border: 0;
+  border-radius: 100px;
+  padding: 10px 24px;
+  cursor: pointer;
+  touch-action: none; /* a held press shouldn't scroll or open the long-press menu */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.vg-shout:hover {
+  background: var(--color-accent-dark);
+}
+
+.vg-shout.is-held {
+  background: var(--color-accent-dark);
+  transform: scale(0.96);
+}
+
+.vg-shout:focus-visible {
+  outline: 3px solid var(--color-accent-dark);
+  outline-offset: 3px;
+}
+
+.vg-status {
+  margin: 0;
+  min-height: 1.6em;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent-dark);
+}
+
+.vg-nomic {
+  max-width: 900px;
+  margin: 8px auto 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.vg-legend {
+  max-width: 900px;
+  margin: 8px auto 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vg-sign,
+  .vg-push-cap,
+  .vg-letter {
+    transition: none;
+  }
+
+  .vg--haywire .vg-sign,
+  .vg-dot {
+    animation: none;
+  }
+}

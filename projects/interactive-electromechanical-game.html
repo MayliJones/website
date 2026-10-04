@@ -16,7 +16,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://maylijones.com/og-image.png">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css?v=2026-10-04c">
+  <link rel="stylesheet" href="../css/style.css?v=2026-10-04m">
+  <link rel="stylesheet" href="../assets/projects/mindmeter/virtual/virtual-gizmo.css?v=3">
   <!-- Page transition: don't paint until the hero exists, so the card can zoom straight into it -->
   <link rel="expect" href="#mm-hero" blocking="render">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -38,7 +39,7 @@
   </header>
 
   <main>
-    <article class="editorial container">
+    <article class="editorial editorial--divided container">
       <a class="back-link" href="../index.html#work">&larr; All projects</a>
 
       <!-- ============ 1. HERO ============ -->
@@ -87,37 +88,229 @@
         </div>
       </section>
 
-      <!-- ============ 3. MY ROLE ============ -->
-      <!-- Text on the left, image carousel on the right, half each; stacked on phones.
-           Reusable on any project page: .role-split + .media-carousel (script in js/script.js). -->
-      <section class="editorial-section role-split">
-        <div>
-          <h2>My Role</h2>
-          <ul class="ed-list">
-            <li>Developed the full CAD model and mechanical systems</li>
-            <li>3D printed, finished and assembled the prototype</li>
-            <li>Integrated electronics through soldering and wiring</li>
-            <li>Presented and demonstrated the working machine to visitors</li>
-          </ul>
+      <!-- ============ TRY IT: virtual MindMeter ============ -->
+      <!-- Interactive recreation (assets/projects/mindmeter/virtual/). The SVG is static markup, so the
+           illustration still shows if the script fails; the script only adds behaviour. -->
+      <section class="editorial-section vg" id="try-it">
+        <h2>Try it</h2>
+        <p class="vg-intro">A browser recreation of the machine, built from our design. Press the button and make some noise.</p>
+
+        <div class="vg-stage-wrap">
+          <svg class="vg-stage" id="vg-stage" viewBox="0 0 800 600" role="group" aria-labelledby="vg-title vg-desc">
+            <title id="vg-title">Virtual MindMeter</title>
+            <desc id="vg-desc">A flat front view of the MindMeter machine. On the left, a tall white tower with the glowing letters I N S A N I T Y running down it and a green PUSH button on top, with eight hanging signs beside it from Insanity Achieved down to You Alive. On the right, a lower box with six green diamond pistons on top, a perception test panel, the Wheel of Luck, the Slides of Emotion window showing a smiley face, and a green-balled lever on its side.</desc>
+            <defs>
+              <filter id="vg-letter-glow" x="-60%" y="-40%" width="220%" height="180%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="2.6" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <filter id="vg-sign-glow" x="-30%" y="-40%" width="160%" height="180%">
+                <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#2563c9" flood-opacity="0.45"/>
+              </filter>
+            </defs>
+
+            <!-- Background panel with soft curves, like the title slide -->
+            <rect class="vg-bg" x="0" y="0" width="800" height="600" rx="28" fill="#EAF0FE"/>
+            <g fill="none" stroke="#fff" stroke-width="2" opacity="0.8" stroke-linecap="round">
+              <path d="M-10 120 C 180 40, 360 210, 560 110 S 760 40, 820 90"/>
+              <path d="M-10 470 C 160 390, 330 560, 520 470 S 740 380, 820 430"/>
+              <path d="M300 -10 C 360 140, 520 160, 600 300 S 700 520, 640 620"/>
+              <path d="M-10 300 C 90 260, 140 340, 230 300"/>
+            </g>
+
+            <!-- Base board -->
+            <rect x="40" y="540" width="740" height="16" rx="4" fill="#fff" stroke="#cfd6e2" stroke-width="1.5"/>
+
+            <!-- Magic Diamonds: virtual-gizmo.js moves each #diamond-n up and down to follow the pointer -->
+            <g id="diamonds">
+              <g id="diamond-1" class="vg-diamond">
+                <rect x="406.5" y="204" width="7" height="146" rx="2" fill="#a9c4f0" stroke="#8eaee3" stroke-width="1"/>
+                <path d="M410 178 L423 191 L410 208 L397 191 Z" fill="#3FA84B" stroke="#2e8a3a" stroke-width="1.2" stroke-linejoin="round"/>
+                <path d="M397 191 L423 191 L410 208 Z" fill="#2e8a3a" opacity="0.55"/>
+                <path d="M410 178 L406 191 L410 208" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.5"/>
+              </g>
+              <g id="diamond-2" class="vg-diamond">
+                <rect x="456.5" y="184" width="7" height="166" rx="2" fill="#a9c4f0" stroke="#8eaee3" stroke-width="1"/>
+                <path d="M460 158 L473 171 L460 188 L447 171 Z" fill="#3FA84B" stroke="#2e8a3a" stroke-width="1.2" stroke-linejoin="round"/>
+                <path d="M447 171 L473 171 L460 188 Z" fill="#2e8a3a" opacity="0.55"/>
+                <path d="M460 158 L456 171 L460 188" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.5"/>
+              </g>
+              <g id="diamond-3" class="vg-diamond">
+                <rect x="506.5" y="172" width="7" height="178" rx="2" fill="#a9c4f0" stroke="#8eaee3" stroke-width="1"/>
+                <path d="M510 146 L523 159 L510 176 L497 159 Z" fill="#3FA84B" stroke="#2e8a3a" stroke-width="1.2" stroke-linejoin="round"/>
+                <path d="M497 159 L523 159 L510 176 Z" fill="#2e8a3a" opacity="0.55"/>
+                <path d="M510 146 L506 159 L510 176" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.5"/>
+              </g>
+              <g id="diamond-4" class="vg-diamond">
+                <rect x="556.5" y="178" width="7" height="172" rx="2" fill="#a9c4f0" stroke="#8eaee3" stroke-width="1"/>
+                <path d="M560 152 L573 165 L560 182 L547 165 Z" fill="#3FA84B" stroke="#2e8a3a" stroke-width="1.2" stroke-linejoin="round"/>
+                <path d="M547 165 L573 165 L560 182 Z" fill="#2e8a3a" opacity="0.55"/>
+                <path d="M560 152 L556 165 L560 182" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.5"/>
+              </g>
+              <g id="diamond-5" class="vg-diamond">
+                <rect x="606.5" y="192" width="7" height="158" rx="2" fill="#a9c4f0" stroke="#8eaee3" stroke-width="1"/>
+                <path d="M610 166 L623 179 L610 196 L597 179 Z" fill="#3FA84B" stroke="#2e8a3a" stroke-width="1.2" stroke-linejoin="round"/>
+                <path d="M597 179 L623 179 L610 196 Z" fill="#2e8a3a" opacity="0.55"/>
+                <path d="M610 166 L606 179 L610 196" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.5"/>
+              </g>
+              <g id="diamond-6" class="vg-diamond">
+                <rect x="656.5" y="222" width="7" height="128" rx="2" fill="#a9c4f0" stroke="#8eaee3" stroke-width="1"/>
+                <path d="M660 196 L673 209 L660 226 L647 209 Z" fill="#3FA84B" stroke="#2e8a3a" stroke-width="1.2" stroke-linejoin="round"/>
+                <path d="M647 209 L673 209 L660 226 Z" fill="#2e8a3a" opacity="0.55"/>
+                <path d="M660 196 L656 209 L660 226" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.5"/>
+              </g>
+            </g>
+
+            <!-- Lower box -->
+            <g id="box">
+              <rect x="292" y="250" width="428" height="290" rx="4" fill="#fff" stroke="#cfd6e2" stroke-width="1.5"/>
+              <line x1="292" y1="400" x2="720" y2="400" stroke="#dfe4ec" stroke-width="1.2"/>
+              <!-- Perception test panel -->
+              <rect x="310" y="266" width="392" height="94" rx="4" fill="#f4f7fd" stroke="#dde3ee" stroke-width="1"/>
+              <text x="324" y="287" class="vg-panel-title">Perception Test</text>
+              <g fill="#d5dcea">
+                <rect x="324" y="297" width="150" height="4" rx="2"/><rect x="324" y="307" width="120" height="4" rx="2"/>
+                <rect x="324" y="321" width="140" height="4" rx="2"/><rect x="324" y="331" width="155" height="4" rx="2"/><rect x="324" y="341" width="100" height="4" rx="2"/>
+                <rect x="520" y="281" width="150" height="4" rx="2"/><rect x="520" y="293" width="130" height="4" rx="2"/>
+                <rect x="520" y="307" width="145" height="4" rx="2"/><rect x="520" y="321" width="120" height="4" rx="2"/><rect x="520" y="335" width="160" height="4" rx="2"/>
+              </g>
+              <text x="420" y="386" class="vg-box-label">WHEEL OF LUCK</text>
+              <text x="620" y="386" class="vg-box-label">SLIDES OF EMOTION</text>
+            </g>
+
+            <!-- Wheel of Luck: virtual-gizmo.js rotates #wheel-disc about 420 470 -->
+            <g id="wheel">
+              <circle cx="420" cy="470" r="65" fill="#fff" stroke="#cfd6e2" stroke-width="1.5"/>
+              <g id="wheel-disc">
+                <path d="M420 470 L397.04 414.57 A60 60 0 0 1 442.96 414.57 Z" fill="#f2c230" stroke="#fff" stroke-width="1.5"/>
+                <text class="vg-wheel-text" transform="translate(420 431) rotate(0)" fill="#5a4300"><tspan x="0" dy="-1">Super</tspan><tspan x="0" dy="8">Luck</tspan></text>
+                <path d="M420 470 L442.96 414.57 A60 60 0 0 1 475.43 447.04 Z" fill="#3FA84B" stroke="#fff" stroke-width="1.5"/>
+                <text class="vg-wheel-text" transform="translate(447.58 442.42) rotate(45)" fill="#fff"><tspan x="0" dy="-1">Good</tspan><tspan x="0" dy="8">Luck</tspan></text>
+                <path d="M420 470 L475.43 447.04 A60 60 0 0 1 475.43 492.96 Z" fill="#2f5fd0" stroke="#fff" stroke-width="1.5"/>
+                <text class="vg-wheel-text" transform="translate(459 470) rotate(90)" fill="#fff"><tspan x="0" dy="-1">Super</tspan><tspan x="0" dy="8">Bad Luck</tspan></text>
+                <path d="M420 470 L475.43 492.96 A60 60 0 0 1 442.96 525.43 Z" fill="#e5533d" stroke="#fff" stroke-width="1.5"/>
+                <text class="vg-wheel-text" transform="translate(447.58 497.58) rotate(135)" fill="#fff"><tspan x="0" dy="-1">Bad</tspan><tspan x="0" dy="8">Luck</tspan></text>
+                <path d="M420 470 L442.96 525.43 A60 60 0 0 1 397.04 525.43 Z" fill="#3FA84B" stroke="#fff" stroke-width="1.5"/>
+                <text class="vg-wheel-text" transform="translate(420 509) rotate(180)" fill="#fff"><tspan x="0" dy="-1">Good</tspan><tspan x="0" dy="8">Luck</tspan></text>
+                <path d="M420 470 L397.04 525.43 A60 60 0 0 1 364.57 492.96 Z" fill="#2f5fd0" stroke="#fff" stroke-width="1.5"/>
+                <text class="vg-wheel-text" transform="translate(392.42 497.58) rotate(225)" fill="#fff"><tspan x="0" dy="-1">Super</tspan><tspan x="0" dy="8">Bad Luck</tspan></text>
+                <path d="M420 470 L364.57 492.96 A60 60 0 0 1 364.57 447.04 Z" fill="#3FA84B" stroke="#fff" stroke-width="1.5"/>
+                <text class="vg-wheel-text" transform="translate(381 470) rotate(270)" fill="#fff"><tspan x="0" dy="-1">Good</tspan><tspan x="0" dy="8">Luck</tspan></text>
+                <path d="M420 470 L364.57 447.04 A60 60 0 0 1 397.04 414.57 Z" fill="#e5533d" stroke="#fff" stroke-width="1.5"/>
+                <text class="vg-wheel-text" transform="translate(392.42 442.42) rotate(315)" fill="#fff"><tspan x="0" dy="-1">Bad</tspan><tspan x="0" dy="8">Luck</tspan></text>
+                <circle cx="420" cy="470" r="10" fill="#fff" stroke="#e1e6ee" stroke-width="1"/>
+                <path d="M420 465 a2.6 2.6 0 1 1 0 .1 M415 470 a2.6 2.6 0 1 1 0 .1 M425 470 a2.6 2.6 0 1 1 0 .1" fill="none" stroke="#3FA84B" stroke-width="2.4"/>
+              </g>
+              <path id="wheel-pointer" d="M412 394 h16 v10 l-8 10 l-8 -10 Z" fill="#3FA84B" stroke="#2e8a3a" stroke-width="1.2" stroke-linejoin="round"/>
+            </g>
+
+            <!-- Slides of Emotion: virtual-gizmo.js swaps the face in #slide-face -->
+            <g id="slides">
+              <rect x="562" y="408" width="116" height="122" rx="4" fill="#3FA84B"/>
+              <rect x="570" y="416" width="100" height="106" rx="2" fill="#fff"/>
+              <line x1="570" y1="469" x2="670" y2="469" stroke="#e3e7ee" stroke-width="1.2"/>
+              <g id="slide-face" fill="none" stroke="#e8b92a" stroke-width="3.2" stroke-linecap="round">
+                <path d="M590 446 q8 -10 16 0"/>
+                <path d="M634 446 q8 -10 16 0"/>
+                <path d="M592 482 q28 30 56 0"/>
+              </g>
+            </g>
+
+            <!-- Lever: virtual-gizmo.js rotates #lever-arm about 736 492 -->
+            <g id="lever" class="vg-btn" role="button" tabindex="0" aria-label="Lever: spin the Wheel of Luck and the Slides of Emotion">
+              <rect class="vg-focus-ring" x="712" y="426" width="82" height="104" rx="10"/>
+              <rect class="vg-hit" x="706" y="416" width="94" height="124"/>
+              <rect x="720" y="462" width="18" height="60" rx="3" fill="#fff" stroke="#cfd6e2" stroke-width="1.5"/>
+              <circle cx="736" cy="492" r="16" fill="#3FA84B" stroke="#2e8a3a" stroke-width="5" stroke-dasharray="3 2.5"/>
+              <circle cx="736" cy="492" r="9" fill="#3FA84B"/>
+              <g id="lever-arm">
+                <path d="M736 492 L760 450" stroke="#b9c3d3" stroke-width="8.5" stroke-linecap="round"/>
+                <path d="M736 492 L760 450" stroke="#fff" stroke-width="5.5" stroke-linecap="round"/>
+                <circle cx="762" cy="444" r="10" fill="#3FA84B" stroke="#2e8a3a" stroke-width="1.2"/>
+              </g>
+              <circle cx="736" cy="492" r="3" fill="#fff"/>
+            </g>
+
+            <!-- Hanging signs: #sign-1 (top, level 8) to #sign-8 (bottom, level 1) -->
+            <g id="signs">
+              <rect x="50" y="110" width="142" height="7" rx="2" fill="#3FA84B"/>
+              <g class="vg-chains" fill="none" stroke="#3FA84B" stroke-width="1.6"><rect x="68" y="117" width="4" height="7" rx="2"/><rect x="68" y="123" width="4" height="7" rx="2"/><rect x="68" y="129" width="4" height="7" rx="2"/><rect x="138" y="117" width="4" height="7" rx="2"/><rect x="138" y="123" width="4" height="7" rx="2"/><rect x="138" y="129" width="4" height="7" rx="2"/><rect x="68" y="170" width="4" height="7" rx="2"/><rect x="68" y="176" width="4" height="7" rx="2"/><rect x="68" y="182" width="4" height="7" rx="2"/><rect x="138" y="170" width="4" height="7" rx="2"/><rect x="138" y="176" width="4" height="7" rx="2"/><rect x="138" y="182" width="4" height="7" rx="2"/><rect x="68" y="220" width="4" height="7" rx="2"/><rect x="68" y="226" width="4" height="7" rx="2"/><rect x="68" y="232" width="4" height="7" rx="2"/><rect x="138" y="220" width="4" height="7" rx="2"/><rect x="138" y="226" width="4" height="7" rx="2"/><rect x="138" y="232" width="4" height="7" rx="2"/><rect x="68" y="270" width="4" height="7" rx="2"/><rect x="68" y="276" width="4" height="7" rx="2"/><rect x="68" y="282" width="4" height="7" rx="2"/><rect x="138" y="270" width="4" height="7" rx="2"/><rect x="138" y="276" width="4" height="7" rx="2"/><rect x="138" y="282" width="4" height="7" rx="2"/><rect x="68" y="320" width="4" height="7" rx="2"/><rect x="68" y="326" width="4" height="7" rx="2"/><rect x="68" y="332" width="4" height="7" rx="2"/><rect x="138" y="320" width="4" height="7" rx="2"/><rect x="138" y="326" width="4" height="7" rx="2"/><rect x="138" y="332" width="4" height="7" rx="2"/><rect x="68" y="370" width="4" height="7" rx="2"/><rect x="68" y="376" width="4" height="7" rx="2"/><rect x="68" y="382" width="4" height="7" rx="2"/><rect x="138" y="370" width="4" height="7" rx="2"/><rect x="138" y="376" width="4" height="7" rx="2"/><rect x="138" y="382" width="4" height="7" rx="2"/><rect x="68" y="420" width="4" height="7" rx="2"/><rect x="68" y="426" width="4" height="7" rx="2"/><rect x="68" y="432" width="4" height="7" rx="2"/><rect x="138" y="420" width="4" height="7" rx="2"/><rect x="138" y="426" width="4" height="7" rx="2"/><rect x="138" y="432" width="4" height="7" rx="2"/><rect x="68" y="470" width="4" height="7" rx="2"/><rect x="68" y="476" width="4" height="7" rx="2"/><rect x="68" y="482" width="4" height="7" rx="2"/><rect x="138" y="470" width="4" height="7" rx="2"/><rect x="138" y="476" width="4" height="7" rx="2"/><rect x="138" y="482" width="4" height="7" rx="2"/></g>
+              <g id="sign-1" class="vg-sign" data-level="8">
+                <rect x="60" y="134" width="90" height="36" rx="5" fill="#fff" stroke="#cfd6e2" stroke-width="1.3"/>
+                <text x="105" y="150" fill="#c0392b"><tspan x="105">Insanity</tspan><tspan x="105" dy="11">Achieved</tspan></text>
+              </g>
+              <g id="sign-2" class="vg-sign" data-level="7">
+                <rect x="60" y="184" width="90" height="36" rx="5" fill="#fff" stroke="#cfd6e2" stroke-width="1.3"/>
+                <text x="105" y="200" fill="#cf4f2a"><tspan x="105">Nearly</tspan><tspan x="105" dy="11">Gone</tspan></text>
+              </g>
+              <g id="sign-3" class="vg-sign" data-level="6">
+                <rect x="60" y="234" width="90" height="36" rx="5" fill="#fff" stroke="#cfd6e2" stroke-width="1.3"/>
+                <text x="105" y="256" fill="#c96a1f">Spiralling</text>
+              </g>
+              <g id="sign-4" class="vg-sign" data-level="5">
+                <rect x="60" y="284" width="90" height="36" rx="5" fill="#fff" stroke="#cfd6e2" stroke-width="1.3"/>
+                <text x="105" y="300" fill="#a8800c"><tspan x="105">Approaching</tspan><tspan x="105" dy="11">Unhinged</tspan></text>
+              </g>
+              <g id="sign-5" class="vg-sign" data-level="4">
+                <rect x="60" y="334" width="90" height="36" rx="5" fill="#fff" stroke="#cfd6e2" stroke-width="1.3"/>
+                <text x="105" y="350" fill="#7f8f17"><tspan x="105">Not doing</tspan><tspan x="105" dy="11">great</tspan></text>
+              </g>
+              <g id="sign-6" class="vg-sign" data-level="3">
+                <rect x="60" y="384" width="90" height="36" rx="5" fill="#fff" stroke="#cfd6e2" stroke-width="1.3"/>
+                <text x="105" y="406" fill="#4f8f25">Irritated</text>
+              </g>
+              <g id="sign-7" class="vg-sign" data-level="2">
+                <rect x="60" y="434" width="90" height="36" rx="5" fill="#fff" stroke="#cfd6e2" stroke-width="1.3"/>
+                <text x="105" y="450" fill="#2f8a3a"><tspan x="105">Think You</tspan><tspan x="105" dy="11">are Okay</tspan></text>
+              </g>
+              <g id="sign-8" class="vg-sign" data-level="1">
+                <rect x="60" y="484" width="90" height="36" rx="5" fill="#fff" stroke="#cfd6e2" stroke-width="1.3"/>
+                <text x="105" y="506" fill="#237a45">You Alive?</text>
+              </g>
+            </g>
+
+            <!-- Insanity Tower -->
+            <g id="tower">
+              <rect x="190" y="96" width="102" height="444" rx="4" fill="#fff" stroke="#cfd6e2" stroke-width="1.5"/>
+              <line x1="190" y1="352" x2="292" y2="352" stroke="#e3e7ee" stroke-width="1.2"/>
+              <text class="vg-sticker" transform="translate(206 296) rotate(-16)">Broken</text>
+              <text class="vg-sticker" transform="translate(277 300) rotate(14)">Broken</text>
+              <text class="vg-sticker" x="241" y="337">Touch me</text>
+              <g id="tower-letters" class="vg-letters">
+                <text id="letter-1" class="vg-letter" filter="url(#vg-letter-glow)" x="241" y="168">I</text>
+                <text id="letter-2" class="vg-letter" filter="url(#vg-letter-glow)" x="241" y="218">N</text>
+                <text id="letter-3" class="vg-letter" filter="url(#vg-letter-glow)" x="241" y="268">S</text>
+                <g id="touch-a" class="vg-btn" role="button" tabindex="0" aria-pressed="false" aria-label="Touch sensor on the letter A: stops the flicker">
+                  <rect class="vg-focus-ring" x="218" y="276" width="46" height="52" rx="8"/>
+                  <rect class="vg-hit" x="210" y="270" width="62" height="64"/>
+                  <text id="letter-4" class="vg-letter" filter="url(#vg-letter-glow)" x="241" y="318">A</text>
+                </g>
+                <text id="letter-5" class="vg-letter" filter="url(#vg-letter-glow)" x="241" y="368">N</text>
+                <text id="letter-6" class="vg-letter" filter="url(#vg-letter-glow)" x="241" y="418">I</text>
+                <text id="letter-7" class="vg-letter" filter="url(#vg-letter-glow)" x="241" y="468">T</text>
+                <text id="letter-8" class="vg-letter" filter="url(#vg-letter-glow)" x="241" y="518">Y</text>
+              </g>
+              <g id="button" class="vg-btn" role="button" tabindex="0" aria-label="PUSH: start a sanity check">
+                <rect class="vg-focus-ring" x="206" y="72" width="70" height="30" rx="7"/>
+                <rect class="vg-hit" x="194" y="20" width="94" height="88"/>
+                <rect class="vg-push-cap" x="214" y="79" width="54" height="17" rx="3" fill="#3FA84B" stroke="#2e8a3a" stroke-width="1.2"/>
+                <text x="241" y="91.5" class="vg-push-text">PUSH</text>
+              </g>
+            </g>
+          </svg>
+          <!-- Pointer/touch area over the crystals (horizontal drags move them; vertical swipes still scroll) -->
+          <div class="vg-crystal-zone" id="vg-crystal-zone" aria-hidden="true"></div>
+          <p class="vg-listening" id="vg-listening" hidden><span class="vg-dot" aria-hidden="true"></span>Listening...</p>
         </div>
-        <!-- One image at a time; the slide marked is-active shows on load. is-contain shows an image whole (no crop). -->
-        <div class="media-carousel" aria-roledescription="carousel" aria-label="MindMeter photos">
-          <div class="media-carousel-stage">
-            <div class="media-carousel-frame">
-              <img class="is-active" src="../assets/projects/mind/present.jpg" alt="Mayli presenting MindMeter in front of a screen showing its CAD render" width="1320" height="1048">
-              <img class="is-contain" src="../assets/projects/mind/sketch.jpg" alt="Early concept sketches: the first machine layout, a barrel cam and a cam follower" width="1376" height="1096" loading="lazy">
-              <img class="is-contain" src="../assets/projects/mind/cad1-web.png" alt="CAD render of MindMeter: the Insanity tower, diamond pistons, Wheel of Luck, Slides of Emotions and side lever" width="916" height="1100" loading="lazy">
-              <img src="../assets/projects/mind/test.jpg" alt="Mayli testing MindMeter's wiring, with the piston gear train exposed" width="840" height="668" loading="lazy">
-            </div>
-            <button type="button" class="gallery-arrow gallery-arrow--prev" aria-label="Previous image">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <button type="button" class="gallery-arrow gallery-arrow--next" aria-label="Next image">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-          </div>
-          <div class="media-carousel-dots" aria-hidden="true"></div>
+
+        <div class="vg-controls">
+          <button type="button" class="vg-shout" id="vg-shout" hidden>Hold to shout</button>
+          <p class="vg-status" id="vg-status" role="status" aria-live="polite"></p>
         </div>
+        <p class="vg-nomic" id="vg-nomic" hidden>No microphone? Hold PUSH or the Shout button for 3 seconds to send it haywire.</p>
+        <p class="vg-legend">Press or hold PUSH and make some noise; reach the top and the whole machine goes haywire. Pull the lever to spin the Wheel of Luck and the Slides of Emotion, and move your mouse (or drag a finger) over the green crystals to make them follow you. Hover over the A (tap it on a phone) to stop it flickering.</p>
+        <p class="vg-legend">Your microphone is only used while the button is active. Nothing is recorded or sent anywhere.</p>
+        <p class="vg-legend">Browser version built by me; the physical machine was a pair project with Aidan Ryder.</p>
       </section>
 
       <!-- ============ 4. DEVELOPMENT JOURNEY ============ -->
@@ -126,46 +319,14 @@
         <div class="editorial-text editorial-text--full">
           <p>MindMeter measures four invented stats, Sanity, Perception, Luck and Emotion, each inspired by a different reference: a carnival strength-test game, a crankshaft-driven piston row, and a slot machine. We stayed deliberately resourceful throughout: the only components bought beyond the supplied kit were bearings and a ToF sensor, four LED colours were combined to produce seven output colours instead of buying an LED strip, and every sticker and sign was designed, printed and cut by hand.</p>
         </div>
-
-        <!-- Image beside text on desktop, image above text on phones -->
-        <div class="mm-steps">
-          <div class="mm-step">
-            <!-- IMAGE: Insanity Tower, glowing -->
-            <div class="img-placeholder mm-media">Insanity Tower, glowing</div>
-            <div class="mm-step-text">
-              <h3>Insanity Tower</h3>
-              <p>The tower measures Sanity. In idle it glows blue with a flickering letter 'A', stoppable with a capacitive touch sensor behind it. Pressing the button runs a 'sanity check': a microphone reads peak volume through an op-amp circuit with 11× gain, and a rising bar of 16 LEDs, driven by two shift registers on just 3 microcontroller pins, shows the result. Past a threshold, the tower goes 'haywire' and triggers the rest of the machine. The original concept was two separate ideas, a broken sign with the touch sensor, and a separate loudness check, combined into one tower to cut down on large prints and make the design feel more cohesive.</p>
-            </div>
-          </div>
-
-          <div class="mm-step">
-            <!-- IMAGE: Magic Diamonds pistons -->
-            <div class="img-placeholder mm-media">Magic Diamonds pistons</div>
-            <div class="mm-step-text">
-              <h3>Magic Diamonds</h3>
-              <p>Six diamond-topped pistons measure Perception. In idle they track a hand using a time-of-flight sensor; in test mode, a countdown plays on the tower and the user has exactly 3 seconds to move their hand to the end of the row, graded red, yellow or green. A single servo drives all six pistons through a shared gear shaft, one Scotch-yoke mechanism per piston, phased so the pistons rise in a travelling wave rather than together. The first version used a barrel cam system, but 3D-printed cam followers had too much friction to climb the barrel, so we switched to the Scotch-yoke design, then reinforced the shaft after the first version proved too weak.</p>
-            </div>
-          </div>
-
-          <div class="mm-step">
-            <!-- IMAGE: Wheel and emotion slides mechanism -->
-            <div class="img-placeholder mm-media">Wheel and emotion slides mechanism</div>
-            <div class="mm-step-text">
-              <h3>Wheel of Luck &amp; Slides of Emotion</h3>
-              <p>Pulling a side lever spins a wheel and a set of emotion slides continuously; releasing it lets both coast to a random stop, revealing a luck and emotion result. A single DC motor drives the wheel directly and, through a 1:1 bevel gear pair, a second shaft carrying a rotating barrel that carries the emotion slides, held in place by a fixed stopper so one slide is always visible. The lever itself drives a rack and pinion, sized using the arc-length relationship <em>s</em>&nbsp;=&nbsp;<em>r</em>θ, a 20mm rack travel at 90° of lever rotation gave a required pinion radius of 12.8mm, met with a standard module 0.8, 32-tooth gear. The emotion slides were originally geared 2:1 to spin faster than the wheel, but testing showed direct drive was already fast enough, so the extra gear was removed to simplify the mechanism.</p>
-            </div>
-          </div>
-
-          <div class="mm-step">
-            <!-- IMAGE: Full circuit diagram -->
-            <div class="img-placeholder mm-media">Full circuit diagram</div>
-            <div class="mm-step-text">
-              <h3>Circuit and Code</h3>
-              <p>Everything runs from a single Arduino Uno. High-current and low-level signal components sit on separate power rails to cut electrical noise, decoupling capacitors and flyback diodes protect the circuit, and a MOSFET switches the DC motor instead of an H-bridge, since only one direction of movement was needed. The code is built around enums and switch-case logic implementing several finite state machines, one each for the pistons, the tower, and the motor subsystems, run with non-blocking timing so nothing stalls while something else is active.</p>
-            </div>
-          </div>
-        </div>
       </section>
+
+      <!-- ============ 4a. PART SECTIONS ============ -->
+      <!-- Each part of the machine gets its own section, filled from its entry in js/mindmeter-parts.js
+           (layout built by js/part-section.js). Add the next part as another section with its data-part key. -->
+      <section class="editorial-section part-section" id="insanity-tower" data-part="tower"></section>
+      <section class="editorial-section part-section" id="magic-diamonds" data-part="diamonds"></section>
+      <section class="editorial-section part-section" id="wheel-of-luck" data-part="wheel"></section>
 
       <!-- ============ 5. FINAL DESIGN ============ -->
       <section class="editorial-section">
@@ -215,6 +376,41 @@
           </div>
         </div>
       </section>
+
+      <!-- ============ MY ROLE (end of page) ============ -->
+      <!-- Text on the left, image carousel on the right, half each; stacked on phones.
+           Reusable on any project page: .role-split + .media-carousel (script in js/script.js). -->
+      <section class="editorial-section role-split">
+        <div>
+          <h2>My Role</h2>
+          <ul class="ed-list">
+            <li>Developed the full CAD model and mechanical systems</li>
+            <li>3D printed, finished and assembled the prototype</li>
+            <li>Integrated electronics through soldering and wiring</li>
+            <li>Presented and demonstrated the working machine to visitors</li>
+          </ul>
+          <p class="role-credit">MindMeter was a pair project, designed and built with <a href="https://www.linkedin.com/in/aidan-ryder-b848aa266/" target="_blank" rel="noopener noreferrer">Aidan Ryder<span class="sr-only"> (LinkedIn, opens in a new tab)</span></a>.</p>
+        </div>
+        <!-- One image at a time; the slide marked is-active shows on load. is-contain shows an image whole (no crop). -->
+        <div class="media-carousel" aria-roledescription="carousel" aria-label="MindMeter photos">
+          <div class="media-carousel-stage">
+            <div class="media-carousel-frame">
+              <img class="is-active" src="../assets/projects/mind/present.jpg" alt="Mayli presenting MindMeter in front of a screen showing its CAD render" width="1320" height="1048">
+              <img class="is-contain" src="../assets/projects/mind/sketch.jpg" alt="Early concept sketches: the first machine layout, a barrel cam and a cam follower" width="1376" height="1096" loading="lazy">
+              <img class="is-contain" src="../assets/projects/mind/cad1-web.png" alt="CAD render of MindMeter: the Insanity tower, diamond pistons, Wheel of Luck, Slides of Emotions and side lever" width="916" height="1100" loading="lazy">
+              <img src="../assets/projects/mind/test.jpg" alt="Mayli testing MindMeter's wiring, with the piston gear train exposed" width="840" height="668" loading="lazy">
+              <img src="../assets/projects/mind/black.jpg" alt="The finished MindMeter photographed on a black background, with the Insanity tower glowing and the diamond pistons raised in a wave" width="1600" height="1183" loading="lazy">
+            </div>
+            <button type="button" class="gallery-arrow gallery-arrow--prev" aria-label="Previous image">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button type="button" class="gallery-arrow gallery-arrow--next" aria-label="Next image">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <div class="media-carousel-dots" aria-hidden="true"></div>
+        </div>
+      </section>
     </article>
   </main>
 
@@ -222,6 +418,9 @@
     <p>&copy; 2026 Mayli Jones.</p>
   </footer>
 
-  <script src="../js/script.js?v=2026-10-03j"></script>
+  <script src="../js/script.js?v=2026-10-04a"></script>
+  <script src="../js/mindmeter-parts.js?v=9" defer></script>
+  <script src="../js/part-section.js?v=9" defer></script>
+  <script src="../assets/projects/mindmeter/virtual/virtual-gizmo.js?v=5" defer></script>
 </body>
 </html>

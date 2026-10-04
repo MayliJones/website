@@ -2728,3 +2728,412 @@ button:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------------- Part sections (detailed "part of the machine" sections, built by js/part-section.js) ---------------- */
+
+/* Intro: runs the full content width */
+.part-intro {
+  max-width: none;
+}
+
+.part-intro p {
+  margin: 0 0 1em;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+}
+
+.part-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.part-group {
+  display: grid;
+  gap: var(--part-row-gap);
+  margin-top: var(--space-lg);
+}
+
+/* A bit more room before a subheading such as "Electronics and Code" */
+.part-group + .part-group {
+  margin-top: calc(var(--space-lg) + var(--space-sm));
+}
+
+.part-group-heading {
+  margin: 0 0 calc(var(--space-sm) - var(--part-row-gap)); /* sits closer to its first row than rows do to each other */
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Image about 45%, text about 55%, vertically centred against each other */
+.part-row {
+  display: grid;
+  grid-template-columns: minmax(0, 9fr) minmax(0, 11fr);
+  gap: var(--part-split-gap);
+  align-items: center;
+}
+
+.part-row--media-right {
+  grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+}
+
+/* Carousel rows (schematics and code): top-aligned, since the text runs longer */
+.part-row--carousel {
+  align-items: start;
+}
+
+.part-row--media-right .part-media {
+  order: 2;
+}
+
+/* Capped images sit against the text side rather than floating mid-column */
+.part-row--media-left .part-media { justify-items: end; }
+.part-row--media-right .part-media { justify-items: start; }
+
+/* Several images in one column stack; each frame hugs its image */
+.part-media {
+  display: grid;
+  gap: var(--space-sm);
+  justify-items: center;
+}
+
+.part-media-frame {
+  display: block;
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 12px;
+  background: #fff;
+}
+
+/* Capped at about 300px tall on desktop; the width follows the aspect ratio */
+.part-media-frame img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain; /* never crop schematics or code */
+}
+
+/* size: "large" - the image simply fills its column at its natural aspect ratio (labelled diagrams).
+   The row uses the same columns as the row above it, so image and text line up with it: after a normal
+   row that's the 45/55 split, otherwise (first row, under the intro blocks) the even 50/50 split. */
+.part-row--large {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: var(--part-col-gap);
+}
+
+.part-row--media-left:not(.part-row--large) + .part-row--large {
+  grid-template-columns: minmax(0, 9fr) minmax(0, 11fr);
+  column-gap: var(--part-split-gap);
+}
+
+.part-row--media-right:not(.part-row--large) + .part-row--large {
+  grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+  column-gap: var(--part-split-gap);
+}
+
+.part-media-frame--large {
+  width: 100%;
+}
+
+.part-media-frame--large img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: none;
+  object-fit: initial;
+  object-position: initial;
+  position: static;
+  transform: none;
+  margin: 0;
+}
+
+.part-media-zoom {
+  cursor: zoom-in;
+  font: inherit;
+  transition: box-shadow 0.2s ease;
+}
+
+.part-media-zoom:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.part-media-zoom:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Small "Click to enlarge" tag, shown on hover/focus */
+.part-media-hint {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(26, 26, 26, 0.7);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.part-media-zoom:hover .part-media-hint,
+.part-media-zoom:focus-visible .part-media-hint,
+.part-carousel-zoom:hover .part-media-hint,
+.part-carousel-zoom:focus-visible .part-media-hint {
+  opacity: 1;
+}
+
+/* Carousel in a part row: the site carousel (arrows and dots), with a fixed shape so it doesn't jump
+   between slides, and everything shown whole on white */
+.part-carousel {
+  width: 100%;
+}
+
+.part-carousel .media-carousel-frame {
+  aspect-ratio: 5 / 4;
+  background: #fff;
+}
+
+.part-carousel .media-carousel-frame img {
+  padding: 10px;
+}
+
+.part-carousel-zoom {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.part-carousel-zoom:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: -3px;
+}
+
+.media-carousel-caption {
+  margin: 10px 0 0;
+  min-height: 1.5em;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* Subheaded blocks under the intro (e.g. the modes of a part): side by side, stacked on phones */
+.part-section {
+  --part-row-gap: clamp(32px, 4vw, 48px);    /* vertical space between rows */
+  --part-col-gap: clamp(32px, 5vw, 72px);    /* between the two halves of a 50/50 row */
+  --part-split-gap: clamp(24px, 4vw, 56px);  /* between image and text in a 45/55 row */
+}
+
+.part-intro-blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: var(--space-md) var(--part-col-gap);
+  margin-top: var(--space-md);
+}
+
+/* Rows straight after the intro blocks follow at the usual row spacing */
+.part-intro-blocks + .part-group {
+  margin-top: var(--part-row-gap);
+}
+
+.part-intro-blocks .part-block + .part-block {
+  margin-top: 0;
+}
+
+/* Blocks marked wide: true sit under the whole row, spanning both columns */
+.part-wide {
+  grid-column: 1 / -1;
+  order: 3;
+}
+
+.part-block + .part-block {
+  margin-top: var(--space-md);
+}
+
+/* Same style as the other subsection headings on project pages */
+.part-block-heading {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Site body text size (as .editorial-text) */
+.part-block p {
+  margin: 0 0 0.8em;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+}
+
+.part-block p:last-child {
+  margin-bottom: 0;
+}
+
+.part-block .ed-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Phones: every row stacks, image first */
+@media (max-width: 767px) {
+  .part-row,
+  .part-row--media-right,
+  .part-row--large,
+  .part-row--media-left:not(.part-row--large) + .part-row--large,
+  .part-row--media-right:not(.part-row--large) + .part-row--large {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .part-row--media-right .part-media {
+    order: 0;
+  }
+
+  .part-row .part-media {
+    justify-items: center;
+  }
+
+  .part-media-frame img {
+    max-height: none;
+  }
+}
+
+/* Lightbox for schematics and code */
+.part-lightbox {
+  max-width: min(1400px, 94vw);
+  max-height: 92vh;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: #fff;
+  overflow: auto;
+}
+
+.part-lightbox::backdrop {
+  background: rgba(20, 20, 30, 0.75);
+}
+
+.part-lightbox img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(92vh - 8px);
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.part-lightbox-close {
+  position: sticky;
+  top: 8px;
+  float: right;
+  margin: 8px 8px -48px 0;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(26, 26, 26, 0.75);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.part-lightbox-close:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.part-lightbox-open {
+  overflow: hidden;
+}
+
+/* ---------------- Divided project pages (add .editorial--divided to the article) ----------------
+   A faint line between the hero and each main section, with the space split evenly either side */
+.editorial--divided > .editorial-hero,
+.editorial--divided > .editorial-section {
+  margin-bottom: var(--space-lg);
+}
+
+.editorial--divided > :is(.editorial-hero, .editorial-section) + .editorial-section {
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.editorial--divided > .editorial-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Collaborator credit under My Role */
+.role-credit {
+  margin: var(--space-md) 0 0;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.role-credit a {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.role-credit a:hover {
+  color: var(--color-accent-dark);
+}
+
+.role-credit a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Phones, on divided project pages: carousel arrows sit over the image edges instead of beside it,
+   so the image gets the full width */
+@media (max-width: 767px) {
+  .editorial--divided .media-carousel-stage {
+    position: relative;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .editorial--divided .media-carousel-frame {
+    grid-column: 1;
+  }
+
+  .editorial--divided .media-carousel .gallery-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    margin-top: -18px;
+  }
+
+  .editorial--divided .media-carousel .gallery-arrow--prev { left: 8px; }
+  .editorial--divided .media-carousel .gallery-arrow--next { right: 8px; }
+
+  .editorial--divided .media-carousel .gallery-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+}
