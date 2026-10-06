@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roadster Redesign | Mayli Jones</title>
-  <meta name="description" content="An applied thermofluids engineering investigation">
+  <title>Roadster Aerodynamics | Mayli Jones</title>
+  <meta name="description" content="Aerodynamic development of an open-top roadster, designed in Fusion 360 and tested with CFD in ANSYS Fluent.">
   <!-- Link previews (LinkedIn, X, Slack, iMessage...). Uses the site-wide hero screenshot; to give this page its own preview, swap both image URLs (absolute) and the width/height. -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://maylijones.com/projects/thermofluids-project.html">
-  <meta property="og:title" content="Roadster Redesign | Mayli Jones">
-  <meta property="og:description" content="An applied thermofluids engineering investigation">
+  <meta property="og:title" content="Roadster Aerodynamics | Mayli Jones">
+  <meta property="og:description" content="Aerodynamic development of an open-top roadster, designed in Fusion 360 and tested with CFD in ANSYS Fluent.">
   <meta property="og:image" content="https://maylijones.com/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="627">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://maylijones.com/og-image.png">
   <link rel="icon" href="../assets/logo.png">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style.css?v=2026-10-06v">
+  <!-- Page transition: don't paint until the hero exists, so the card can zoom straight into it -->
+  <link rel="expect" href="#roadster-hero" blocking="render">
+  <!-- Scroll animations (js/reveal.js): hide the animated elements before first paint, unless reduced motion is on -->
+  <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-reveal');</script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="project-page">
+<body class="project-page theme-red">
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="logo">Mayli Jones</a>
@@ -36,56 +40,726 @@
   </header>
 
   <main>
-    <article class="case-study container">
+    <!-- Images: placeholders for now. Each sits under an IMAGE comment naming its file; swap the placeholder
+         <div> for <img src="../assets/projects/roadster/FILENAME" alt="..."> (inside .ed-figure keep the figure). -->
+    <!-- Scroll animations: data-reveal / data-reveal-stagger attributes (see js/reveal.js); they replay each time something comes back into view, except images (data-reveal-once), which play once and stay -->
+    <article class="editorial editorial--divided editorial--animated container">
       <a class="back-link" href="../index.html#work">&larr; All projects</a>
 
-      <header class="case-study-header">
-        <h1>Roadster Redesign</h1>
-        <p class="project-subtitle">An applied thermofluids engineering investigation</p>
-        <ul class="project-tags">
-          <li>Thermofluids</li>
-          <li>Engineering Analysis</li>
-        </ul>
+      <!-- ============ 1. HERO ============ -->
+      <header class="editorial-hero">
+        <!-- Title on the left, skills on the right (they drop below the title on phones).
+             Same shared component as the MindMeter, Self-Balancing Robot, SwivelCut and Quorridors pages: .hero-head + .hero-skills. -->
+        <div class="hero-head">
+          <div>
+            <h1 class="editorial-title">Roadster Aerodynamics</h1>
+            <!-- Same dot-separated tags as the project cards on the home page -->
+            <ul class="project-tags hero-tags">
+              <li>Individual project</li>
+              <li>Thermofluids</li>
+              <li>Fusion 360</li>
+              <li>ANSYS Fluent</li>
+            </ul>
+          </div>
+          <div class="hero-skills" aria-label="Skills developed">
+            <div class="about-grid-col">
+              <h3 class="about-grid-heading">Technical</h3>
+              <p>CFD Analysis (ANSYS Fluent), Meshing and Simulation Setup, Surface Modelling (Fusion 360 Form), Aerodynamic Design, Concept Sketching</p>
+            </div>
+            <div class="about-grid-col">
+              <h3 class="about-grid-heading">Transferable</h3>
+              <p>Benchmarking and Research, Independent Research</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- IMAGE: hero render (assets/car/hero.png). Keep id and view-transition-name so the project card morphs into it. -->
+        <div class="editorial-img editorial-img--hero" id="roadster-hero" data-reveal="wipe" data-reveal-once data-reveal-later style="view-transition-name: vt-thermofluids-project">
+          <img src="../assets/car/hero.png" width="4600" height="3196" decoding="sync" fetchpriority="high" alt="Render of the roadster from the side and front, showing the open cockpit, front splitter and raised rear">
+        </div>
       </header>
 
-      <div class="case-study-image" style="view-transition-name: vt-thermofluids-project">
-        <img src="../assets/projects/car.png" alt="Roadster Redesign">
-      </div>
-
-      <section class="case-study-section">
-        <h2>Overview</h2>
-        <p>[Placeholder: a short summary of the project: what it is, the context it was made in (module, brief, timeframe, team or solo), and why it mattered.]</p>
+      <!-- ============ 2. THE BRIEF ============ -->
+      <!-- Brief left, Goals right; stacked Brief then Goals on phones. Same two-column section as MindMeter's Challenge / Solution (.mm-duo). -->
+      <section data-reveal="divider" class="editorial-section mm-duo">
+        <div>
+          <h2>The Brief</h2>
+          <div class="editorial-text editorial-text--full">
+            <p>Roadsters lose aerodynamic efficiency because the open cockpit disrupts airflow and enlarges the wake. The aim was to improve high-speed stability by adding downforce without a large drag penalty, while keeping a realistic, attractive form.</p>
+          </div>
+        </div>
+        <div>
+          <h2>Goals</h2>
+          <ul class="ed-list">
+            <li>Generate downforce for high-speed stability</li>
+            <li>Keep the drag penalty small</li>
+            <li>Maintain a realistic, attractive roadster form</li>
+          </ul>
+        </div>
       </section>
 
-      <section class="case-study-section">
-        <h2>Problem</h2>
-        <p>[Placeholder: the brief or problem you were given, or the problem you identified yourself. What need or gap was this addressing?]</p>
+      <!-- ============ 3. RESEARCH ============ -->
+      <section data-reveal="divider" class="editorial-section">
+        <h2>Research</h2>
+
+        <!-- Benchmarking: key, one block per car (drawing left; name, text and stat right; text first when stacked on phones), then the comparison.
+             Drawings open full size in the same lightbox as the MindMeter page (script at the end of this page). -->
+        <div class="editorial-sub bench">
+          <h3>Benchmarking</h3>
+
+          <!-- Key, colours sampled from the drawings -->
+          <ul class="bench-key" aria-label="Key">
+            <li class="bench-key-item bench-key-item--good"><span class="bench-key-line" aria-hidden="true"></span>Features that improve the aerodynamics</li>
+            <li class="bench-key-item bench-key-item--weak"><span class="bench-key-line" aria-hidden="true"></span>Features that could be improved</li>
+          </ul>
+
+          <div class="bench-car">
+            <div class="bench-info">
+              <h4>Porsche Boxster</h4>
+              <p>The Porsche Boxster is benchmarked as a modern two-seat roadster, representing a higher-performance reference for open-top sports-car aerodynamics.</p>
+              <div class="stat bench-stat" data-reveal="rise"><span class="stat-number" data-count>0.43</span><span class="stat-label">Roof down C<sub>d</sub></span></div>
+            </div>
+            <!-- IMAGE: assets/car/bench1.png -->
+            <figure class="ed-figure bench-figure" data-reveal="wipe" data-reveal-once>
+              <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                <img src="../assets/car/bench1.png" width="3092" height="3052" loading="lazy" decoding="async" alt="Annotated side, front and rear line drawings of a Porsche Boxster highlighting aerodynamic features: the raked windshield, recessed intake, front air inlets, rear lip spoiler and rear diffuser as strengths, and the sudden roof termination, short rear overhang, exposed wheels, large frontal area and rounded nose as areas to improve">
+                <span class="part-media-hint">Click to enlarge</span>
+              </button>
+            </figure>
+          </div>
+
+          <div class="bench-car">
+            <div class="bench-info">
+              <h4>Mazda MX-5</h4>
+              <p>The Mazda MX-5 is benchmarked as a widely used, lightweight roadster, providing a representative baseline for typical open-top road-car aerodynamics.</p>
+              <div class="stat bench-stat" data-reveal="rise"><span class="stat-number" data-count>0.53</span><span class="stat-label">Roof down C<sub>d</sub></span></div>
+            </div>
+            <!-- IMAGE: assets/car/bench2.png -->
+            <figure class="ed-figure bench-figure" data-reveal="wipe" data-reveal-once>
+              <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                <img src="../assets/car/bench2.png" width="2996" height="2980" loading="lazy" decoding="async" alt="Annotated side, front and rear line drawings of a Mazda MX-5 highlighting aerodynamic features: the wheel deflector, smooth side surfaces, rear lip spoiler, compact frontal area, rounded bumper corners and rear bumper aero outlets as strengths, and the steeper windshield transition, sudden roof termination, antenna, short rear deck and cooling intake as areas to improve">
+                <span class="part-media-hint">Click to enlarge</span>
+              </button>
+            </figure>
+          </div>
+
+          <div class="bench-compare">
+            <h4>Comparison</h4>
+            <p class="callout">Benchmarking the Porsche Boxster and Mazda MX-5 highlights <strong>two contrasting aerodynamic approaches</strong>. The Boxster uses <strong>active rear lift reduction</strong> and <strong>underbody shaping</strong> to improve high-speed stability, while the MX-5 relies on <strong>compact proportions</strong> and <strong>clean body surfaces</strong> to minimise drag through lightweight simplicity. Across both vehicles, drag is mainly driven by <strong>rear wake behaviour</strong> rather than cabin flow alone. Aerodynamic performance depends on <strong>controlling rear separation</strong>, with <strong>front underbody entry</strong> and <strong>wake management</strong> offering the greatest design impact.</p>
+          </div>
+        </div>
+
+        <!-- Rear Spoiler Optimisation: why / benchmark callout, the sketches, then what affects performance / takeaway.
+             The two-column rows reuse .mm-duo (stacked, left first, on phones). -->
+        <div class="editorial-sub spoiler">
+          <h3>Rear Spoiler Optimisation</h3>
+
+          <div class="mm-duo">
+            <div>
+              <h4>Why use a rear lip spoiler?</h4>
+              <div class="editorial-text editorial-text--full">
+                <p>Open-top roadsters tend to generate rear lift. A rear lip spoiler fixes where the flow separates at the rear edge, reducing lift and improving high-speed stability. Kept small, it adds downforce with very little extra drag.</p>
+              </div>
+            </div>
+            <div class="callout">
+              <h4>Audi TT Benchmark</h4>
+              <p>The first-generation Audi TT was fitted with a rear spoiler after reports of high-speed instability. The added lip reduced rear lift and improved stability at motorway speeds.</p>
+            </div>
+          </div>
+
+          <!-- IMAGE: assets/car/spoiler.png (three sketches, one caption under each third) -->
+          <figure class="ed-figure bench-figure spoiler-figure" data-reveal="wipe" data-reveal-once>
+            <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+              <img src="../assets/car/spoiler.png" width="2628" height="546" loading="lazy" decoding="async" alt="Three sketches comparing airflow behind a car with no spoiler, a small lip spoiler and a large spoiler">
+              <span class="part-media-hint">Click to enlarge</span>
+            </button>
+            <figcaption class="spoiler-captions">
+              <span>No spoiler</span>
+              <span>Small lip spoiler: less drag</span>
+              <span>Large spoiler</span>
+            </figcaption>
+          </figure>
+
+          <div class="mm-duo">
+            <div>
+              <h4>What affects performance</h4>
+              <ul class="ed-list spoiler-factors">
+                <li><strong>Height</strong>: how strongly the flow is redirected</li>
+                <li><strong>Edge sharpness</strong>: where separation occurs</li>
+                <li><strong>Kick-up angle</strong>: the balance between downforce and drag</li>
+              </ul>
+            </div>
+            <p class="takeaway">Small to moderate spoilers can stabilise the wake and improve stability with minimal drag penalty, which is why a lip spoiler was chosen over a larger wing.</p>
+          </div>
+        </div>
+
+        <!-- Splitter: mirrors Rear Spoiler Optimisation (same .spoiler styles). Why (text left, sketch right; text first
+             on phones), then the Porsche 911 benchmark (image left, callout right; image first on phones). -->
+        <div class="editorial-sub spoiler splitter">
+          <h3>Splitter</h3>
+
+          <div class="mm-duo">
+            <div>
+              <h4>Why use a splitter?</h4>
+              <div class="editorial-text editorial-text--full">
+                <p>A front splitter controls how air enters the underbody. By restricting high-pressure air from flowing beneath the car, it raises pressure on top of the splitter and lowers pressure underneath. This creates front downforce and reduces front lift.</p>
+              </div>
+            </div>
+            <!-- IMAGE: assets/car/splitter1.png -->
+            <figure class="ed-figure bench-figure" data-reveal="wipe" data-reveal-once>
+              <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                <img src="../assets/car/splitter1.png" width="1324" height="476" loading="lazy" decoding="async" alt="Sketch of airflow around a car, showing slower high-pressure air above and faster low-pressure air beneath the splitter">
+                <span class="part-media-hint">Click to enlarge</span>
+              </button>
+            </figure>
+          </div>
+
+          <div class="splitter-bench">
+            <h4>Porsche 911 Splitter Benchmark</h4>
+            <div class="mm-duo">
+              <!-- IMAGE: assets/car/Splitter2.png (capital S in the filename) -->
+              <figure class="ed-figure bench-figure" data-reveal="wipe" data-reveal-once>
+                <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                  <img src="../assets/car/Splitter2.png" width="1016" height="750" loading="lazy" decoding="async" alt="Front splitter for a Porsche 911, shown alone and fitted to the car">
+                  <span class="part-media-hint">Click to enlarge</span>
+                </button>
+              </figure>
+              <div class="callout">
+                <ul class="ed-list spoiler-factors">
+                  <li><strong>Underbody flow restriction</strong>: limits high-pressure air entering beneath the car, lowering front lift.</li>
+                  <li><strong>Clear separation edge</strong>: defines where airflow detaches at the bumper, improving pressure control.</li>
+                  <li><strong>Low-profile integrated design</strong>: keeps ground clearance while generating efficient front downforce.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Front-End Pressure Management: same .spoiler styles as the two subsections above. The text column is split
+             into three equal rows the height of the image, so each item sits level with its sketch (image first on phones).
+             If pressure.png is replaced by pressure1/2/3.png, switch to three rows of sketch left, text right. -->
+        <div class="editorial-sub spoiler pressure">
+          <h3>Front-End Pressure Management</h3>
+          <div class="editorial-text editorial-text--full">
+            <p>Front-end shape controls how stagnation pressure forms at the nose and how smoothly air accelerates over the bonnet. Abrupt geometry creates strong pressure gradients and early separation, while gradual curvature spreads pressure more evenly and delays separation.</p>
+          </div>
+
+          <div class="mm-duo pressure-row">
+            <!-- IMAGE: assets/car/pressure.png -->
+            <figure class="ed-figure bench-figure" data-reveal="wipe" data-reveal-once>
+              <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                <img src="../assets/car/pressure.png" width="818" height="950" loading="lazy" decoding="async" alt="Sketches comparing airflow around a flat front, a circular front and a teardrop shape, showing wake size decreasing from flat to teardrop">
+                <span class="part-media-hint">Click to enlarge</span>
+              </button>
+            </figure>
+            <div class="pressure-items">
+              <div class="pressure-item">
+                <h4>Flat front</h4>
+                <p>Creates a concentrated stagnation region and abrupt separation, producing a large wake and high pressure drag.</p>
+              </div>
+              <div class="pressure-item">
+                <h4>Circular front</h4>
+                <p>Smooths the stagnation region and delays separation compared with a flat face, but still produces a relatively large wake.</p>
+              </div>
+              <!-- Preferred shape: tinted like the callout cards -->
+              <div class="pressure-item callout">
+                <h4>Teardrop</h4>
+                <p>Spreads pressure gradually and keeps flow attached, minimising wake size and reducing drag.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rear Deck Pressure Recovery: compact, same .spoiler styles. Image left, XL1 benchmark card right
+             (image first on phones). -->
+        <div class="editorial-sub spoiler rear-deck">
+          <h3>Rear Deck Pressure Recovery</h3>
+          <div class="editorial-text editorial-text--full">
+            <p>Rear-end geometry determines how smoothly pressure recovers before the flow separates. A gradual taper reduces wake size and pressure drag, while an abrupt cut-off causes early separation and a large low-pressure wake.</p>
+          </div>
+
+          <div class="mm-duo rear-deck-row">
+            <!-- IMAGE: assets/car/rear.png (the frame trims the pale strip along the bottom of the file) -->
+            <figure class="ed-figure bench-figure rear-deck-figure" data-reveal="wipe" data-reveal-once>
+              <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                <img src="../assets/car/rear.png" width="2048" height="608" loading="lazy" decoding="async" alt="Volkswagen XL1 in a wind tunnel, with smoke streamlines following its long tapered rear">
+                <span class="part-media-hint">Click to enlarge</span>
+              </button>
+            </figure>
+            <div class="callout">
+              <h4>Volkswagen XL1 Benchmark</h4>
+              <p>The XL1's long, gradual taper is near-ideal for minimising pressure drag.</p>
+              <ul class="ed-list">
+                <li>Airflow <strong>slows down gradually</strong> before leaving the car</li>
+                <li>Flow <strong>stays attached longer</strong>, so separation happens further back</li>
+                <li>A <strong>smaller wake</strong> and higher rear pressure reduce pressure drag</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section class="case-study-section">
-        <h2>Process</h2>
-        <p>[Placeholder: research and discovery: user needs, constraints, existing solutions, early concepts.]</p>
-        <p>[Placeholder: making and building: sketches, prototypes, CAD iterations, physical builds, testing, and what you learned from each round of making. Include images of models, rigs, or test setups here.]</p>
+      <!-- ============ 4. SKETCH DEVELOPMENT ============ -->
+      <!-- Five iterations (three on top, two centred below; one column on phones), then the final design.
+           Captions: replace each "Caption for sketch X". Sketches open full size on click. -->
+      <section data-reveal="divider" class="editorial-section">
+        <h2>Sketch Development</h2>
+        <div class="editorial-text editorial-text--full">
+          <p>Concepts explored nose shape, windscreen angle, splitter size and rear length, with each iteration responding to the limitations of the last.</p>
+        </div>
+
+        <div class="iteration-grid" data-reveal-stagger="wipe" data-reveal-once>
+          <figure class="ed-figure iteration">
+            <span class="iteration-num">01</span>
+            <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+              <img src="../assets/car/1.png" width="1932" height="628" loading="lazy" decoding="async" alt="Roadster concept sketch 1 of 5">
+              <span class="part-media-hint">Click to enlarge</span>
+            </button>
+            <figcaption>3-wheel teardrop with a rounded nose. Rejected, as it's less stable than a 4-wheel car.</figcaption>
+          </figure>
+          <figure class="ed-figure iteration">
+            <span class="iteration-num">02</span>
+            <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+              <img src="../assets/car/2.png" width="1908" height="572" loading="lazy" decoding="async" alt="Roadster concept sketch 2 of 5">
+              <span class="part-media-hint">Click to enlarge</span>
+            </button>
+            <figcaption>Larger splitter and prominent spoiler. The windscreen angle didn't follow the nose, risking pressure build-up.</figcaption>
+          </figure>
+          <figure class="ed-figure iteration">
+            <span class="iteration-num">03</span>
+            <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+              <img src="../assets/car/3.png" width="1944" height="692" loading="lazy" decoding="async" alt="Roadster concept sketch 3 of 5">
+              <span class="part-media-hint">Click to enlarge</span>
+            </button>
+            <figcaption>Rear hump and small spoiler with more realistic proportions. A larger hump risked adding frontal area.</figcaption>
+          </figure>
+          <figure class="ed-figure iteration">
+            <span class="iteration-num">04</span>
+            <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+              <img src="../assets/car/4.png" width="1700" height="603" loading="lazy" decoding="async" alt="Roadster concept sketch 4 of 5">
+              <span class="part-media-hint">Click to enlarge</span>
+            </button>
+            <figcaption>Single smooth bonnet-to-windscreen line, but the blunter nose and short rear limited pressure recovery.</figcaption>
+          </figure>
+          <figure class="ed-figure iteration">
+            <span class="iteration-num">05</span>
+            <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+              <img src="../assets/car/5.png" width="2216" height="588" loading="lazy" decoding="async" alt="Roadster concept sketch 5 of 5">
+              <span class="part-media-hint">Click to enlarge</span>
+            </button>
+            <figcaption>Longer rear and more angled front, for gentler pressure recovery and a smaller wake.</figcaption>
+          </figure>
+        </div>
+
+        <div class="editorial-sub sketch-final">
+          <h3>Final Design</h3>
+          <!-- IMAGE: assets/car/Final.png (capital F in the filename) -->
+          <figure class="ed-figure bench-figure" data-reveal="wipe" data-reveal-once>
+            <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+              <img src="../assets/car/Final.png" width="3032" height="2144" loading="lazy" decoding="async" alt="Final roadster design sketch">
+              <span class="part-media-hint">Click to enlarge</span>
+            </button>
+          </figure>
+          <p class="callout">The final iteration best balances stable downforce with low pressure drag for an open-top roadster. The smooth bonnet-to-windscreen line reduces front pressure, while the splitter and spoiler give front and rear stability. A longer rear allows more gradual pressure recovery, helping produce a smaller, more organised wake.</p>
+        </div>
       </section>
 
-      <section class="case-study-section">
-        <h2>Outcome</h2>
-        <p>[Placeholder: the final result: what was delivered, how it performed against the brief, and any feedback or evaluation received.]</p>
-      </section>
+      <!-- ============ 6. CAD ============ -->
+      <!-- Lead render, spec stats, then two image/text rows (image first on phones), then a note on frontal area.
+           The CFD setup gets its own section after this one. -->
+      <section data-reveal="divider" class="editorial-section">
+        <h2>CAD</h2>
 
-      <section class="case-study-section">
-        <h2>My Role</h2>
-        <p>[Placeholder: what you specifically did, especially if this was a team project. Be concrete about your contributions.]</p>
-      </section>
+        <!-- IMAGE: assets/car/red1.png -->
+        <figure class="ed-figure bench-figure" data-reveal="wipe" data-reveal-once>
+          <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+            <img src="../assets/car/red1.png" width="2508" height="1131" loading="lazy" decoding="async" alt="Red render of the final roadster design from the front three-quarter view">
+            <span class="part-media-hint">Click to enlarge</span>
+          </button>
+        </figure>
 
-      <section class="case-study-section">
-        <h2>Tools Used</h2>
-        <ul class="tools-list">
-          <li>[Tool 1]</li>
-          <li>[Tool 2]</li>
-          <li>[Tool 3]</li>
+        <!-- Spec row: same stat style as Results; the dimensions count up as they appear -->
+        <ul class="stat-row" data-reveal-stagger="rise">
+          <li class="stat"><span class="stat-number">1:17</span><span class="stat-label">Scale</span></li>
+          <li class="stat"><span class="stat-number" data-count>290&nbsp;mm</span><span class="stat-label">Length</span></li>
+          <li class="stat"><span class="stat-number" data-count>110&nbsp;mm</span><span class="stat-label">Width</span></li>
+          <li class="stat"><span class="stat-number" data-count>55&nbsp;mm</span><span class="stat-label">Height</span></li>
         </ul>
+
+        <!-- Carousel left (ortho, then the wireframe), text right, centred against it; carousel first on phones.
+             Same carousel as the MindMeter page (.media-carousel, js/script.js); swipe, arrow keys and click to enlarge
+             are added by the scripts at the end of this page. -->
+        <div class="mm-duo cad-row">
+          <div class="media-carousel part-carousel" aria-roledescription="carousel" aria-label="CAD model views">
+            <div class="media-carousel-stage">
+              <button type="button" class="gallery-arrow gallery-arrow--prev" aria-label="Previous image">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="media-carousel-frame">
+                <!-- IMAGE: assets/car/ortho.png -->
+                <img class="is-contain is-active" src="../assets/car/ortho.png" width="1164" height="1052" loading="lazy" decoding="async" alt="Side, back, front and top view renders of the roadster">
+                <!-- IMAGE: assets/car/cad.png -->
+                <img class="is-contain" src="../assets/car/cad.png" width="912" height="548" loading="lazy" decoding="async" alt="Fusion 360 Form model wireframe overlaid on the orthographic reference sketches">
+                <!-- One button over the frame opens whichever slide is showing -->
+                <button type="button" class="part-carousel-zoom" data-lightbox aria-label="Open full size image"><span class="part-media-hint">Click to enlarge</span></button>
+              </div>
+              <button type="button" class="gallery-arrow gallery-arrow--next" aria-label="Next image">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div class="media-carousel-dots" aria-hidden="true"></div>
+          </div>
+          <div>
+            <h4>Modelling Process</h4>
+            <div class="editorial-text editorial-text--full">
+              <p>The car was modelled in the Fusion 360 Form workspace to achieve smooth, continuous curvature. Orthographic sketches were drawn first and used as references to build the body around.</p>
+            </div>
+            <p class="callout">I kept a four-sided (quad) polygon topology wherever possible. This reduced surface irregularities and helped prevent meshing issues in the CFD.</p>
+          </div>
+        </div>
+
+        <p class="cad-note">The frontal area (6,129 mm² at model scale) was measured in Fusion 360 for use in the drag coefficient calculation.</p>
       </section>
+
+      <!-- ============ 6b. CFD SETUP ============ -->
+      <!-- Intro, a carousel of the five setup steps (same carousel as the CAD section), the step label and caption for the
+           slide showing (all five captions share one space, so nothing below moves), then the solver settings. -->
+      <section data-reveal="divider" class="editorial-section">
+        <h2>CFD Setup</h2>
+        <div class="editorial-text editorial-text--full">
+          <p>The aerodynamics were simulated in ANSYS Fluent at 30.5 m/s (68 mph) to find the drag and lift on the car.</p>
+        </div>
+
+        <div class="media-carousel part-carousel cfd-carousel" aria-roledescription="carousel" aria-label="CFD setup steps">
+          <div class="media-carousel-stage">
+            <button type="button" class="gallery-arrow gallery-arrow--prev" aria-label="Previous step">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="media-carousel-frame">
+              <!-- IMAGES: assets/car/set1.png to set5.png -->
+              <img class="is-contain is-active" src="../assets/car/set1.png" width="442" height="241" loading="lazy" decoding="async" alt="Half of the roadster model cut along its centre line, with the symmetry plane shown as a transparent sheet">
+              <img class="is-contain" src="../assets/car/set2.png" width="1538" height="666" loading="lazy" decoding="async" alt="Side of the roadster model with two magnified circles highlighting short edges in red, near the windscreen and the front wheel arch">
+              <img class="is-contain" src="../assets/car/set3.png" width="433" height="206" loading="lazy" decoding="async" alt="Six views of the box-shaped enclosure around the car, each highlighting one boundary: symmetry plane, walls, pressure outlet, stationary road, velocity inlet and the no-slip car surface">
+              <img class="is-contain" src="../assets/car/set4.png" width="1576" height="788" loading="lazy" decoding="async" alt="Mesh around the roadster on the symmetry plane, with polyhedral cells that get smaller close to the car">
+              <img class="is-contain" src="../assets/car/set5.png" width="1604" height="420" loading="lazy" decoding="async" alt="Triangular mesh around the roadster, very dense close to the car and coarser further away">
+              <button type="button" class="part-carousel-zoom" data-lightbox aria-label="Open full size image"><span class="part-media-hint">Click to enlarge</span></button>
+            </div>
+            <button type="button" class="gallery-arrow gallery-arrow--next" aria-label="Next step">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <div class="media-carousel-dots" aria-hidden="true"></div>
+          <!-- One caption per slide, in slide order; the page script shows the one matching the slide -->
+          <div class="carousel-steps" aria-live="polite">
+            <div class="carousel-step is-active">
+              <span class="iteration-num">01 Geometry</span>
+              <p>The car is symmetric, so only half was modelled, halving simulation time. The frontal area was halved to match.</p>
+            </div>
+            <div class="carousel-step">
+              <span class="iteration-num">02 Short edges</span>
+              <p>Six short edges were found and repaired before meshing. Left in, they create tiny mesh cells that increase cell count and can cause poor convergence.</p>
+            </div>
+            <div class="carousel-step">
+              <span class="iteration-num">03 Enclosure and boundary conditions</span>
+              <p>A box of air was built around the car, extending five car lengths behind it so the wake could fully develop. The blockage ratio was <strong>3.37%</strong>, under the <strong>5%</strong> limit, so the walls didn't affect the flow. I set a velocity inlet, pressure outlet, symmetry plane, stationary road and a no-slip wall on the car.</p>
+            </div>
+            <div class="carousel-step">
+              <span class="iteration-num">04 Surface mesh</span>
+              <p>A local sizing of 1 mm was applied around the car to capture sharp flow changes at the nose, over the roof curvature and at the rear, with cells growing coarser further away.</p>
+            </div>
+            <div class="carousel-step">
+              <span class="iteration-num">05 Volume mesh</span>
+              <p>The enclosure was filled with 3D cells, with a boundary layer on the car's surface for near-wall accuracy. The final mesh had 484,775 cells.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="editorial-sub solver">
+          <h3>Solver Setup</h3>
+          <!-- A row of three with no boxes, split by thin lines; stacked with a line between each on phones -->
+          <div class="solver-grid">
+            <div class="solver-item">
+              <h4>Solver</h4>
+              <p>Steady pressure-based solver, since the aim was one converged drag value at constant speed.</p>
+            </div>
+            <div class="solver-item">
+              <h4>Turbulence model</h4>
+              <p>k-epsilon, to capture the turbulent mixing that drives the wake and overall drag.</p>
+            </div>
+            <div class="solver-item">
+              <h4>Numerics</h4>
+              <p>SIMPLE algorithm with second-order upwind discretisation for accuracy in fast-changing regions like the wake.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 7. RESULTS ============ -->
+      <!-- Feature image, headline stats with context, what worked / limitations, then the flow plots in tabs
+           (same tabs as the homepage Skills section; js/script.js switches them, arrow keys added on this page). -->
+      <section data-reveal="divider" class="editorial-section">
+        <h2>Results</h2>
+
+        <!-- IMAGE: assets/car/cfd1.png (cropped top and bottom on the page; full size shows the whole image) -->
+        <figure class="ed-figure bench-figure results-feature" data-reveal="wipe" data-reveal-once>
+          <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+            <img src="../assets/car/cfd1.png" width="2505" height="1215" loading="lazy" decoding="async" alt="3D velocity streamlines flowing around the whole roadster, fastest over the nose and bonnet and slowing into the wake behind it">
+            <span class="part-media-hint">Click to enlarge</span>
+          </button>
+        </figure>
+
+        <!-- Headline numbers (they count up as they appear), each with a line of context. Two by two on phones. -->
+        <ul class="stat-row results-stats" data-reveal-stagger="rise">
+          <li class="stat"><span class="stat-number"><span class="stat-sym">C<sub>d</sub></span> <span data-count>0.398</span></span><span class="stat-label">In the typical range for open-top roadsters</span></li>
+          <li class="stat"><span class="stat-number"><span class="stat-sym">C<sub>l</sub></span> <span data-count>&minus;0.135</span></span><span class="stat-label">Moderate downforce, comparable to a Porsche 911 (997)</span></li>
+          <li class="stat"><span class="stat-number"><span data-count>~136&nbsp;N</span></span><span class="stat-label">Downforce at 68 mph, scaled to full size</span></li>
+          <li class="stat"><span class="stat-number"><span class="stat-sym">|C<sub>l</sub>|/C<sub>d</sub></span> <span data-count>0.34</span></span><span class="stat-label">Within the performance road car range</span></li>
+        </ul>
+
+        <div class="mm-duo results-cards">
+          <div class="results-col">
+            <h3>What worked</h3>
+            <ul class="ed-list">
+              <li>Flow stays attached over the bonnet and curved sides</li>
+              <li>The splitter creates a fast underbody jet, generating front downforce</li>
+              <li>The spoiler turns the flow upward, generating rear downforce</li>
+            </ul>
+          </div>
+          <div class="results-col results-col--muted">
+            <h3>Limitations</h3>
+            <ul class="ed-list">
+              <li>Rear flow separation creates a large wake, adding drag</li>
+              <li>Air recirculates inside the open cockpit, wasting energy</li>
+              <li>Side inflow into the cabin feeds that recirculation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="editorial-sub flow-viz">
+          <h3>Flow Visualisations</h3>
+          <!-- In each tab: the first plot large, the other two side by side (stacked on phones) -->
+          <div class="tab-list" role="tablist" aria-label="Flow visualisations">
+            <button type="button" class="tab-btn is-active" role="tab" id="tab-pressure" aria-selected="true" aria-controls="panel-pressure">2D Pressure</button>
+            <button type="button" class="tab-btn" role="tab" id="tab-velocity" aria-selected="false" aria-controls="panel-velocity" tabindex="-1">2D Velocity</button>
+            <button type="button" class="tab-btn" role="tab" id="tab-surface" aria-selected="false" aria-controls="panel-surface" tabindex="-1">3D Surface</button>
+            <button type="button" class="tab-btn" role="tab" id="tab-streamlines" aria-selected="false" aria-controls="panel-streamlines" tabindex="-1">Streamlines</button>
+          </div>
+
+          <div class="tab-panels">
+            <div class="tab-panel is-active" id="panel-pressure" role="tabpanel" aria-labelledby="tab-pressure">
+              <figure class="ed-figure bench-figure">
+                <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                  <img src="../assets/car/cfd2.png" width="2244" height="608" loading="lazy" decoding="async" alt="2D pressure plot of the car's side, with high pressure at the nose and a smooth gradient over the bonnet and windscreen">
+                  <span class="part-media-hint">Click to enlarge</span>
+                </button>
+                <figcaption>A strong high-pressure region forms at the nose, with a smooth pressure gradient over the bonnet and windscreen.</figcaption>
+              </figure>
+              <div class="flow-viz-row">
+                <figure class="ed-figure bench-figure">
+                  <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                    <img src="../assets/car/cfd3.png" width="195" height="168" loading="lazy" decoding="async" alt="Close-up 2D pressure plot at the front splitter, with high pressure ahead of it and low pressure beneath">
+                    <span class="part-media-hint">Click to enlarge</span>
+                  </button>
+                  <figcaption>Air stagnates at the front of the splitter, then speeds up beneath it, creating low pressure and front downforce.</figcaption>
+                </figure>
+                <figure class="ed-figure bench-figure">
+                  <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                    <img src="../assets/car/cfd4.png" width="884" height="616" loading="lazy" decoding="async" alt="Close-up 2D pressure plot inside the open cabin, with pressure rising at the rear cockpit wall">
+                    <span class="part-media-hint">Click to enlarge</span>
+                  </button>
+                  <figcaption>Pressure rises at the rear cockpit wall as recirculating air slows, showing energy lost inside the cabin.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="tab-panel" id="panel-velocity" role="tabpanel" aria-labelledby="tab-velocity" hidden>
+              <figure class="ed-figure bench-figure">
+                <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                  <img src="../assets/car/cfd5.png" width="2292" height="608" loading="lazy" decoding="async" alt="2D velocity plot of the car's side, with fast air over the bonnet and windscreen and a slow wake behind the car">
+                  <span class="part-media-hint">Click to enlarge</span>
+                </button>
+                <figcaption>Air speeds up over the bonnet and windscreen, while a slow, separated wake forms behind the car.</figcaption>
+              </figure>
+              <div class="flow-viz-row">
+                <figure class="ed-figure bench-figure">
+                  <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                    <img src="../assets/car/cfd6.png" width="776" height="644" loading="lazy" decoding="async" alt="2D velocity plot showing a high-velocity jet under the front splitter">
+                    <span class="part-media-hint">Click to enlarge</span>
+                  </button>
+                  <figcaption>Restricted ground clearance creates a high-velocity jet under the splitter, which drives front downforce.</figcaption>
+                </figure>
+                <figure class="ed-figure bench-figure">
+                  <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                    <img src="../assets/car/cfd7.png" width="704" height="668" loading="lazy" decoding="async" alt="Close-up 2D velocity plot at the rear spoiler, with flow separating at its edge into a slow turbulent region">
+                    <span class="part-media-hint">Click to enlarge</span>
+                  </button>
+                  <figcaption>Flow separates sharply at the spoiler edge, feeding a low-velocity turbulent region into the wake.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="tab-panel" id="panel-surface" role="tabpanel" aria-labelledby="tab-surface" hidden>
+              <figure class="ed-figure bench-figure">
+                <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                  <img src="../assets/car/cfd8.png" width="2028" height="516" loading="lazy" decoding="async" alt="Side view of the car surface coloured by turbulent eddy dissipation, highest at the splitter, cabin edges and rear">
+                  <span class="part-media-hint">Click to enlarge</span>
+                </button>
+                <figcaption>Turbulent dissipation is highest at the splitter, the cabin edges and the rear separation zone.</figcaption>
+              </figure>
+              <div class="flow-viz-row">
+                <figure class="ed-figure bench-figure">
+                  <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                    <img src="../assets/car/cfd9.png" width="1140" height="696" loading="lazy" decoding="async" alt="Front view of the car coloured by surface pressure, highest at the lower front bumper">
+                    <span class="part-media-hint">Click to enlarge</span>
+                  </button>
+                  <figcaption>High pressure at the lower front bumper drops off around the curved sides as flow stays attached.</figcaption>
+                </figure>
+                <figure class="ed-figure bench-figure">
+                  <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                    <img src="../assets/car/cfd10.png" width="1448" height="548" loading="lazy" decoding="async" alt="Top view of the car coloured by surface pressure, with no build-up at the windscreen and higher pressure at the spoiler">
+                    <span class="part-media-hint">Click to enlarge</span>
+                  </button>
+                  <figcaption>There's no significant pressure build-up at the windscreen, and pressure rises at the spoiler where rear downforce is generated.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="tab-panel" id="panel-streamlines" role="tabpanel" aria-labelledby="tab-streamlines" hidden>
+              <figure class="ed-figure bench-figure">
+                <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                  <img src="../assets/car/cfd13.png" width="345" height="165" loading="lazy" decoding="async" alt="Streamlines around the car from the rear three-quarter view, separating at the rear edge into a wake">
+                  <span class="part-media-hint">Click to enlarge</span>
+                </button>
+                <figcaption>Air is redirected smoothly around the body, before separating at the rear edge into a wake.</figcaption>
+              </figure>
+              <div class="flow-viz-row">
+                <figure class="ed-figure bench-figure">
+                  <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                    <img src="../assets/car/cfd11.png" width="752" height="444" loading="lazy" decoding="async" alt="Streamlines curling into a large vortex inside the open cockpit">
+                    <span class="part-media-hint">Click to enlarge</span>
+                  </button>
+                  <figcaption>A large vortex forms inside the cockpit, fed by air entering from the sides.</figcaption>
+                </figure>
+                <figure class="ed-figure bench-figure">
+                  <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+                    <img src="../assets/car/cfd12.png" width="176" height="138" loading="lazy" decoding="async" alt="Streamlines turning upward at the rear spoiler, with underbody air joining the wake">
+                    <span class="part-media-hint">Click to enlarge</span>
+                  </button>
+                  <figcaption>Flow turns upward at the spoiler, confirming rear downforce, while underbody air merges into the wake.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Convergence: compact, three plots in a row (stacked on phones) -->
+        <div class="editorial-sub convergence">
+          <h3>Convergence</h3>
+          <div class="editorial-text editorial-text--full">
+            <p>The drag and lift coefficients settled quickly and stayed stable, and all residuals levelled off at around 200 iterations, showing the solution had converged. The run was set to 500 iterations but stopped at around 200 once the convergence criteria were met.</p>
+          </div>
+          <div class="conv-row">
+          <figure class="ed-figure bench-figure">
+            <!-- IMAGE: assets/car/drag graph.png (space in the filename, written %20) -->
+            <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+              <img src="../assets/car/drag%20graph.png" width="555" height="274" loading="lazy" decoding="async" alt="Drag coefficient plot over 200 iterations: it swings between about 43 and minus 19 in the first few iterations, then settles flat at 0.398 by around iteration 20">
+              <span class="part-media-hint">Click to enlarge</span>
+            </button>
+            <figcaption>Drag coefficient settled at 0.398.</figcaption>
+          </figure>
+          <figure class="ed-figure bench-figure">
+            <!-- IMAGE: assets/car/lift graph.png (space in the filename, written %20) -->
+            <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+              <img src="../assets/car/lift%20graph.png" width="555" height="274" loading="lazy" decoding="async" alt="Lift coefficient plot over 200 iterations: it starts near minus 14, rises quickly, then levels off gradually at minus 0.135">
+              <span class="part-media-hint">Click to enlarge</span>
+            </button>
+            <figcaption>Lift coefficient settled at -0.135.</figcaption>
+          </figure>
+          <figure class="ed-figure bench-figure">
+            <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+              <img src="../assets/car/residual.png" width="1260" height="776" loading="lazy" decoding="async" alt="Fluent residuals plot over about 200 iterations, with the velocity residuals falling to around 10 to the minus 5 and the continuity and turbulence residuals levelling off around 10 to the minus 3">
+              <span class="part-media-hint">Click to enlarge</span>
+            </button>
+            <figcaption>Velocity residuals fell to around 10⁻⁵, with continuity and turbulence residuals at 10⁻³, acceptable for a steady k-epsilon simulation.</figcaption>
+          </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 8. PROPOSED REFINEMENTS ============ -->
+      <!-- Keep the wording as "proposed": these changes were not re-simulated -->
+      <section data-reveal="divider" class="editorial-section">
+        <h2>Proposed Refinements</h2>
+        <div class="editorial-text editorial-text--full">
+          <p>Based on the CFD results, I refined the CAD model to tackle the two main issues: rear flow separation and air recirculating in the cockpit. These changes were not re&#8209;simulated, so their effects are expected rather than tested.</p>
+        </div>
+
+        <!-- Interactive side view. new.png has the three streamlines baked in (there is no clean version), so the SVG
+             paths are traced from its pixels and drawn in the image's own coordinates (viewBox = 2226 x 656), which keeps
+             them aligned at every width. Glowing pulses run along them: a gentle automatic flow, scrubbed by the mouse
+             (script at the end of this page). Reduced motion: no pulses, just the image. -->
+        <figure class="ed-figure flow-scrub">
+          <div class="flow-scrub-stage">
+            <!-- IMAGE: assets/car/new.png -->
+            <img src="../assets/car/new.png" width="2226" height="656" loading="lazy" decoding="async" alt="Side view of the refined roadster with streamlines over the raised, extended rear">
+            <svg class="flow-scrub-svg" viewBox="0 0 2226 656" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <!-- Colours sampled along the baked-in lines: blue, through purple, to dark red over the cabin, back to blue -->
+                <linearGradient id="flow-grad" gradientUnits="userSpaceOnUse" x1="30" y1="0" x2="2082" y2="0">
+                  <stop offset="0" stop-color="#008bff"/>
+                  <stop offset="0.29" stop-color="#008bff"/>
+                  <stop offset="0.40" stop-color="#344889"/>
+                  <stop offset="0.47" stop-color="#631d3b"/>
+                  <stop offset="0.57" stop-color="#8d0101"/>
+                  <stop offset="0.67" stop-color="#900307"/>
+                  <stop offset="0.78" stop-color="#611130"/>
+                  <stop offset="0.87" stop-color="#344384"/>
+                  <stop offset="1" stop-color="#0080f4"/>
+                </linearGradient>
+                <filter id="flow-glow" x="-5%" y="-50%" width="110%" height="200%">
+                  <feGaussianBlur stdDeviation="5" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <path class="flow-pulse" pathLength="1000" d="M30 165C32 165 36 165 42 165C48 165 58 165 66 165C74 165 82 165 90 165C98 165 106 165 114 165C122 165 130 165 138 165C146 165 154 165 162 165C170 165 178 165 186 165C194 165 202 165 210 165C218 165 226 165 234 165C242 165 250 165 258 165C266 165 274 165 282 165C290 165 298 165 306 165C314 165 322 165 330 165C338 165 346 165 354 165C362 165 370 165 378 165C386 165 394 165 402 165C410 165 418 165 426 165C434 165 442 165 450 165C458 165 466 165 474 165C482 165 490 165 498 165C506 165 514 165 522 165C530 165 538 165 546 165C554 165 562 165 570 165C578 165 586 165 594 165C602 165 610 165 618 165C626 165 634 165.6 642 165C650 164.4 658 163 666 161.5C674 160 682 157.9 690 156C698 154.1 706 152 714 150C722 148 730 145.8 738 144C746 142.2 754 140.8 762 139C770 137.2 778 135 786 133C794 131 802 128.8 810 127C818 125.2 826 123.8 834 122C842 120.2 850 118 858 116C866 114 874 111.9 882 110C890 108.1 898 106.4 906 104.5C914 102.6 922 100.4 930 98.5C938 96.6 946 94.9 954 93C962 91.1 970 88.8 978 87C986 85.2 994 83.7 1002 82C1010 80.3 1018 78.6 1026 77C1034 75.4 1042 73.9 1050 72.5C1058 71.1 1066 69.8 1074 68.5C1082 67.3 1090 66.2 1098 65C1106 63.8 1114 62.6 1122 61.5C1130 60.4 1138 59.6 1146 58.5C1154 57.4 1162 56 1170 55C1178 54 1186 53.2 1194 52.5C1202 51.8 1210 51.3 1218 51C1226 50.7 1234 50.7 1242 50.5C1250 50.3 1258 50.1 1266 50C1274 49.9 1282 50 1290 50C1298 50 1306 49.9 1314 50C1322 50.1 1330 50.3 1338 50.5C1346 50.7 1354 50.7 1362 51C1370 51.3 1378 51.9 1386 52.5C1394 53.1 1402 53.8 1410 54.5C1418 55.2 1426 55.8 1434 56.5C1442 57.3 1450 58.2 1458 59C1466 59.8 1474 60.7 1482 61.5C1490 62.3 1498 63.2 1506 64C1514 64.8 1522 65.7 1530 66.5C1538 67.3 1546 68 1554 69C1562 70 1570 71.3 1578 72.5C1586 73.7 1594 74.8 1602 76C1610 77.2 1618 78.3 1626 79.5C1634 80.8 1642 82.1 1650 83.5C1658 84.9 1666 86.6 1674 88C1682 89.4 1690 90.6 1698 92C1706 93.4 1714 95.1 1722 96.5C1730 97.9 1738 99.1 1746 100.5C1754 101.9 1762 103.6 1770 105C1778 106.4 1786 107.5 1794 109C1802 110.5 1810 112.5 1818 114C1826 115.5 1834 116.7 1842 118C1850 119.3 1858 120.5 1866 122C1874 123.5 1882 125.5 1890 127C1898 128.5 1906 129.5 1914 131C1922 132.5 1930 134.5 1938 136C1946 137.5 1954 138.5 1962 140C1970 141.5 1978 143.3 1986 145C1994 146.7 2002 148.4 2010 150C2018 151.6 2026 153.1 2034 154.5C2042 155.9 2050 157.3 2058 158.5C2066 159.7 2078 161 2082 161.5"/>
+              <path class="flow-pulse" pathLength="1000" d="M40 182C41 182 41 182 42 182C48 182 58 181.9 66 182C74 182.1 82 182.4 90 182.5C98 182.6 106 182.5 114 182.5C122 182.5 130 182.5 138 182.5C146 182.5 154 182.5 162 182.5C170 182.5 178 182.5 186 182.5C194 182.5 202 182.5 210 182.5C218 182.5 226 182.5 234 182.5C242 182.5 250 182.5 258 182.5C266 182.5 274 182.5 282 182.5C290 182.5 298 182.5 306 182.5C314 182.5 322 182.5 330 182.5C338 182.5 346 182.5 354 182.5C362 182.5 370 182.5 378 182.5C386 182.5 394 182.5 402 182.5C410 182.5 418 182.5 426 182.5C434 182.5 442 182.5 450 182.5C458 182.5 466 182.5 474 182.5C482 182.5 490 182.5 498 182.5C506 182.5 514 182.4 522 182.5C530 182.6 538 182.9 546 183C554 183.1 562 183 570 183C578 183 586 183 594 183C602 183 610 183.2 618 183C626 182.8 634 183.2 642 182C650 180.8 658 178 666 176C674 174 682 172 690 170C698 168 706 166 714 164C722 162 730 159.8 738 158C746 156.2 754 154.8 762 153C770 151.2 778 149 786 147C794 145 802 142.9 810 141C818 139.1 826 137.3 834 135.5C842 133.7 850 131.9 858 130C866 128.1 874 125.9 882 124C890 122.1 898 120.4 906 118.5C914 116.6 922 114.4 930 112.5C938 110.6 946 108.8 954 107C962 105.3 970 103.8 978 102C986 100.3 994 98.2 1002 96.5C1010 94.8 1018 93.5 1026 92C1034 90.5 1042 88.9 1050 87.5C1058 86.1 1066 84.8 1074 83.5C1082 82.3 1090 81.2 1098 80C1106 78.8 1114 77.6 1122 76.5C1130 75.4 1138 74.3 1146 73.5C1154 72.7 1162 72.1 1170 71.5C1178 70.9 1186 70.3 1194 70C1202 69.7 1210 69.7 1218 69.5C1226 69.3 1234 69.1 1242 69C1250 68.9 1258 69 1266 69C1274 69 1282 69 1290 69C1298 69 1306 68.9 1314 69C1322 69.1 1330 69.3 1338 69.5C1346 69.8 1354 70 1362 70.5C1370 71 1378 71.8 1386 72.5C1394 73.2 1402 73.8 1410 74.5C1418 75.3 1426 76.2 1434 77C1442 77.8 1450 78.7 1458 79.5C1466 80.3 1474 81.2 1482 82C1490 82.8 1498 83.7 1506 84.5C1514 85.3 1522 86.1 1530 87C1538 87.9 1546 89 1554 90C1562 91 1570 92 1578 93C1586 94 1594 94.8 1602 96C1610 97.2 1618 98.8 1626 100C1634 101.3 1642 102.3 1650 103.5C1658 104.7 1666 105.8 1674 107C1682 108.3 1690 109.6 1698 111C1706 112.4 1714 114 1722 115.5C1730 117 1738 118.6 1746 120C1754 121.4 1762 122.7 1770 124C1778 125.3 1786 126.5 1794 128C1802 129.5 1810 131.5 1818 133C1826 134.5 1834 135.5 1842 137C1850 138.5 1858 140.5 1866 142C1874 143.5 1882 144.6 1890 146C1898 147.4 1906 149 1914 150.5C1922 152 1930 153.5 1938 155C1946 156.5 1954 158 1962 159.5C1970 161 1978 162.3 1986 164C1994 165.7 2002 167.9 2010 169.5C2018 171.1 2026 172.2 2034 173.5C2042 174.8 2050 176.3 2058 177.5C2066 178.7 2078 180 2082 180.5"/>
+              <path class="flow-pulse" pathLength="1000" d="M40 199.5C41 199.5 41 199.5 42 199.5C48 199.5 58 199.5 66 199.5C74 199.5 82 199.5 90 199.5C98 199.5 106 199.5 114 199.5C122 199.5 130 199.5 138 199.5C146 199.5 154 199.5 162 199.5C170 199.5 178 199.5 186 199.5C194 199.5 202 199.5 210 199.5C218 199.5 226 199.5 234 199.5C242 199.5 250 199.5 258 199.5C266 199.5 274 199.5 282 199.5C290 199.5 298 199.5 306 199.5C314 199.5 322 199.4 330 199.5C338 199.6 346 199.9 354 200C362 200.1 370 199.9 378 200C386 200.1 394 200.4 402 200.5C410 200.6 418 200.5 426 200.5C434 200.5 442 200.5 450 200.5C458 200.5 466 200.5 474 200.5C482 200.5 490 200.5 498 200.5C506 200.5 514 200.5 522 200.5C530 200.5 538 200.5 546 200.5C554 200.5 562 200.4 570 200.5C578 200.6 586 201.2 594 201C602 200.8 610 200.8 618 199.5C626 198.3 634 195.4 642 193.5C650 191.6 658 189.9 666 188C674 186.1 682 183.8 690 182C698 180.2 706 178.8 714 177C722 175.2 730 172.9 738 171C746 169.1 754 167.3 762 165.5C770 163.7 778 161.9 786 160C794 158.1 802 155.9 810 154C818 152.1 826 150.5 834 148.5C842 146.5 850 144.1 858 142C866 139.9 874 138.1 882 136C890 133.9 898 131.7 906 129.5C914 127.3 922 125 930 123C938 121 946 119.3 954 117.5C962 115.7 970 113.8 978 112C986 110.3 994 108.5 1002 107C1010 105.5 1018 104.3 1026 103C1034 101.8 1042 100.6 1050 99.5C1058 98.4 1066 97.4 1074 96.5C1082 95.6 1090 94.9 1098 94C1106 93.1 1114 91.8 1122 91C1130 90.2 1138 89.5 1146 89C1154 88.5 1162 88.3 1170 88C1178 87.7 1186 87.3 1194 87C1202 86.8 1210 86.7 1218 86.5C1226 86.3 1234 86.2 1242 86C1250 85.8 1258 85.5 1266 85.5C1274 85.5 1282 85.9 1290 86C1298 86.1 1306 85.8 1314 86C1322 86.2 1330 86.6 1338 87C1346 87.4 1354 88 1362 88.5C1370 89 1378 89.4 1386 90C1394 90.6 1402 91.3 1410 92C1418 92.7 1426 93.3 1434 94C1442 94.8 1450 95.7 1458 96.5C1466 97.3 1474 98.3 1482 99C1490 99.8 1498 100.2 1506 101C1514 101.8 1522 103.1 1530 104C1538 104.9 1546 105.5 1554 106.5C1562 107.5 1570 108.9 1578 110C1586 111.1 1594 111.9 1602 113C1610 114.1 1618 115.3 1626 116.5C1634 117.7 1642 118.8 1650 120C1658 121.3 1666 122.7 1674 124C1682 125.3 1690 126.7 1698 128C1706 129.3 1714 130.6 1722 132C1730 133.4 1738 135 1746 136.5C1754 138 1762 139.6 1770 141C1778 142.4 1786 143.6 1794 145C1802 146.4 1810 148 1818 149.5C1826 151 1834 152.6 1842 154C1850 155.4 1858 156.5 1866 158C1874 159.5 1882 161.5 1890 163C1898 164.5 1906 165.6 1914 167C1922 168.4 1930 170 1938 171.5C1946 173 1954 174.4 1962 176C1970 177.6 1978 179.3 1986 181C1994 182.7 2002 184.4 2010 186C2018 187.6 2026 189.1 2034 190.5C2042 191.9 2050 193.3 2058 194.5C2066 195.7 2078 197 2082 197.5"/>
+            </svg>
+          </div>
+          <figcaption>Expected streamlines over the refined rear. Move your cursor across to follow the flow.</figcaption>
+        </figure>
+
+        <!-- Three changes, no boxes, split by thin lines (same layout as Solver Setup); stacked on phones -->
+        <div class="solver-grid refine-grid">
+          <div class="solver-item">
+            <h4>Raised rear hump</h4>
+            <p>A higher hump should guide the upper flow to follow the body for longer, delaying separation, shrinking the wake and improving rear pressure recovery.</p>
+          </div>
+          <div class="solver-item">
+            <h4>Extended rear</h4>
+            <p>A longer rear gives a more gradual reduction in area, lowering the pressure gradient at the back. This should delay separation and reduce the wake.</p>
+          </div>
+          <div class="solver-item">
+            <h4>Cabin-edge lips</h4>
+            <p>Small lips along the cabin edges act as flow deflectors, steering air down and rearward instead of into the cockpit. Less side inflow should weaken the vortex inside the cabin.</p>
+          </div>
+        </div>
+
+        <div class="mm-duo refine-row">
+          <!-- IMAGE: assets/car/new2.png -->
+          <figure class="ed-figure bench-figure" data-reveal="wipe" data-reveal-once>
+            <button type="button" class="part-media-frame part-media-zoom" data-lightbox>
+              <img src="../assets/car/new2.png" width="2688" height="1520" loading="lazy" decoding="async" alt="Blue render of the refined roadster from the front three-quarter view">
+              <span class="part-media-hint">Click to enlarge</span>
+            </button>
+          </figure>
+          <div class="callout">
+            <h4>Design Intent</h4>
+            <p>The rear changes aim to delay separation and reduce the wake, while the cabin-edge lips limit side flow and calm the recirculation inside the cockpit. Together, they're expected to improve overall aerodynamic efficiency.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 9. END OF PAGE ============ -->
+      <nav class="editorial-end" data-reveal="divider" aria-label="Project navigation">
+        <a class="back-link" href="../index.html#work">&larr; All projects</a>
+      </nav>
     </article>
   </main>
 
@@ -94,5 +768,133 @@
   </footer>
 
   <script src="../js/script.js?v=2026-10-03j"></script>
+  <script src="../js/reveal.js?v=2026-10-06b"></script>
+  <script>
+    // Proposed Refinements flow (.flow-scrub): glowing pulses travel along the streamlines. A gentle automatic forward
+    // flow plays by default; with a mouse, moving right pushes the flow forward and moving left pulls it back, eased
+    // so it never jumps, and leaving the image slowly brings the automatic flow back. Touch screens get the automatic
+    // flow only. Paused while off screen; nothing runs with reduced motion (CSS hides the pulses too).
+    (function initFlowScrub(){
+      const stage=document.querySelector('.flow-scrub-stage');
+      if(!stage||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const pulses=[...stage.querySelectorAll('.flow-pulse')];
+      const AUTO=0.045;      // automatic speed, path units per ms (each path is 1000 units long)
+      const SCRUB=2.2;       // path units moved per pixel of mouse movement (scaled to the image width below)
+      let phase=0, target=0, autoSpeed=AUTO, hovering=false, lastX=null, last=null, raf=null;
+
+      stage.addEventListener('pointermove',e=>{
+        if(e.pointerType!=='mouse') return;
+        hovering=true;
+        if(lastX!==null) target+=(e.clientX-lastX)*SCRUB*(1229/stage.clientWidth);
+        lastX=e.clientX;
+      });
+      stage.addEventListener('pointerleave',()=>{ hovering=false; lastX=null; });
+
+      const frame=now=>{
+        const dt=last===null?16:Math.min(64,now-last); last=now;
+        // While hovering the mouse is in charge; afterwards the automatic flow ramps back up over a couple of seconds
+        autoSpeed+=((hovering?0:AUTO)-autoSpeed)*Math.min(1,dt/(hovering?120:900));
+        target+=autoSpeed*dt;
+        phase+=(target-phase)*Math.min(1,dt/140);
+        // Stagger the three lines slightly so the pulses don't march in lockstep
+        pulses.forEach((p,i)=>p.style.strokeDashoffset=(-(phase+i*55)).toFixed(1));
+        raf=requestAnimationFrame(frame);
+      };
+      const start=()=>{ if(raf===null){ last=null; raf=requestAnimationFrame(frame); } };
+      const stop=()=>{ if(raf!==null){ cancelAnimationFrame(raf); raf=null; } };
+      new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?start():stop())).observe(stage);
+    })();
+
+    // Easter egg: clicking the hero car replays its light sweep (.is-shine in css/style.css). Off with reduced motion,
+    // since the sweep only exists under html.js-reveal.
+    (function initHeroShine(){
+      const hero=document.getElementById('roadster-hero');
+      if(!hero) return;
+      hero.addEventListener('click',()=>{
+        hero.classList.remove('is-shine');
+        void hero.offsetWidth; // let the browser register the removal so the sweep restarts every click
+        hero.classList.add('is-shine');
+      });
+    })();
+
+    // Carousels on this page (js/script.js gives arrows, dots and wrap-around): also swipe on touch screens, and
+    // the left/right arrow keys while focus is anywhere in the carousel. Both just press the existing arrows.
+    (function initCarouselExtras(){
+      document.querySelectorAll('.media-carousel').forEach(c=>{
+        const prev=c.querySelector('.gallery-arrow--prev'), next=c.querySelector('.gallery-arrow--next');
+        const frame=c.querySelector('.media-carousel-frame');
+        if(!prev||!next||!frame) return;
+        // Step captions (.carousel-step, one per slide in the same order): show the one for the slide showing.
+        // Runs after js/script.js has switched slides, since its arrow handlers were added first.
+        const steps=[...c.querySelectorAll('.carousel-step')];
+        if(steps.length){
+          const slides=[...frame.querySelectorAll('img')];
+          const sync=()=>{ const i=slides.findIndex(s=>s.classList.contains('is-active')); steps.forEach((s,k)=>s.classList.toggle('is-active',k===i)); };
+          prev.addEventListener('click',sync);
+          next.addEventListener('click',sync);
+          sync();
+        }
+        c.addEventListener('keydown',e=>{
+          if(e.key==='ArrowLeft'){ e.preventDefault(); prev.click(); }
+          else if(e.key==='ArrowRight'){ e.preventDefault(); next.click(); }
+        });
+        let x0=null, y0=null;
+        frame.addEventListener('touchstart',e=>{ x0=e.touches[0].clientX; y0=e.touches[0].clientY; },{passive:true});
+        frame.addEventListener('touchend',e=>{
+          if(x0===null) return;
+          const dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0;
+          x0=null;
+          // A clear sideways swipe only, so scrolling the page past it still works
+          if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.5) (dx<0?next:prev).click();
+        },{passive:true});
+      });
+    })();
+
+    // Tabs (homepage Skills component; js/script.js switches them on click). Arrow keys, Home and End move between
+    // tabs, since only the selected tab is in the Tab order.
+    (function initTabKeys(){
+      document.querySelectorAll('[role="tablist"]').forEach(list=>{
+        const tabs=[...list.querySelectorAll('[role="tab"]')];
+        list.addEventListener('keydown',e=>{
+          const i=tabs.indexOf(document.activeElement);
+          if(i<0) return;
+          const to={ArrowRight:i+1, ArrowLeft:i-1, Home:0, End:tabs.length-1}[e.key];
+          if(to===undefined) return;
+          e.preventDefault();
+          const t=tabs[(to+tabs.length)%tabs.length];
+          t.focus();
+          t.click();
+          t.scrollIntoView({block:'nearest', inline:'nearest'});
+        });
+      });
+    })();
+
+    // Click to enlarge (buttons marked data-lightbox): opens the image full size in the same lightbox
+    // as the MindMeter page (.part-lightbox styles). Esc, the close button or a click outside closes it.
+    (function initLightbox(){
+      const buttons=document.querySelectorAll('[data-lightbox]');
+      if(!buttons.length) return;
+      const dialog=document.createElement('dialog');
+      dialog.className='part-lightbox';
+      dialog.setAttribute('aria-label','Full size image');
+      dialog.innerHTML='<button type="button" class="part-lightbox-close" aria-label="Close"><span aria-hidden="true">&times;</span></button><img alt="">';
+      const img=dialog.querySelector('img');
+      // Unlock page scrolling straight away rather than relying only on the dialog's close event (Esc uses that)
+      const unlock=()=>document.documentElement.classList.remove('part-lightbox-open');
+      const shut=()=>{ dialog.close(); unlock(); };
+      dialog.querySelector('.part-lightbox-close').addEventListener('click',shut);
+      dialog.addEventListener('click',e=>{ if(e.target===dialog) shut(); });
+      dialog.addEventListener('close',unlock);
+      document.body.append(dialog);
+      buttons.forEach(btn=>btn.addEventListener('click',()=>{
+        // An image inside the button, or (carousel zoom button) whichever slide is showing
+        const src=btn.querySelector('img')||btn.closest('.media-carousel-frame').querySelector('img.is-active');
+        img.src=src.currentSrc||src.src;
+        img.alt=src.alt;
+        document.documentElement.classList.add('part-lightbox-open');
+        dialog.showModal();
+      }));
+    })();
+  </script>
 </body>
 </html>

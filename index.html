@@ -16,7 +16,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://maylijones.com/og-image.png">
   <link rel="icon" href="assets/logo.png">
-  <link rel="stylesheet" href="css/style.css?v=2026-10-04c">
+  <link rel="stylesheet" href="css/style.css?v=2026-10-06x">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Prerender a project page when its card is hovered (or pressed on touch), so on click the page and its hero
        photo are already loaded and the card image can zoom straight into it -->
@@ -179,10 +179,13 @@
 
     <section id="work" class="work">
       <div class="container">
-        <h2 class="section-heading section-title-lg">Projects</h2>
-        <div class="project-controls">
-          <p class="project-filter" aria-label="Filter projects by tag"></p>
-          <input class="project-search" type="search" placeholder="Search projects" aria-label="Search projects by title" autocomplete="off">
+        <!-- Heading, tags and search stay pinned under the header while the projects scroll (.work-bar, css/style.css) -->
+        <div class="work-bar">
+          <h2 class="section-heading section-title-lg">Projects</h2>
+          <div class="project-controls">
+            <p class="project-filter" aria-label="Filter projects by tag"></p>
+            <input class="project-search" type="search" placeholder="Search projects" aria-label="Search projects by title" autocomplete="off">
+          </div>
         </div>
         <div class="project-grid">
 
@@ -245,12 +248,12 @@
             </div>
           </a>
 
-          <a class="project-card" href="projects/thermofluids-project.html" data-coming-soon hidden data-tags="cad-simulation">
+          <a class="project-card" href="projects/thermofluids-project.html" data-tags="cad-simulation">
             <div class="project-image" style="view-transition-name: vt-thermofluids-project">
-              <img src="assets/projects/car.png" alt="Roadster Redesign">
+              <img src="assets/projects/car.png" alt="Roadster Aerodynamics">
             </div>
             <div class="project-info-box">
-              <h3 class="project-title">Roadster Redesign</h3>
+              <h3 class="project-title">Roadster Aerodynamics</h3>
               <ul class="project-tags">
                 <li>CAD &amp; Simulation</li>
               </ul>
@@ -547,6 +550,25 @@
       });
     })();
 
+    // Pinned heading, tags and search (CSS: .work .work-bar is sticky). Sticks just under the header, using its real
+    // height, and shows a hairline underneath only while it's actually pinned.
+    (function initStickyControls(){
+      const header=document.querySelector('.site-header');
+      const controls=document.querySelector('.work .work-bar');
+      if(!header||!controls) return;
+      let raf=null;
+      const check=()=>{
+        raf=null;
+        const h=header.offsetHeight;
+        document.documentElement.style.setProperty('--header-h',h+'px');
+        controls.classList.toggle('is-stuck',Math.abs(controls.getBoundingClientRect().top-h)<1);
+      };
+      const queue=()=>{ if(!raf) raf=requestAnimationFrame(check); };
+      window.addEventListener('scroll',queue,{passive:true});
+      window.addEventListener('resize',queue);
+      check();
+    })();
+
     (function initProjectFilter(){
       const grid=document.querySelector('.project-grid');
       const filterRow=document.querySelector('.project-filter');
@@ -628,6 +650,15 @@
       let resizeRaf=null;
       window.addEventListener('resize',()=>{ if(!resizeRaf) resizeRaf=requestAnimationFrame(()=>{ resizeRaf=null; placeMore(); }); });
 
+      // The heading, tags and search stay pinned while scrolling (CSS), so after filtering from further down the list,
+      // bring the top of the results back up to just under them instead of leaving an empty stretch
+      const controls=document.querySelector('.work-bar');
+      function bringResultsUp(){
+        if(!controls) return;
+        const c=controls.getBoundingClientRect(), g=grid.getBoundingClientRect();
+        if(g.top<c.bottom) window.scrollTo({top:window.scrollY+g.top-c.bottom-24, behavior:'instant'});
+      }
+
       filterRow.addEventListener('click',e=>{
         const btn=e.target.closest('.project-filter-tag');
         if(!btn) return;
@@ -635,9 +666,10 @@
         activeTag=(t===activeTag)?null:t;
         expanded=false;
         render();
+        bringResultsUp();
       });
 
-      search.addEventListener('input',()=>{ expanded=false; render(); });
+      search.addEventListener('input',()=>{ expanded=false; render(); bringResultsUp(); });
 
       const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
       const wait=ms=>new Promise(r=>setTimeout(r,ms));
