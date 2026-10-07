@@ -18,7 +18,7 @@ window.PART_SECTIONS.tower = {
         {
           media: [
             {
-              src: "../assets/projects/mind/tower1-crop.png",
+              src: "../assets/projects/mind/tower1-crop.webp",
               alt: "The tower's internal LED frame during assembly, with red, blue and yellow LED wires routed through a central tunnel, beside a CAD model of one LED frame section and its wiring channel",
               width: 726,
               height: 619,
@@ -36,7 +36,7 @@ window.PART_SECTIONS.tower = {
         {
           media: [
             {
-              src: "../assets/projects/mind/tower2-crop.png",
+              src: "../assets/projects/mind/tower2-crop.webp",
               alt: "Exploded CAD view of the button: the green PUSH cap, the clip beneath it and the push button, beside a see-through view of the button holder at the top of the tower with its internal wire channels",
               width: 912,
               height: 441,
@@ -60,14 +60,14 @@ window.PART_SECTIONS.tower = {
           // Carousel slides: always click-to-enlarge, shown whole on white
           carousel: [
             {
-              src: "../assets/projects/mind/towerc1.png",
+              src: "../assets/projects/mind/towerc1.webp",
               alt: "Circuit diagram of two daisy-chained 74HC595 shift registers, each driving eight LEDs through 220 ohm resistors, with a 100 nF decoupling capacitor",
               caption: "LED circuit",
               width: 966,
               height: 902,
             },
             {
-              src: "../assets/projects/mind/towercode1.png",
+              src: "../assets/projects/mind/towercode1.webp",
               alt: "Arduino code, lines 127 to 130: latch pin low, shiftOut 0xff, shiftOut 0x00, latch pin high",
               caption: "Shift register code",
               width: 1832,
@@ -81,7 +81,7 @@ window.PART_SECTIONS.tower = {
               height: 872,
             },
             {
-              src: "../assets/projects/mind/towercode2.png",
+              src: "../assets/projects/mind/towercode2.webp",
               alt: "Arduino code, lines 146 to 156: the LevelFromPeak function, returning level 0 below a reading of 500, then levels 1 to 7 in steps up to 670, and level 8 above that",
               caption: "Peak level code",
               width: 1118,
@@ -141,7 +141,7 @@ window.PART_SECTIONS.diamonds = {
         {
           media: [
             {
-              src: "../assets/projects/mind/diamond1-web.png",
+              src: "../assets/projects/mind/diamond1-web.webp",
               alt: "Annotated CAD render of the piston mechanism: the main 3D-printed gear shaft with chamfered, thickened connections meshing with six gears, the rising pistons in their support frame, and the servo motor joined to the shaft by an attachment part",
               width: 900,
               height: 997,
@@ -162,7 +162,7 @@ window.PART_SECTIONS.diamonds = {
         {
           media: [
             {
-              src: "../assets/projects/mind/diamond2.png",
+              src: "../assets/projects/mind/diamond2.webp",
               alt: "The printed piston parts laid out before assembly: the white cover and base plate, the green gear shaft, six green diamond tops, and six numbered gear and Scotch-yoke modules with blue piston rods",
               width: 1434,
               height: 1208,
@@ -181,14 +181,14 @@ window.PART_SECTIONS.diamonds = {
         {
           carousel: [
             {
-              src: "../assets/projects/mind/diamond3.png",
+              src: "../assets/projects/mind/diamond3.webp",
               alt: "CAD model of the original barrel cam concept: a horizontal shaft driving three bevel gear pairs, each turning a barrel cam under a vertical piston tube",
               caption: "Original barrel cam concept",
               width: 900,
               height: 540,
             },
             {
-              src: "../assets/projects/mind/diamond4.png",
+              src: "../assets/projects/mind/diamond4.webp",
               alt: "CAD model of an early Scotch-yoke design: six gears on a thin shaft driving six pistons in a frame, with a small drive gear at one end",
               caption: "Early Scotch-yoke design",
               width: 816,
@@ -246,14 +246,14 @@ window.PART_SECTIONS.wheel = {
         {
           carousel: [
             {
-              src: "../assets/projects/mind/slides1.png",
+              src: "../assets/projects/mind/slides1.webp",
               alt: "CAD cutaway of the housing behind the wheel: the barrel with its hanging emotion slides on the left, bevel gears and the yellow DC motor on the right, and the side lever outside",
               caption: "Inside the wheel and slides housing",
               width: 894,
               height: 596,
             },
             {
-              src: "../assets/projects/mind/slides2.png",
+              src: "../assets/projects/mind/slides2.webp",
               alt: "Exploded CAD view of the drive: the yellow DC motor, a pair of bevel gears, a 2 mm steel shaft, an 8 mm inner diameter bearing and the barrel for the slides",
               caption: "Exploded drive assembly",
               width: 1418,
@@ -272,7 +272,7 @@ window.PART_SECTIONS.wheel = {
         {
           media: [
             {
-              src: "../assets/projects/mind/slides3.png",
+              src: "../assets/projects/mind/slides3.webp",
               alt: "Labelled CAD side view of the lever mechanism: the green-balled lever turns a pinion gear that drives a vertical rack, with a limit switch at the top of the rack's travel and a hidden wire channel beside it",
               width: 1238,
               height: 1352,
